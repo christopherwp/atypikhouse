@@ -1,0 +1,66 @@
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-left: 160px;
+  width: 150px;
+  /* Réduit la taille du logo; */
+  height: auto;
+  /* Conserve les proportions du logo */
+  z-index: 1000;
+  /* Assure que le logo reste au-dessus des autres éléments */
+}
+
+.hero {
+  background: #B3B764;
+}
+.hero.hero-inner {
+  background: #7C8718 ;
+}
+
+/* Pour un texte sur fond clair */
+.text-on-light-background {
+  color: #0D3125;
+}
+
+/* Pour un texte sur fond foncé */
+.text-on-dark-background {
+  color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 5rem 0;
+    /* Réduit l'espacement pour les écrans plus petits */
+  }
+
+  .site-footer .inner {
+    padding-bottom: 40px;
+    /* Ajustement pour le pied de page sur les petits écrans */
+  }
+}
+
+.hero .slides img {
+  max-width: 100%;
+  /* Assurez-vous que les images ne dépassent pas leur conteneur */
+  height: auto;
+  /* Maintient le rapport de l'image */
+}
+
+.hero .slides {
+  overflow: hidden;
+  /* Empêche les débordements */
+  position: relative;
+  /* Positionne correctement les images à l'intérieur */
+  width: 100%;
+  /* ou une largeur spécifique si nécessaire */
+  /*height: auto; /* ajuste la hauteur au contenu */
+}
+
+.hero .slides img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

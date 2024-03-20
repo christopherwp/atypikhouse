@@ -9,9 +9,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class HebergementsController extends AbstractController
 {
     #[Route('/hebergements', name: 'app_hebergements')]
-    public function index(): Response
+    public function hebergements(): Response
     {
-        return $this->render('hebergements/index.html.twig', [
+        return $this->render('hebergements/hebergements.html.twig', [
             'controller_name' => 'HebergementsController',
         ]);
     }

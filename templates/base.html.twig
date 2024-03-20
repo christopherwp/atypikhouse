@@ -24,172 +24,220 @@
 		<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 		<link rel="stylesheet" href="css/daterangepicker.css">
 		<link rel="stylesheet" href="css/aos.css">
-		<link rel="stylesheet" href="css/style.css"> 
-        {% block stylesheets %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-		</head>
-		<body>
-        <div class="site-mobile-menu site-navbar-target">
-		<div class="site-mobile-menu-header">
-			<div class="site-mobile-menu-close">
-				<span class="icofont-close js-menu-toggle"></span>
-			</div>
+		<link rel="stylesheet" href="css/style.css"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+		<!-- css modifié atypikhouse -->
+		<link rel="stylesheet" href="css/g1-style.css">
+	</head>
+	<body>
+		<div class="logo">
+			<img src="{{ ('images/logo-atypik-v1cFichier 4.svg') }}" alt="logo atypikhouse">
 		</div>
-		<div class="site-mobile-menu-body"></div>
-	</div>
-
-	<nav class="site-nav">
-		<div class="container">
-			<div class="site-navigation">
-				<a href="{{path('app_accueil')}}" class="logo m-0">Tour <span class="text-primary">.</span></a>
-
-				<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
-					<li class="active"><a href="index.html">Accueil</a></li>
-					<!--<li class="has-children">
-						<a href="#">Hébergements</a>
-					
-					</li>-->
-
-						<li><a href="{{path('app_hebergements')}}">Hébergements</a></li>
-					<li><a href="services.html">Produit</a></li>
-					<li><a href="{{path('app_contact')}}">Contact</a></li>
-					<li><a href="about.html">About</a></li>
-				</ul>
-
-				<a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
-					<span></span>
-				</a>
-
+		<div class="site-mobile-menu site-navbar-target">
+			<div class="site-mobile-menu-header">
+				<div class="site-mobile-menu-close">
+					<span class="icofont-close js-menu-toggle"></span>
+				</div>
 			</div>
+			<div class="site-mobile-menu-body"></div>
 		</div>
-	</nav>
 
-
-	
-
-{% block body %}{% endblock %}
-	
-
-	<div class="site-footer">
-		<div class="inner first">
+		<nav class="site-nav">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-lg-4">
-						<div class="widget">
-							<h3 class="heading">About Tour</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+				<div class="site-navigation">
+
+					<a href="{{path('app_accueil')}}" class="logo m-0"></a>
+
+					<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
+						<li class="active">
+							<a href="index.html">Accueil</a>
+						</li>
+
+						<li>
+							<a href="{{path('app_hebergements')}}">Hébergements</a>
+						</li>
+						<li>
+							<a href="services.html">Produit</a>
+						</li>
+						<li>
+							<a href="{{path('app_contact')}}">Contact</a>
+						</li>
+						<li>
+							<a href="about.html">About</a>
+						</li>
+					</ul>
+
+					<a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
+						<span></span>
+					</a>
+
+				</div>
+			</div>
+		</nav>
+
+
+		{% block body %}{% endblock %}
+
+
+		<div class="site-footer">
+			<div class="inner first">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-lg-4">
+							<div class="widget">
+								<h3 class="heading">About Tour</h3>
+								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							</div>
+							<div class="widget">
+								<ul class="list-unstyled social">
+									<li>
+										<a href="#">
+											<span class="icon-twitter"></span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="icon-instagram"></span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="icon-facebook"></span>
+										</a>
+									</li>
+
+									<li>
+										<a href="#">
+											<span class="icon-pinterest"></span>
+										</a>
+									</li>
+
+								</ul>
+							</div>
 						</div>
-						<div class="widget">
-							<ul class="list-unstyled social">
-								<li><a href="#"><span class="icon-twitter"></span></a></li>
-								<li><a href="#"><span class="icon-instagram"></span></a></li>
-								<li><a href="#"><span class="icon-facebook"></span></a></li>
-								<li><a href="#"><span class="icon-linkedin"></span></a></li>
-								<li><a href="#"><span class="icon-dribbble"></span></a></li>
-								<li><a href="#"><span class="icon-pinterest"></span></a></li>
-								<li><a href="#"><span class="icon-apple"></span></a></li>
-								<li><a href="#"><span class="icon-google"></span></a></li>
-							</ul>
+						<div class="col-md-6 col-lg-2 pl-lg-5">
+							<div class="widget">
+								<h3 class="heading">Pages</h3>
+								<ul class="links list-unstyled">
+									<li>
+										<a href="#">Blog</a>
+									</li>
+									<li>
+										<a href="#">About</a>
+									</li>
+									<li>
+										<a href="{{path('app_hebergements')}}">Hébergements</a>
+									</li>
+									<li>
+										<a href="{{ path('app_contact') }}">Contact</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-2">
+							<div class="widget">
+								<ul class="links list-unstyled">
+									<li>
+										<a href="{{ path('app_legal') }}">Mentions légales</a>
+									</li>
+									<li>
+										<a href="{{ path('app_cgu') }}">CGU</a>
+									</li>
+									<li>
+										<a href="{{ path('app_cgv') }}">CGV</a>
+									</li>
+									<li>
+										<a href="{{ path('app_faq') }}">FAQ</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-4">
+							<div class="widget">
+								<h3 class="heading">Contact</h3>
+								<ul class="list-unstyled quick-info links">
+									<li class="email">
+										<a href="#">contact@atypikhouse.com</a>
+									</li>
+									<li class="phone">
+										<a href="#">+336 06 00 06 06</a>
+									</li>
+									<li class="address">
+										<a href="#">12 Rue Jobbé Duval 60350 Pierrefonds</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
-					<div class="col-md-6 col-lg-2 pl-lg-5">
-						<div class="widget">
-							<h3 class="heading">Pages</h3>
-							<ul class="links list-unstyled">
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">About</a></li>
-								<li><a href="#">Contact</a></li>
-							</ul>
+				</div>
+			</div>
+
+
+			<div class="inner dark">
+				<div class="container">
+					<div class="row text-center">
+						<div class="col-md-8 mb-3 mb-md-0 mx-auto">
+							<p>Copyright projet étudiant fictif &copy;<script>
+									document.write(new Date().getFullYear());
+								</script>. Attention : ceci c'est un projet étudiant fictif, pour lequel aucun réel achat ou aucune réservation ne pourrait être effectué. &mdash; Designed with love by
+								<a href="https://untree.co" class="link-highlight">Untree.co</a>
+								<!-- License information: https://untree.co/license/ -->
+							</p>
 						</div>
-					</div>
-					<div class="col-md-6 col-lg-2">
-						<div class="widget">
-							<h3 class="heading">Resources</h3>
-							<ul class="links list-unstyled">
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">About</a></li>
-								<li><a href="#">Contact</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-4">
-						<div class="widget">
-							<h3 class="heading">Contact</h3>
-							<ul class="list-unstyled quick-info links">
-								<li class="email"><a href="#">atypikhouse</a></li>
-								<li class="phone"><a href="#">+336 06 00 06 06</a></li>
-								<li class="address"><a href="#">12 Rue Jobbé Duval 60350 Pierrefonds</a></li>
-							</ul>
-						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 
-
-
-		<div class="inner dark">
-			<div class="container">
-				<div class="row text-center">
-					<div class="col-md-8 mb-3 mb-md-0 mx-auto">
-						<p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co" class="link-highlight">Untree.co</a> <!-- License information: https://untree.co/license/ -->
-						</p>
-					</div>
-					
-				</div>
+		<div id="overlayer"></div>
+		<div class="loader">
+			<div class="spinner-border" role="status">
+				<span class="sr-only">Loading...</span>
 			</div>
 		</div>
-	</div>
 
-	<div id="overlayer"></div>
-	<div class="loader">
-		<div class="spinner-border" role="status">
-			<span class="sr-only">Loading...</span>
-		</div>
-	</div>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/owl.carousel.min.js"></script>
+		<script src="js/jquery.animateNumber.min.js"></script>
+		<script src="js/jquery.waypoints.min.js"></script>
+		<script src="js/jquery.fancybox.min.js"></script>
+		<script src="js/aos.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="js/daterangepicker.js"></script>
 
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.fancybox.min.js"></script>
-	<script src="js/aos.js"></script>
-	<script src="js/moment.min.js"></script>
-	<script src="js/daterangepicker.js"></script>
+		<script src="js/typed.js"></script>
+		<script>
+			$(function () {
+var slides = $('.slides'),
+images = slides.find('img');
 
-	<script src="js/typed.js"></script>
-	<script>
-		$(function() {
-			var slides = $('.slides'),
-			images = slides.find('img');
+images.each(function (i) {
+$(this).attr('data-id', i + 1);
+})
 
-			images.each(function(i) {
-				$(this).attr('data-id', i + 1);
-			})
+var typed = new Typed('.typed-words', {
+strings: ["insolite."],
+typeSpeed: 80,
+backSpeed: 80,
+backDelay: 4000,
+startDelay: 1000,
+loop: true,
+showCursor: true,
+preStringTyped: (arrayPos, self) => {
+arrayPos ++;
+console.log(arrayPos);
+$('.slides img').removeClass('active');
+$('.slides img[data-id="' + arrayPos + '"]').addClass('active');
+}
 
-			var typed = new Typed('.typed-words', {
-				strings: ["San Francisco."," Paris."," New Zealand.", " Maui.", " London."],
-				typeSpeed: 80,
-				backSpeed: 80,
-				backDelay: 4000,
-				startDelay: 1000,
-				loop: true,
-				showCursor: true,
-				preStringTyped: (arrayPos, self) => {
-					arrayPos++;
-					console.log(arrayPos);
-					$('.slides img').removeClass('active');
-					$('.slides img[data-id="'+arrayPos+'"]').addClass('active');
-				}
+});
+})
+		</script>
 
-			});
-		})
-	</script>
+		<script src="js/custom.js"></script>
 
-	<script src="js/custom.js"></script>
 
-			
-		</body>
-	</html>
+	</body>
+</html>
