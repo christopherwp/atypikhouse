@@ -14,7 +14,10 @@
 }
 
 .hero {
-  background: #B3B764;
+  background:#7C8718;
+}
+.hero h1 .typed-words:before{
+  background-color: #3A91AF;
 }
 .hero.hero-inner {
   background: #0D3125;
@@ -63,4 +66,14 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.btn.btn-primary {
+  background: #3A91AF;
+  border-color: #3A91AF;
+}
+
+.btn.btn-primary:hover {
+  border-color: #1f425c;
+  background: #1f425c;
 }
