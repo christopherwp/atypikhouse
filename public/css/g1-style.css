@@ -14,11 +14,13 @@
 }
 
 .hero {
-  background:#7C8718;
+  background: #7C8718;
 }
-.hero h1 .typed-words:before{
-  background-color: #3A91AF;
+
+.hero h1 .typed-words:before {
+  background-color:#B3B764;
 }
+
 .hero.hero-inner {
   background: #0D3125;
 }
@@ -76,4 +78,11 @@
 .btn.btn-primary:hover {
   border-color: #1f425c;
   background: #1f425c;
+}
+
+.feature-img-bg {
+  background-size: cover;
+  background-position: center;
+  height: 300px; /* ajustez la hauteur selon vos besoins */
+  width: 100%; /* pour s'assurer que la div prend toute la largeur */
 }
