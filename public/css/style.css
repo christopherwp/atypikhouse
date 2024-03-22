@@ -983,7 +983,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 @media (max-width: 991.98px) {
   .counter-wrap {
-    margin-bottom: 30px; } }
+    margin-top: 30px;
+    margin-bottom: 30px;
+    } }
 
 .counter-wrap .caption {
   color: #1A374D;
@@ -1271,7 +1273,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     color: #000000; }
   .testimonial .img-wrap img {
     margin: 0 auto;
-    width: 70px;
+    width: 250px;
     border-radius: 50%; }
 
 .list-check li {
