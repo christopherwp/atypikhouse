@@ -137,3 +137,15 @@
   box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.2);
 }
 
+p {
+  margin: 0 0 10px;
+}
+
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
