@@ -575,7 +575,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         content: ""; }
   .hero .intro-wrap {
     position: relative;
-    z-index: 1; }
+    z-index: 0; }
   .hero .slides {
     background: #ffffff;
     max-width: 800px;
@@ -1273,7 +1273,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     color: #000000; }
   .testimonial .img-wrap img {
     margin: 0 auto;
-    width: 250px;
+    width: 100px;
     border-radius: 50%; }
 
 .list-check li {

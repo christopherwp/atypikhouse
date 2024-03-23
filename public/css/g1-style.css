@@ -1,3 +1,8 @@
+.body{
+  color: rgb(21, 20, 20);
+}
+
+
 .logo {
   position: absolute;
   top: 0;
@@ -76,13 +81,28 @@
 }
 
 .btn.btn-primary:hover {
-  border-color: #1f425c;
-  background: #1f425c;
+  border-color: #66b7d2;
+  background: #66b7d2;
 }
 
+.control input:checked ~ .control__indicator {
+  background: #3A91AF;
+}
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+  background-color: #3A91AF;
+  border-color: transparent;
+  color: #fff;
+}
+
+/* image - section - qui sommes nous - homepage */
 .feature-img-bg {
   background-size: cover;
   background-position: center;
-  height: 300px; /* ajustez la hauteur selon vos besoins */
+  height: 350px; /* ajustez la hauteur selon vos besoins */
   width: 100%; /* pour s'assurer que la div prend toute la largeur */
+}
+
+.counter-wrap .counter span {
+  color:  rgb(21, 20, 20);
 }
