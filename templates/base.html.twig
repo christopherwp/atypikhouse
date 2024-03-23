@@ -30,7 +30,9 @@
 	</head>
 	<body>
 		<div class="logo">
-			<img src="{{ ('images/logo-atypik-v1cFichier 4.svg') }}" alt="logo atypikhouse">
+			<a href="{{path('app_accueil')}}">
+				<img src="{{ ('images/logo-atypik-V1.svg') }}" alt="logo atypikhouse">
+			</a>
 		</div>
 		<div class="site-mobile-menu site-navbar-target">
 			<div class="site-mobile-menu-header">
@@ -56,13 +58,10 @@
 							<a href="{{path('app_hebergements')}}">Hébergements</a>
 						</li>
 						<li>
-							<a href="services.html">Produit</a>
-						</li>
-						<li>
 							<a href="{{path('app_contact')}}">Contact</a>
 						</li>
 						<li>
-							<a href="about.html">About</a>
+							<a href="{{path('app_accueil')}}#a-propos">A propos</a>
 						</li>
 					</ul>
 
@@ -84,8 +83,9 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4">
 							<div class="widget">
-								<h3 class="heading">About Tour</h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+								<a href="{{path('app_accueil')}}">
+									<img class="logo-footer" src="{{ ('images/logo-atypik-footer-v.svg') }}" alt="logo atypikhouse">
+								</a>
 							</div>
 							<div class="widget">
 								<ul class="list-unstyled social">
@@ -119,10 +119,7 @@
 								<h3 class="heading">Pages</h3>
 								<ul class="links list-unstyled">
 									<li>
-										<a href="#">Blog</a>
-									</li>
-									<li>
-										<a href="#">About</a>
+										<a href="{{path('app_accueil')}}#a-propos">A propos</a>
 									</li>
 									<li>
 										<a href="{{path('app_hebergements')}}">Hébergements</a>
@@ -135,6 +132,7 @@
 						</div>
 						<div class="col-md-6 col-lg-2">
 							<div class="widget">
+								<h3 class="heading">Information</h3>
 								<ul class="links list-unstyled">
 									<li>
 										<a href="{{ path('app_legal') }}">Mentions légales</a>
@@ -156,7 +154,7 @@
 								<h3 class="heading">Contact</h3>
 								<ul class="list-unstyled quick-info links">
 									<li class="email">
-										<a href="#">contact@atypikhouse.com</a>
+										<a href="{{ path('app_contact') }}">contact@atypikhouse.com</a>
 									</li>
 									<li class="phone">
 										<a href="#">+336 06 00 06 06</a>
