@@ -1,7 +1,6 @@
-.body{
+.body {
   color: rgb(21, 20, 20);
 }
-
 
 .logo {
   position: absolute;
@@ -18,12 +17,19 @@
   /* Assure que le logo reste au-dessus des autres éléments */
 }
 
+.logo-footer {
+  margin-bottom: 20px;
+  width: 100px;
+  margin-left: 15px;
+  position:relative;
+}
+
 .hero {
   background: #7C8718;
 }
 
 .hero h1 .typed-words:before {
-  background-color:#B3B764;
+  background-color: #B3B764;
 }
 
 .hero.hero-inner {
@@ -85,11 +91,12 @@
   background: #66b7d2;
 }
 
-.control input:checked ~ .control__indicator {
+.control input:checked~.control__indicator {
   background: #3A91AF;
 }
 
-.daterangepicker td.active, .daterangepicker td.active:hover {
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
   background-color: #3A91AF;
   border-color: transparent;
   color: #fff;
@@ -99,10 +106,33 @@
 .feature-img-bg {
   background-size: cover;
   background-position: center;
-  height: 350px; /* ajustez la hauteur selon vos besoins */
-  width: 100%; /* pour s'assurer que la div prend toute la largeur */
+  height: 350px;
+  /* ajustez la hauteur selon vos besoins */
+  width: 100%;
+  /* pour s'assurer que la div prend toute la largeur */
 }
 
 .counter-wrap .counter span {
-  color:  rgb(21, 20, 20);
+  color: rgb(21, 20, 20);
+}
+
+/* footer - basehtml */
+.site-footer ul.quick-info li:before {
+  left: 0;
+  position: absolute;
+  content: "";
+  font-family: 'icomoon';
+  color: #3A91AF;
+}
+
+.site-footer .widget .social li a {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #3A91AF;
+  display: inline-block;
+  position: relative;
+  color: #ffffff;
+  -webkit-box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.2);
 }
