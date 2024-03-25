@@ -60,7 +60,7 @@
 
 .hero .slides img {
   max-width: 100%;
-  /* Assurez-vous que les images ne dépassent pas leur conteneur */
+  /* Assurez que les images ne dépassent pas leur conteneur */
   height: auto;
   /* Maintient le rapport de l'image */
 }
@@ -71,8 +71,7 @@
   position: relative;
   /* Positionne correctement les images à l'intérieur */
   width: 100%;
-  /* ou une largeur spécifique si nécessaire */
-  /*height: auto; /* ajuste la hauteur au contenu */
+  /*height: auto; */
 }
 
 .hero .slides img {
@@ -107,7 +106,6 @@
   background-size: cover;
   background-position: center;
   height: 350px;
-  /* ajustez la hauteur selon vos besoins */
   width: 100%;
   /* pour s'assurer que la div prend toute la largeur */
 }
