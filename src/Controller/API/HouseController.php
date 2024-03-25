@@ -35,4 +35,23 @@ class HouseController extends AbstractController
             ]
         );
     }
+    #[Route('/', name: 'api.house.get', methods: ['GET'])]
+    public function index(): Response
+    {
+        /*$normalizers = [new ObjectNormalizer()];
+        $encoders = [new JsonEncoder()];*/
+
+        $result = $this->apiSerializer->serialize(
+            $this->houseRepository->findAll(),
+
+        );
+        //dd($this->companyRepository->find(1));
+        return new Response(
+            $result,
+            200,
+            [
+                'Content-type' => 'application/json'
+            ]
+        );
+    }
 }
