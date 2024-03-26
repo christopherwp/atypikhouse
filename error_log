@@ -1,0 +1,34 @@
+[26-Mar-2024 11:02:44 UTC] [critical] Error thrown while running command "cache". Message: "Command "cache" is not defined.
+
+Did you mean one of these?
+    cache:clear
+    cache:pool:clear
+    cache:pool:delete
+    cache:pool:invalidate-tags
+    cache:pool:list
+    cache:pool:prune
+    cache:warmup
+    doctrine:cache:clear-collection-region
+    doctrine:cache:clear-entity-region
+    doctrine:cache:clear-metadata
+    doctrine:cache:clear-query
+    doctrine:cache:clear-query-region
+    doctrine:cache:clear-result"
+[26-Mar-2024 11:03:57 UTC] [critical] Error thrown while running command "router:match". Message: "Not enough arguments (missing: "path_info")."
+[26-Mar-2024 13:21:38 UTC] [critical] Error thrown while running command "':migration'". Message: "Command ":migration" is ambiguous.
+Did you mean one of these?
+    doctrine:migrations:diff                  Generate a migration by comparing your current database to your mapp...
+    doctrine:migrations:sync-metadata-storage Ensures that the metadata storage is at the latest version.
+    doctrine:migrations:list                  Display a list of all available migrations and their status.
+    doctrine:migrations:current               Outputs the current version
+    doctrine:migrations:dump-schema           Dump the schema for your database to a migration.
+    doctrine:migrations:execute               Execute one or more migration versions up or down manually.
+    doctrine:migrations:generate              Generate a blank migration class.
+    doctrine:migrations:latest                Outputs the latest version
+    doctrine:migrations:migrate               Execute a migration to a specified version or the latest available v...
+    doctrine:migrations:rollup                Rollup migrations by deleting all tracked versions and insert the on...
+    doctrine:migrations:status                View the status of a set of migrations.
+    doctrine:migrations:up-to-date            Tells you if your schema is up-to-date.
+    doctrine:migrations:version               Manually add and delete migration versions from the version table.
+    make:migration                            Create a new migration based on database changes."
+[26-Mar-2024 13:25:13 UTC] [critical] Error thrown while running command "doctrine:migrations:migrate". Message: "An exception occurred while executing a query: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"
