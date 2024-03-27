@@ -36,9 +36,10 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/proprio, roles: ROLE_PROPRIO }
-        - { path: ^/proprio, roles: ROLE_LOCA }
+        - { path: ^/loca, roles: ROLE_LOCA }
         # - { path: ^/profile, roles: ROLE_USER }
-
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_PROPRIO, ROLE_LOCA]
 when@test:
     security:
         password_hashers:
