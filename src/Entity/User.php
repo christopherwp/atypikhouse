@@ -53,12 +53,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
+     // admin : Gabriela ->
+    #[ORM\Column(type: 'boolean')]
+    private bool $isActive = true;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
+        // Initialisez isActive à true ou à la valeur désirée dans le constructeur
     }
+
+    // Getter pour isActive
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    // Setter pour isActive
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+    // admin : Gabriela <-
+
+
+
 
 
 
@@ -241,7 +262,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->adresse = $adresse;
 
-    
+    }
+
     public function getUsername(): ?string
     {
         return $this->username;
