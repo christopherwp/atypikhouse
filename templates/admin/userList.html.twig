@@ -1,0 +1,28 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}List of Users{% endblock %}
+
+{% block body %}
+    <h1>List of Users</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>
+                        <a href="{{ path('admin_user_activate', {'id': user.id}) }}">Activate/Deactivate</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
