@@ -40,6 +40,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Rent::class, mappedBy: 'user')]
     private Collection $rents;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $telephone = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $numCarteIdentite = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $adresse = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -189,6 +198,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $rent->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): static
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getNumCarteIdentite(): ?string
+    {
+        return $this->numCarteIdentite;
+    }
+
+    public function setNumCarteIdentite(?string $numCarteIdentite): static
+    {
+        $this->numCarteIdentite = $numCarteIdentite;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): static
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }
