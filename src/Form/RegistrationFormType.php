@@ -45,12 +45,19 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
         ;
+        if ($options['afficher_champs_speciaux']) {
+            $builder
+                ->add('adresse')
+                ->add('telephone')
+                ->add('numCarteIdentite');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'afficher_champs_speciaux' => false,
         ]);
     }
 }

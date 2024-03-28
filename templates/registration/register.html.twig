@@ -6,7 +6,7 @@
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-
+    
     <h1>Register</h1>
 
     {{ form_errors(registrationForm) }}
@@ -14,6 +14,13 @@
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.username) }}
         {{ form_row(registrationForm.email) }}
+{% set currentRoute = app.request.attributes.get('_route') %}
+            {% if currentRoute == 'app_register_proprio' %}
+                {{ form_row(registrationForm.telephone) }}
+                {{ form_row(registrationForm.adresse) }}
+                {{ form_row(registrationForm.numCarteIdentite) }}
+            {% endif  %}
+
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
