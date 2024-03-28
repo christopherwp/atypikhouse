@@ -59,6 +59,9 @@ class House
     #[ORM\OneToMany(targetEntity: Rent::class, mappedBy: 'house')]
     private Collection $rents;
 
+    #[ORM\ManyToOne(inversedBy: 'house')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->media = new ArrayCollection();
@@ -289,6 +292,18 @@ class House
                 $rent->setHouseId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -53,11 +53,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
+    #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'user')]
+    private Collection $house;
+
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
+        $this->house = new ArrayCollection();
     }
 
 
@@ -237,11 +241,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->adresse;
     }
 
-    public function setAdresse(?string $adresse): static
+    public function setAdresse(?string $adresse)
     {
         $this->adresse = $adresse;
 
-    
+    }
     public function getUsername(): ?string
     {
         return $this->username;
@@ -251,6 +255,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->username = $username;
 
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, House>
+     */
+    public function getHouse(): Collection
+    {
+        return $this->house;
+    }
+
+    public function addHouse(House $house): static
+    {
+        if (!$this->house->contains($house)) {
+            $this->house->add($house);
+            $house->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHouse(House $house): static
+    {
+        if ($this->house->removeElement($house)) {
+            // set the owning side to null (unless already changed)
+            if ($house->getUser() === $this) {
+                $house->setUser(null);
+            }
+        }
 
         return $this;
     }
