@@ -17,7 +17,7 @@ use App\Form\UserActivationType;
 
 class AdminController extends AbstractController
 {   
-    #[Route('/admin/users', name: 'admin_user_list')]
+    #[Route('/admin/users', name: 'app_admin_user_list')]
     public function userList(EntityManagerInterface $entityManager): Response
     {
         $users = $entityManager->getRepository(User::class)->findAll();
@@ -59,10 +59,7 @@ class AdminController extends AbstractController
                 ->htmlTemplate('registration/confirmation_email.html.twig')
         );
         }
-        return $this->render('accueill/index.html.twig', [
-            'controller_name' => 'AccueilController',
-        ]);
-        //return $this->redirectToRoute('app_admin_register');
+        return $this->redirectToRoute('app_admin_register');
     }
 
     #[Route('/admin/user/{id}/activate', name: 'admin_user_activate')]
