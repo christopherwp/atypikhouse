@@ -12,6 +12,7 @@
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.username) }}
         {{ form_row(registrationForm.email) }}
 {% set currentRoute = app.request.attributes.get('_route') %}
             {% if currentRoute == 'app_register_proprio' %}

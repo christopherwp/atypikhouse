@@ -40,6 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Rent::class, mappedBy: 'user')]
     private Collection $rents;
 
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
@@ -48,6 +49,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresse = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $username = null;
+
 
     public function __construct()
     {
@@ -202,6 +207,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     public function getTelephone(): ?string
     {
         return $this->telephone;
@@ -234,6 +240,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdresse(?string $adresse): static
     {
         $this->adresse = $adresse;
+
+    
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
 
         return $this;
     }
