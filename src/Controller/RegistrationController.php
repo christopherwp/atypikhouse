@@ -28,8 +28,6 @@ class RegistrationController extends AbstractController
         
     }
 
-        
-
     #[Route('/registerproprio', name: 'app_register_proprio')]
     public function registerProprio(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {

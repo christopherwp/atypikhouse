@@ -13,21 +13,13 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class RegistrationFormType extends AbstractType
+class AdminRegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email')
             ->add('username')
-            ->add('agreeTerms', CheckboxType::class, [
-                                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
             ->add('plainPassword', PasswordType::class, [
                                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -57,19 +49,13 @@ class RegistrationFormType extends AbstractType
                 'multiple' => true, // Permet la sélection de plusieurs rôles
             ]) // Admin : Gabriela <-
         ;
-        if ($options['afficher_champs_speciaux']) {
-            $builder
-                ->add('adresse')
-                ->add('telephone')
-                ->add('numCarteIdentite');
-        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'afficher_champs_speciaux' => false,
         ]);
     }
 }

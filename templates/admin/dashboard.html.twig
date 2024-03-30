@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!
+{% endblock %}
+
+{% block body %}
+
+	<h1>
+		Administrateur</h1>
+
+	<h2>Utilisateurs locataire</h2>
+	<table class="table table-centered mb-0">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>UserName</th>
+				<th>Role</th>
+				<th>Email</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in usersLoca %}
+				<tr>
+					<td>{{ user.id}}</td>
+					<td>{{ user.username}}</td>
+					<td>{{ user.roles|join(', ') }}</td>
+					<!-- Assuming roles is an array -->
+					<td>{{ user.email }}</td>
+					<td>
+						<div>
+							<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+							<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<h2>Utilisateurs Propriétaire</h2>
+	<table class="table table-centered mb-0">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>UserName</th>
+				<th>Role</th>
+				<th>Email</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in usersProprio %}
+				<tr>
+					<td>{{ user.id}}</td>
+					<td>{{ user.username}}</td>
+					<td>{{ user.roles|join(', ') }}</td>
+					<td>{{ user.email }}</td>
+					<td>
+						<div>
+							<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+							<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<h2>Utilisateurs Administrateur</h2>
+	<table class="table table-centered mb-0">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>UserName</th>
+				<th>Role</th>
+				<th>Email</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{% for user in usersAdmin %}
+				<tr>
+					<td>{{ user.id}}</td>
+					<td>{{ user.username}}</td>
+					<td>{{ user.roles|join(', ') }}</td>
+					<td>{{ user.email }}</td>
+					<td>
+						<div>
+							<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+							<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+{% endblock %}
