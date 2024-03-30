@@ -53,14 +53,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
+
      // admin : Gabriela ->
     #[ORM\Column(type: 'boolean')]
     private bool $isActive = true;
-
-    public function __construct()
+  
+     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
+        $this->house = new ArrayCollection();
+        $this->houses = new ArrayCollection(); // -> Dashboard admin 
         // Initialisez isActive à true ou à la valeur désirée dans le constructeur
     }
 
@@ -76,13 +79,90 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isActive = $isActive;
         return $this;
     }
-    // admin : Gabriela <-
 
+    #[ORM\Column(type: "string", length: 50, nullable: true)]
+    private $type;
 
+    const TYPE_LOCATAIRE = 'locataire';
+    const TYPE_PROPRIETAIRE = 'proprietaire';
 
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
 
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
 
+    #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'owner', orphanRemoval: true)]
+    private Collection $houses;
 
+    // Getters et setters pour $houses
+    /**
+     * @return Collection<int, House>
+     */
+    public function getHouses(): Collection
+    {
+        return $this->houses;
+    }
+
+    public function addHouse(House $house): self
+    {
+        if (!$this->houses->contains($house)) {
+            $this->houses[] = $house;
+            $house->setOwner($this);
+        }
+        return $this;
+    }
+
+    public function removeHouse(House $house): self
+    {
+        if ($this->houses->removeElement($house)) {
+            // Définir le côté propriété à null (sauf s'il a déjà été changé)
+            if ($house->getOwner() === $this) {
+                $house->setOwner(null);
+            }
+        }
+        return $this;
+    }
+    // admin - Dashboard - Gabriela <-  
+  
+  
+ 
+    #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'user')]
+    private Collection $house;
+  
+    public function getHouse(): Collection
+    {
+      return $this->house;
+    }
+
+    public function addHouse(House $house): self
+    {
+       if (!$this->house->contains($house)) {
+           $this->house->add($house);
+           $house->setUser($this);
+       }
+
+       return $this;
+    }
+    
+    public function removeHouse(House $house): self
+    {
+        if ($this->house->removeElement($house)) {
+            if ($house->getUser() === $this) {
+                $house->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    
+
+    }
 
     public function getId(): ?int
     {
@@ -258,7 +338,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->adresse;
     }
 
-    public function setAdresse(?string $adresse): static
+    public function setAdresse(?string $adresse)
     {
         $this->adresse = $adresse;
 
@@ -273,6 +353,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->username = $username;
 
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, House>
+     */
+    public function getHouse(): Collection
+    {
+        return $this->house;
+    }
+
+    public function addHouse(House $house): static
+    {
+        if (!$this->house->contains($house)) {
+            $this->house->add($house);
+            $house->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHouse(House $house): static
+    {
+        if ($this->house->removeElement($house)) {
+            // set the owning side to null (unless already changed)
+            if ($house->getUser() === $this) {
+                $house->setUser(null);
+            }
+        }
 
         return $this;
     }
