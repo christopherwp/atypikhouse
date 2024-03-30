@@ -1,101 +1,211 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Hello AdminController!
+			{% endblock %}
+		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="Untree.co">
+		<link rel="shortcut icon" href="favicon.png">
 
-{% block title %}Hello AdminController!
-{% endblock %}
+		<meta name="description" content=""/>
+		<meta name="keywords" content="bootstrap, bootstrap4"/>
 
-{% block body %}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+		<link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+		<link rel="stylesheet" href="/fonts/icomoon/style.css">
+		<link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
+		<link rel="stylesheet" href="/css/daterangepicker.css">
+		<link rel="stylesheet" href="/css/aos.css">
+		<link rel="stylesheet" href="/css/style.css"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+		<!-- css modifié atypikhouse -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+		<link rel="stylesheet" href="/css/dashboard-style.css">
+		<link rel="stylesheet" href="/css/g1-style.css">
+	</head>
+	<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3">
+			<img class="logo" src="{{ ('/images/logo-atypik-footer-v.svg') }}" alt="logo atypikhouse">
+		</a>
+		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon">></button>
+			<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+			<div class="navbar-nav">
+				<div class="nav-item text-nowrap">
+					<a class="nav-link px-3" href="#">Sign out</a>
+				</div>
+			</div>
+		</header>
+		<body>
 
-	<h1>
-		Administrateur</h1>
+			<div class="container">
 
-	<h2>Utilisateurs locataire</h2>
-	<table class="table table-centered mb-0">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>UserName</th>
-				<th>Role</th>
-				<th>Email</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for user in usersLoca %}
-				<tr>
-					<td>{{ user.id}}</td>
-					<td>{{ user.username}}</td>
-					<td>{{ user.roles|join(', ') }}</td>
-					<!-- Assuming roles is an array -->
-					<td>{{ user.email }}</td>
-					<td>
-						<div>
-							<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-							<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-						</div>
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+				<div class="row">
+					<div class="col-12 col-t-6 col-l-4">
 
-	<h2>Utilisateurs Propriétaire</h2>
-	<table class="table table-centered mb-0">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>UserName</th>
-				<th>Role</th>
-				<th>Email</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for user in usersProprio %}
-				<tr>
-					<td>{{ user.id}}</td>
-					<td>{{ user.username}}</td>
-					<td>{{ user.roles|join(', ') }}</td>
-					<td>{{ user.email }}</td>
-					<td>
-						<div>
-							<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-							<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-						</div>
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+						<h1>
+							Dashboard Administrateur</h1>
 
-	<h2>Utilisateurs Administrateur</h2>
-	<table class="table table-centered mb-0">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>UserName</th>
-				<th>Role</th>
-				<th>Email</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
+						<h2>Utilisateurs locataire</h2>
+						<table class="table table-centered mb-0">
+							<thead>
+								<tr>
+									<th>id</th>
+									<th>UserName</th>
+									<th>Role</th>
+									<th>Email</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for user in usersLoca %}
+									<tr>
+										<td>{{ user.id}}</td>
+										<td>{{ user.username}}</td>
+										<td>{{ user.roles|join(', ') }}</td>
+										<!-- Assuming roles is an array -->
+										<td>{{ user.email }}</td>
+										<td>
+											<div>
+												<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+												<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<div class="col-12 col-t-6 col-l-4">
+						<h2>Utilisateurs Propriétaire</h2>
+						<table class="table table-centered mb-0">
+							<thead>
+								<tr>
+									<th>id</th>
+									<th>UserName</th>
+									<th>Role</th>
+									<th>Email</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for user in usersProprio %}
+									<tr>
+										<td>{{ user.id}}</td>
+										<td>{{ user.username}}</td>
+										<td>{{ user.roles|join(', ') }}</td>
+										<td>{{ user.email }}</td>
+										<td>
+											<div>
+												<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+												<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<div class="col-12 col-t-6 col-l-4">
+						<h2>Utilisateurs Administrateur</h2>
+						<table class="table table-centered mb-0">
+							<thead>
+								<tr>
+									<th>id</th>
+									<th>UserName</th>
+									<th>Role</th>
+									<th>Email</th>
+									<th>Status</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
 
-			{% for user in usersAdmin %}
-				<tr>
-					<td>{{ user.id}}</td>
-					<td>{{ user.username}}</td>
-					<td>{{ user.roles|join(', ') }}</td>
-					<td>{{ user.email }}</td>
-					<td>
-						<div>
-							<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-							<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-						</div>
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+								{% for user in usersAdmin %}
+									<tr>
+										<td>{{ user.id}}</td>
+										<td>{{ user.username}}</td>
+										<td>{{ user.roles|join(', ') }}</td>
+										<td>{{ user.email }}</td>
+										<td>
+											<div>
+												<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+												<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+											</div>
+
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-t-6 col-l-4">
+						<h2>Hebergements</h2>
+						<table class="table table-centered mb-0">
+							<thead>
+								<tr>
+									<th>ID House</th>
+									<th>Owner ID</th>
+									<th>Email Propriétaire</th>
+									<th>Status</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for house in houses %}
+									<tr>
+										<td>{{ house.id }}</td>
+										<td>{{ house.owner.id }}</td>
+										<td>{{ house.owner.email }}</td>
+										<td>{{ house.isActive ? 'Actif' : 'Inactif' }}</td>
+										<td>
+											<!-- Exemple d'interrupteur pour l'état actif -->
+											<input type="checkbox" id="activeSwitch{{ house.id }}" {{ house.isActive ? 'checked' : '' }} data-switch="success"/>
+										</td>
+										<td>
+											<!-- Liens ou boutons pour activer/désactiver ou supprimer -->
+											<a href="{{ path('admin_house_activate', {'id': house.id}) }}">Activer/Désactiver</a>
+											<a href="{{ path('admin_house_delete', {'id': house.id}) }}" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
+
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				{% block body %}{% endblock %}
+			</script>
+
+			<script src="/js/custom.js"></script>
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+const switches = document.querySelectorAll('input[type="checkbox"][data-switch="success"]');
+switches.forEach(function (switchElem) {
+switchElem.addEventListener('change', function () { // Exemple d'action lors du changement de l'état du commutateur
+const checked = this.checked;
+const userId = this.id.replace('switch', ''); // Assumant que l'id contient l'ID de l'utilisateur
+console.log(`L'utilisateur ${userId} est maintenant ${
+checked ? 'activé' : 'désactivé'
+}.`);
 
 
-{% endblock %}
+});
+});
+});
+			</script>
+
+
+		</body>
+	</html>
+</html>
