@@ -20,6 +20,7 @@ use App\Form\UserActivationType;
 use App\Repository\HouseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
+
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
@@ -31,7 +32,7 @@ class AdminController extends AbstractController
     }
     #[Route('/', name: 'app_admin_dashboard')]
 
-    public function dashboard(EntityManagerInterface $entityManager, HouseRepository $houseRepository): Response
+    public function dashboard(Request $request, EntityManagerInterface $entityManager, HouseRepository $houseRepository): Response
     {
         // Utilisateurs
         $usersLoca = $entityManager->getRepository(User::class)->findByRole('ROLE_LOCA');
@@ -41,12 +42,46 @@ class AdminController extends AbstractController
         // Hébergements
         $houses = $houseRepository->findAll();
 
+        //Statistiques
+        $totalHouses = $entityManager->getRepository(House::class)->count([]);
+        $totalUsersLoca = $entityManager->getRepository(User::class)->count(['roles' => 'ROLE_LOCA']);
+        $totalUsersProprio = $entityManager->getRepository(User::class)->count(['roles' => 'ROLE_PROPRIO']);
+        $totalUsersAdmin = $entityManager->getRepository(User::class)->count(['roles' => 'ROLE_ADMIN']);
+
+        // Récupérer la requête de recherche
+        $search = $request->query->get('search', '');
+
+        // Filtrez vos entités en fonction de la recherche
+        // Exemple pour les maisons, adaptez pour les utilisateurs si nécessaire
+        $housesQuery = $entityManager->getRepository(House::class)->createQueryBuilder('h')
+            ->where('h.id LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery();
+
+        $houses = $housesQuery->getResult();
+
+        $roleFilter = $request->query->get('roleFilter', '');
+
+        if ($roleFilter) {
+            // Filtrez les utilisateurs basés sur le rôle sélectionné.
+            // Cette étape nécessite une logique personnalisée dans votre repository pour filtrer par rôle.
+            $users = $entityManager->getRepository(User::class)->findByRole($roleFilter);
+        } else {
+            // Aucun filtre n'est sélectionné; récupérez tous les utilisateurs.
+            $users = $entityManager->getRepository(User::class)->findAll();
+        }
+        
         return $this->render('admin/dashboard.html.twig', [
             'controller_name' => 'AdminController',
             'usersLoca' => $usersLoca,
             'usersProprio' => $usersProprio,
             'usersAdmin' => $usersAdmin,
             'houses' => $houses,
+            'totalHouses' => $totalHouses,
+            'totalUsersLoca' => $totalUsersLoca,
+            'totalUsersProprio' => $totalUsersProprio,
+            'totalUsersAdmin' => $totalUsersAdmin,
+            'users' => $users,
 
         ]);
     }
