@@ -65,6 +65,7 @@ class House
     // Admin - Dashboard - Gabriela ->
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'houses')]
     #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: "owner_id", referencedColumnName: "id")]
     private ?User $owner = null;
 
     // Getters et setters pour $owner

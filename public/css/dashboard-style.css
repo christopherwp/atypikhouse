@@ -1,0 +1,175 @@
+*{
+    box-sizing: border-box;
+}
+
+.container{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+[class^="col-"]{
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.col-1{
+    width: 8.333%;
+}
+.col-2{
+    width: 16.666%;
+}
+.col-3{
+    width: 25%;
+}
+.col-4{
+    width: 33.333%;
+}
+.col-5{
+    width: 41.666%;
+}
+.col-6{
+    width: 50%;
+}
+.col-7{
+    width: 58.333%;
+}
+.col-8{
+    width: 66.666%;
+}
+.col-9{
+    width: 75%;
+}
+.col-10{
+    width: 83.333%;
+}
+.col-11{
+    width: 91.666%;
+}
+.col-12{
+    width: 100%;
+}
+.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
+.order-first{
+    order:-1
+}
+
+
+@media (min-width: 768px){
+    .container{
+        width: 700px;
+    }
+    .col-t-1{
+        width: 8.333%;
+    }
+    .col-t-2{
+        width: 16.666%;
+    }
+    .col-t-3{
+        width: 25%;
+    }
+    .col-t-4{
+        width: 33.333%;
+    }
+    .col-t-5{
+        width: 41.666%;
+    }
+    .col-t-6{
+        width: 50%;
+    }
+    .col-t-7{
+        width: 58.333%;
+    }
+    .col-t-8{
+        width: 66.666%;
+    }
+    .col-t-9{
+        width: 75%;
+    }
+    .col-t-10{
+        width: 83.333%;
+    }
+    .col-t-11{
+        width: 91.666%;
+    }
+    .col-t-12{
+        width: 100%;
+    }
+    .show-t{
+        display: block;
+    }
+    .hide-t{
+        display: none;
+    }
+    .order-t-0{
+        order:0
+    }
+}
+
+@media (min-width: 1024px){
+    .container{
+        width: 1000px;
+    }
+    .col-l-1{
+        width: 8.333%;
+    }
+    .col-l-2{
+        width: 16.666%;
+    }
+    .col-l-3{
+        width: 25%;
+    }
+    .col-l-4{
+        width: 33.333%;
+    }
+    .col-l-5{
+        width: 41.666%;
+    }
+    .col-l-6{
+        width: 50%;
+    }
+    .col-l-7{
+        width: 58.333%;
+    }
+    .col-l-8{
+        width: 66.666%;
+    }
+    .col-l-9{
+        width: 75%;
+    }
+    .col-l-10{
+        width: 83.333%;
+    }
+    .col-l-11{
+        width: 91.666%;
+    }
+    .col-l-12{
+        width: 100%;
+    }
+    .show-l{
+        display: block;
+    }
+    .hide-l{
+        display: none;
+    }
+    .order-l-0{
+        order:0
+    }
+    .order-first-l{
+        order:-1
+    }
+}
+
+
+
