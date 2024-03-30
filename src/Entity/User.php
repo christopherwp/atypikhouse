@@ -109,7 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->houses;
     }
 
-    public function addHouse(House $house): self
+    public function addOwnedHouse(House $house): self
     {
         if (!$this->houses->contains($house)) {
             $this->houses[] = $house;
@@ -118,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeHouse(House $house): self
+    public function removeOwnedHouse(House $house): self
     {
         if ($this->houses->removeElement($house)) {
             // Définir le côté propriété à null (sauf s'il a déjà été changé)
@@ -134,36 +134,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
  
     #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'user')]
     private Collection $house;
-  
-    public function getHouse(): Collection
-    {
-      return $this->house;
-    }
-
-    public function addHouse(House $house): self
-    {
-       if (!$this->house->contains($house)) {
-           $this->house->add($house);
-           $house->setUser($this);
-       }
-
-       return $this;
-    }
     
-    public function removeHouse(House $house): self
-    {
-        if ($this->house->removeElement($house)) {
-            if ($house->getUser() === $this) {
-                $house->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-    
-
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -386,4 +357,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-}
+}    
