@@ -62,6 +62,24 @@ class House
     #[ORM\ManyToOne(inversedBy: 'house')]
     private ?User $user = null;
 
+    // Admin - Dashboard - Gabriela ->
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'houses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
+
+    // Getters et setters pour $owner
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+    // Admin - Dashboard - Gabriela <-
+
     public function __construct()
     {
         $this->media = new ArrayCollection();
