@@ -1,204 +1,538 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="fr">
+
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>
-			{% block title %}Hello AdminController!
+			{% block title %}Dashboard
 			{% endblock %}
 		</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
-		<!-- css modifié atypikhouse -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-		<link rel="stylesheet" href="/css/1dashboard-style.css"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
-		</head>
-		<header>
-			<div class="search-container">
-				<form action="/path-to-search" method="get">
-					<input type="text" placeholder="Rechercher..." name="search">
-					<button type="submit">
-						<i class="fa fa-search"></i>
+		<!-- inclusion des styles CSS PurpleAdmin / css modifié atypikhouse -->
+		{% block stylesheets %}
+			<link rel="stylesheet" href="/css/purpleadmin/style.css">
+			<link rel="stylesheet" href="/css/purpleadmin/style.map.css">
+		{% endblock %}
+		{% block javascripts
+	%}{% endblock %}
+	</head>
+
+	<body>
+		<div
+			class="container-scroller">
+			<!-- partial:partials/_navbar.html -->
+			<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+				<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+					<a class="logo"><img src="/images/purpleadmin/images/logo-atypik-dash.svg" alt="logo AtypikHouse"/></a>
+				</div>
+				<div class="navbar-menu-wrapper d-flex align-items-stretch">
+					<button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+						<span class="mdi mdi-menu"></span>
 					</button>
-				</form>
-			</div>
-
-			{% if app.user %}
-				<a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
-			{% else %}
-				<a href="{{ path('app_login') }}" class="btn btn-success">Connexion</a>
-			{% endif %}
-
-		</header>
-		<body>
-
-			<div class="container">
-				<div class="user-filter">
-					<h2>Utilisateurs</h2>
-					<!-- Le formulaire de filtre -->
-					<form action="{{ path('app_admin_dashboard') }}" method="get">
-						<select name="roleFilter" onchange="this.form.submit()">
-							<option value="">Tous les rôles</option>
-							<option value="ROLE_LOCA">Locataires</option>
-							<option value="ROLE_PROPRIO">Propriétaires</option>
-						</select>
-					</form>
-					<div class="row">
-						<div class="col-12 col-t-6 col-l-4">
-
-							<h1>
-								Dashboard Administrateur</h1>
-
-							<h2>Utilisateurs locataire</h2>
-							<table class="table table-centered mb-0">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>UserName</th>
-										<th>Role</th>
-										<th>Email</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for user in usersLoca %}
-										<tr>
-											<td>{{ user.id}}</td>
-											<td>{{ user.username}}</td>
-											<td>{{ user.roles|join(', ') }}</td>
-											<!-- Assuming roles is an array -->
-											<td>{{ user.email }}</td>
-											<td>
-												<div>
-													<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-													<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-												</div>
-											</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
+					<div class="search-field d-none d-md-block">
+						<form class="d-flex align-items-center h-100" action="#">
+							<div class="input-group">
+								<div class="input-group-prepend bg-transparent">
+									<i class="input-group-text border-0 mdi mdi-magnify"></i>
+								</div>
+								<input type="text" class="form-control bg-transparent border-0" placeholder="Rechercher">
+							</div>
+						</form>
+					</div>
+					<ul class="navbar-nav navbar-nav-right">
+						<li class="nav-item nav-profile dropdown">
+							<a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+								<div class="nav-profile-img">
+									<img src="/images/purpleadmin/images/faces/face1.jpg" alt="image">
+									<span class="availability-status online"></span>
+								</div>
+								<div class="nav-profile-text">
+									<p class="mb-1 text-black">AtypikHouse Admin</p>
+								</div>
+							</a>
+							<div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+								<a class="dropdown-item" href="#">
+									<i class="mdi mdi-cached me-2 text-success"></i>
+									Activity Log
+								</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">
+									<i class="mdi mdi-logout me-2 text-primary"></i>
+									Signout
+								</a>
+							</div>
+						</li>
+						<li class="nav-item d-none d-lg-block full-screen-link">
+							<a class="nav-link">
+								<i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="mdi mdi-email-outline"></i>
+								<span class="count-symbol bg-warning"></span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+								<h6 class="p-3 mb-0">Messages</h6>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item preview-item">
+									<div class="preview-thumbnail">
+										<img src="/images/purpleadmin/images/faces/face4.jpg" alt="image" class="profile-pic">
+									</div>
+									<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+										<h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message
+										</h6>
+										<p class="text-gray mb-0">
+											1 Minutes ago
+										</p>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item preview-item">
+									<div class="preview-thumbnail">
+										<img src="/images/purpleadmin/images/faces/face2.jpg" alt="image" class="profile-pic">
+									</div>
+									<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+										<h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a
+																																message</h6>
+										<p class="text-gray mb-0">
+											15 Minutes ago
+										</p>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item preview-item">
+									<div class="preview-thumbnail">
+										<img src="/images/purpleadmin/images/faces/face3.jpg" alt="image" class="profile-pic">
+									</div>
+									<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+										<h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated
+										</h6>
+										<p class="text-gray mb-0">
+											18 Minutes ago
+										</p>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<h6 class="p-3 mb-0 text-center">4 new messages</h6>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+								<i class="mdi mdi-bell-outline"></i>
+								<span class="count-symbol bg-danger"></span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+								<h6 class="p-3 mb-0">Notifications</h6>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item preview-item">
+									<div class="preview-thumbnail">
+										<div class="preview-icon bg-success">
+											<i class="mdi mdi-calendar"></i>
+										</div>
+									</div>
+									<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+										<h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
+										<p class="text-gray ellipsis mb-0">
+											Just a reminder that you have an event today
+										</p>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item preview-item">
+									<div class="preview-thumbnail">
+										<div class="preview-icon bg-warning">
+											<i class="mdi mdi-settings"></i>
+										</div>
+									</div>
+									<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+										<h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
+										<p class="text-gray ellipsis mb-0">
+											Update dashboard
+										</p>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item preview-item">
+									<div class="preview-thumbnail">
+										<div class="preview-icon bg-info">
+											<i class="mdi mdi-link-variant"></i>
+										</div>
+									</div>
+									<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+										<h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
+										<p class="text-gray ellipsis mb-0">
+											New admin wow!
+										</p>
+									</div>
+								</a>
+								<div class="dropdown-divider"></div>
+								<h6 class="p-3 mb-0 text-center">See all notifications</h6>
+							</div>
+						</li>
+						<li class="nav-item nav-logout d-none d-lg-block">
+							<a class="nav-link" href="#">
+								<i class="mdi mdi-power"></i>
+							</a>
+						</li>
+						<li class="nav-item nav-settings d-none d-lg-block">
+							<a class="nav-link" href="#">
+								<i class="mdi mdi-format-line-spacing"></i>
+							</a>
+						</li>
+					</ul>
+					<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+						<span class="mdi mdi-menu"></span>
+					</button>
+				</div>
+			</nav>
+			<!-- partial -->
+			<div
+				class="container-fluid page-body-wrapper">
+				<!-- partial:partials/_sidebar.html -->
+				<nav class="sidebar sidebar-offcanvas" id="sidebar">
+					<ul class="nav">
+						<li class="nav-item nav-profile">
+							<a href="#" class="nav-link">
+								<div class="nav-profile-image">
+									<img src="/images/purpleadmin/images/faces/face1.jpg" alt="profile">
+									<span class="login-status online"></span>
+									<!--change to offline or busy as needed-->
+								</div>
+								<div class="nav-profile-text d-flex flex-column">
+									<span class="font-weight-bold mb-2">Admin</span>
+									<span class="text-secondary text-small">Project Manager</span>
+								</div>
+								<i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">
+								<span class="menu-title">Dashboard</span>
+								<i class="mdi mdi-home menu-icon"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="pages/forms/basic_elements.html">
+								<span class="menu-title">Forms</span>
+								<i class="mdi mdi-format-list-bulleted menu-icon"></i>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<!-- partial -->
+				<div class="main-panel">
+					<div class="content-wrapper">
+						<div class="page-header">
+							<h3 class="page-title">
+								<span class="page-title-icon bg-gradient-primary text-white me-2">
+									<i class="mdi mdi-home"></i>
+								</span>
+								Dashboard
+							</h3>
+							<nav aria-label="breadcrumb">
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item active" aria-current="page">
+										<span></span>Overview
+										<i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+									</li>
+								</ul>
+							</nav>
 						</div>
-						<div class="col-12 col-t-6 col-l-4">
-							<h2>Utilisateurs Propriétaire</h2>
-							<table class="table table-centered mb-0">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>UserName</th>
-										<th>Role</th>
-										<th>Email</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for user in usersProprio %}
-										<tr>
-											<td>{{ user.id}}</td>
-											<td>{{ user.username}}</td>
-											<td>{{ user.roles|join(', ') }}</td>
-											<td>{{ user.email }}</td>
-											<td>
-												<div>
-													<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-													<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-												</div>
-											</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
+						<div class="row">
+							<div class="col-12 grid-margin">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Utilisateurs locataire</h4>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>
+															id
+														</th>
+														<th>
+															UserName
+														</th>
+														<th>
+															Role
+														</th>
+														<th>
+															Email
+														</th>
+														<th>
+															Status
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for user in usersLoca %}
+														<tr>
+															<td>{{ user.id}}</td>
+															<td>{{ user.username}}</td>
+															<td>{{ user.roles|join(', ') }}</td>
+															<!-- Assuming roles is an array -->
+															<td>{{ user.email }}</td>
+															<td>
+																<div>
+																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+																</div>
+															</td>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
-						<div class="col-12 col-t-6 col-l-4">
-							<h2>Utilisateurs Administrateur</h2>
-							<table class="table table-centered mb-0">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>UserName</th>
-										<th>Role</th>
-										<th>Email</th>
-										<th>Status</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
+						<div class="row">
+							<div class="col-12 grid-margin">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Utilisateurs Propriétaire</h4>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>id</th>
+														<th>UserName</th>
+														<th>Role</th>
+														<th>Email</th>
+														<th>Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for user in usersProprio %}
+														<tr>
+															<td>{{ user.id}}</td>
+															<td>{{ user.username}}</td>
+															<td>{{ user.roles|join(', ') }}</td>
+															<td>{{ user.email }}</td>
+															<td>
+																<div>
+																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+																</div>
+															</td>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
 
-									{% for user in usersAdmin %}
-										<tr>
-											<td>{{ user.id}}</td>
-											<td>{{ user.username}}</td>
-											<td>{{ user.roles|join(', ') }}</td>
-											<td>{{ user.email }}</td>
-											<td>
-												<div>
-													<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-													<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-												</div>
+						</div>
+						<div class="row">
+							<div class="col-12 grid-margin">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Utilisateurs Administrateur</h4>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>id</th>
+														<th>UserName</th>
+														<th>Role</th>
+														<th>Email</th>
+														<th>Status</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
 
-											</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
+													{% for user in usersAdmin %}
+														<tr>
+															<td>{{ user.id}}</td>
+															<td>{{ user.username}}</td>
+															<td>{{ user.roles|join(', ') }}</td>
+															<td>{{ user.email }}</td>
+															<td>
+																<div>
+																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+																</div>
+
+															</td>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 grid-margin">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Gestion des hébergements</h4>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>ID House</th>
+														<th>Owner ID</th>
+														<th>Email Propriétaire</th>
+														<th>Status</th>
+														<th>Actions</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for house in houses %}
+														<tr>
+															<td>{{ house.id }}</td>
+															<td>{{ house.owner.id }}</td>
+															<td>{{ house.owner.email }}</td>
+															<td>{{ house.isActive ? 'Actif' : 'Inactif' }}</td>
+															<td>
+																<!-- Exemple d'interrupteur pour l'état actif -->
+																<input type="checkbox" id="activeSwitch{{ house.id }}" {{ house.isActive ? 'checked' : '' }} data-switch="success"/>
+															</td>
+															<td>
+																<!-- Liens ou boutons pour activer/désactiver ou supprimer -->
+																<a href="{{ path('admin_house_activate', {'id': house.id}) }}">Activer/Désactiver</a>
+																<a href="{{ path('admin_house_delete', {'id': house.id}) }}" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
+
+															</td>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 grid-margin">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Statistiques du Site</h4>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Nombre total d'hebergements</th>
+														<th>Nombre d'utilisateurs locataires</th>
+														<th>Nombre d'utilisateurs propriétaires</th>
+														<th>Nombre d'administrateurs</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>{{ totalHouses }}</td>
+														<td>{{ totalUsersLoca }}</td>
+														<td>{{ totalUsersProprio }}</td>
+														<td>{{ totalUsersAdmin }}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 stretch-card grid-margin">
+								<div class="card bg-gradient-danger card-img-holder text-white">
+									<div class="card-body">
+										<img src="/images/purpleadmin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+										<h4 class="font-weight-normal mb-3">Weekly Sales
+											<i class="mdi mdi-chart-line mdi-24px float-right"></i>
+										</h4>
+										<h2 class="mb-5">$ 15,0000</h2>
+										<h6 class="card-text">Increased by 60%</h6>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4 stretch-card grid-margin">
+								<div class="card bg-gradient-info card-img-holder text-white">
+									<div class="card-body">
+										<img src="/images/purpleadmin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+										<h4 class="font-weight-normal mb-3">Weekly Orders
+											<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+										</h4>
+										<h2 class="mb-5">45,6334</h2>
+										<h6 class="card-text">Decreased by 10%</h6>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4 stretch-card grid-margin">
+								<div class="card bg-gradient-success card-img-holder text-white">
+									<div class="card-body">
+										<img src="/images/purpleadmin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+										<h4 class="font-weight-normal mb-3">Visitors Online
+											<i class="mdi mdi-diamond mdi-24px float-right"></i>
+										</h4>
+										<h2 class="mb-5">95,5741</h2>
+										<h6 class="card-text">Increased by 5%</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-7 grid-margin stretch-card">
+								<div class="card">
+									<div class="card-body">
+										<div class="clearfix">
+											<h4 class="card-title float-left">Visit And Sales Statistics</h4>
+											<div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
+										</div>
+										<canvas id="visit-sale-chart" class="mt-4"></canvas>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-5 grid-margin stretch-card">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Traffic Sources</h4>
+										<canvas id="traffic-chart"></canvas>
+										<div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-12 col-t-6 col-l-4">
-							<h2>Hebergements</h2>
-							<table class="table table-centered mb-0">
-								<thead>
-									<tr>
-										<th>ID House</th>
-										<th>Owner ID</th>
-										<th>Email Propriétaire</th>
-										<th>Status</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for house in houses %}
-										<tr>
-											<td>{{ house.id }}</td>
-											<td>{{ house.owner.id }}</td>
-											<td>{{ house.owner.email }}</td>
-											<td>{{ house.isActive ? 'Actif' : 'Inactif' }}</td>
-											<td>
-												<!-- Exemple d'interrupteur pour l'état actif -->
-												<input type="checkbox" id="activeSwitch{{ house.id }}" {{ house.isActive ? 'checked' : '' }} data-switch="success"/>
-											</td>
-											<td>
-												<!-- Liens ou boutons pour activer/désactiver ou supprimer -->
-												<a href="{{ path('admin_house_activate', {'id': house.id}) }}">Activer/Désactiver</a>
-												<a href="{{ path('admin_house_delete', {'id': house.id}) }}" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
-
-											</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
-						<div>
-							<h3>Statistiques du Site</h3>
-							<ul>
-								<li>Nombre total d'hebergements :
-									{{ totalHouses }}</li>
-								<li>Nombre d'utilisateurs locataires :
-									{{ totalUsersLoca }}</li>
-								<li>Nombre d'utilisateurs propriétaires :
-									{{ totalUsersProprio }}</li>
-								<li>Nombre d'administrateurs :
-									{{ totalUsersAdmin }}</li>
-							</ul>
-						</div>
-					</div>
-
+					<!-- content-wrapper ends -->
 					{% block body %}{% endblock %}
-				</script>
+					<!-- partial:partials/_footer.html -->
+					<footer class="footer">
+						<div class="container-fluid d-flex justify-content-between">
+							<span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright ©
+																							bootstrapdash.com 2021</span>
+							<span class="float-none float-sm-end mt-1 mt-sm-0 text-end">
+								Free
+								<a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
+																										admin template</a>
+								from Bootstrapdash.com</span>
+						</div>
+					</footer>
+					<!-- partial -->
+				</div>
+				<!-- main-panel ends -->
+			</div>
+			<!-- page-body-wrapper ends -->
+		</div>
+		<!-- container-scroller -->
+		<!-- plugins:js -->
+		<script src="/js/purpleadmin/chart.js"></script>
+		<script src="/js/purpleadmin/hoverable-collapse.js"></script>
+		<script src="/js/purpleadmin/dashboard.js"></script>
+		<script src="/js/purpleadmin/file-upload.js"></script>
+		<script src="/js/purpleadmin/jquery.cookie.js"></script>
+		<script src="/js/purpleadmin/misc.js"></script>
+		<script src="/js/purpleadmin/off-canvas.js"></script>
+		<script src="/js/purpleadmin/todo.js"></script>
+		<script src="/js/purpleadmin/list.js"></script>
+	</body>
 
-				<script src="/js/custom.js"></script>
-			</body>
-		</body>
-	</html>
 </html>
