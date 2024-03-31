@@ -10,3 +10,6 @@
 ###< symfony/framework-bundle ###
 **/.DS_store
 /.env
+###< purpleadmin/bootstrapdash ###
+/node_modules
+/bower_components
