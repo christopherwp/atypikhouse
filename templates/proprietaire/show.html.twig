@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}House{% endblock %}
+
+{% block body %}
+    <h1>House</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ house.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ house.title }}</td>
+            </tr>
+            <tr>
+                <th>Latitude</th>
+                <td>{{ house.latitude }}</td>
+            </tr>
+            <tr>
+                <th>Longitude</th>
+                <td>{{ house.longitude }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ house.address }}</td>
+            </tr>
+            <tr>
+                <th>Capacity</th>
+                <td>{{ house.capacity }}</td>
+            </tr>
+            <tr>
+                <th>Num_rooms</th>
+                <td>{{ house.numRooms }}</td>
+            </tr>
+            <tr>
+                <th>Num_bedrooms</th>
+                <td>{{ house.numBedrooms }}</td>
+            </tr>
+            <tr>
+                <th>Num_bathrooms</th>
+                <td>{{ house.numBathrooms }}</td>
+            </tr>
+            <tr>
+                <th>Daily_price</th>
+                <td>{{ house.dailyPrice }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ house.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_proprio_index') }}">back to list</a>
+
+    <a href="{{ path('app_proprio_edit', {'id': house.id}) }}">edit</a>
+
+    
+    
+
+    {{ include('proprietaire/_delete_form.html.twig') }}
+{% endblock %}

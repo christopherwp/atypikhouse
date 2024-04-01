@@ -3,18 +3,62 @@
 {% block title %}Hello ProprietaireController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/chris/Desktop/correction/atypikhouse/atypikhouse/src/Controller/ProprietaireController.php</code></li>
-        <li>Your template at <code>C:/Users/chris/Desktop/correction/atypikhouse/atypikhouse/templates/proprietaire/index.html.twig</code></li>
-    </ul>
-</div>
+
+
+
+
+     <table class="table" style="margin-top: 200px;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Address</th>
+                <th>Capacity</th>
+                <th>Num_rooms</th>
+                <th>Num_bedrooms</th>
+                <th>Num_bathrooms</th>
+                <th>Daily_price</th>
+                <th>Description</th>
+                <th>Logement actif</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for house in houses %}
+            <tr>
+                <td>{{ house.id }}</td>
+                <td>{{ house.title }}</td>
+                <td>{{ house.latitude }}</td>
+                <td>{{ house.longitude }}</td>
+                <td>{{ house.address }}</td>
+                <td>{{ house.capacity }}</td>
+                <td>{{ house.numRooms }}</td>
+                <td>{{ house.numBedrooms }}</td>
+                <td>{{ house.numBathrooms }}</td>
+                <td>{{ house.dailyPrice }}</td>
+                <td>{{ house.description }}</td>
+              
+         
+                <td>
+                    {{ house.actif}}
+                </td>
+                <td>
+                    <a href="{{ path('app_proprio_show', {'id': house.id}) }}">show</a>
+                    <a href="{{ path('app_proprio_edit', {'id': house.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_proprio_new') }}">Create new</a>
 {% endblock %}
+

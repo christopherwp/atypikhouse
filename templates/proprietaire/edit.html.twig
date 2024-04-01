@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit House{% endblock %}
+
+{% block body %}
+    <h1>Edit House</h1>
+
+    {{ include('proprietaire/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_proprio_index') }}">back to list</a>
+
+    <a href="{{ path('app_facility_new', {'id': house.id}) }}">Ajouter des équipements</a>
+
+    {{ include('proprietaire/_delete_form.html.twig') }}
+{% endblock %}
