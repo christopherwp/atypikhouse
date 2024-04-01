@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -44,6 +45,17 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            // Admin : Gabriela ->
+            ->add('roles', ChoiceType::class, [
+                'mapped' => false, // Indique que ce champ n'est pas directement lié à une propriété de l'entité User
+                'choices' => [
+                    'User' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN',
+                    'Proprio'=> 'ROLE_PROPRIO'
+                ],
+                'expanded' => true, // Les choix apparaissent comme des boutons radio
+                'multiple' => true, // Permet la sélection de plusieurs rôles
+            ]) // Admin : Gabriela <-
         ;
         if ($options['afficher_champs_speciaux']) {
             $builder

@@ -63,11 +63,32 @@ class House
     #[ORM\ManyToOne(inversedBy: 'house')]
     private ?User $user = null;
 
+
     #[ORM\OneToMany(targetEntity: facility::class, mappedBy: 'house')]
     private Collection $propriete;
 
     #[ORM\Column]
     private ?bool $actif = null;
+
+    // Admin - Dashboard - Gabriela ->
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'houses')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: "owner_id", referencedColumnName: "id")]
+    private ?User $owner = null;
+
+    // Getters et setters pour $owner
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+    // Admin - Dashboard - Gabriela <-
+
 
     public function __construct()
     {
