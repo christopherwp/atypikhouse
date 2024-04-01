@@ -2,17 +2,104 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\User;
+use App\Entity\House;
+use App\Form\HouseType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+#[Route('/proprietaire')]
 class ProprietaireController extends AbstractController
 {
-    #[Route('/proprietaire', name: 'app_proprietaire')]
+    #[Route('/', name: 'app_proprio_index', methods: ['GET'])]
     public function index(): Response
-    {
+    {   
+
+        $proprio = $this->getUser();
+    
+        if (!$proprio) {
+            throw $this->createNotFoundException('User not found.');
+        }
+
+        $houses = $proprio->getHouse();
+
+        
+        
         return $this->render('proprietaire/index.html.twig', [
-            'controller_name' => 'ProprietaireController',
+            'houses' => $houses,
+        ]);
+
+    }
+
+    #[Route('/new', name: 'app_proprio_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $house = new House();
+        $form = $this->createForm(HouseType::class, $house);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $proprio = $this->getUser();
+
+            if ($proprio !== null) { 
+                $house->setUser($proprio); // Définissez l'ID de l'utilisateur sur l'entité Rent
+            }
+            
+            $entityManager->persist($house);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_proprio_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('proprietaire/new.html.twig', [
+            'house' => $house,
+            'form' => $form,
         ]);
     }
+    
+    #[Route('/logement/{id}', name: 'app_proprio_show', methods: ['GET'])]
+    public function show(House $house): Response
+    {
+        return $this->render('proprietaire/show.html.twig', [
+            'house' => $house,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_proprio_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, House $house, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(HouseType::class, $house);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_proprio_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('proprietaire/edit.html.twig', [
+            'house' => $house,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_proprio_delete', methods: ['POST'])]
+    public function delete(Request $request, House $house, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$house->getId(), $request->getPayload()->get('_token'))) {
+            $entityManager->remove($house);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_proprio_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    
 }
+
+
+
+
