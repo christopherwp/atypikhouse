@@ -16,7 +16,7 @@ use App\Entity\House;
 use App\Security\EmailVerifier;
 use App\Form\RegistrationFormType;
 use App\Form\AdminRegistrationFormType;
-use App\Form\UserActivationType;
+use App\Form\UserActivationFormType;
 use App\Repository\HouseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -138,21 +138,17 @@ class AdminController extends AbstractController
     #[Route('/user/{id}/activate', name: 'admin_user_activate')]
     public function activateUser(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserActivationType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            $this->addFlash('success', 'User status updated successfully!');
-
-            return $this->redirectToRoute('admin_user_list'); // Route qui mène à Aliste d'utilisateurs
+            
+        if($user->isActive()){
+            $user->setIsActive(0);
+        }else{
+            $user->setIsActive(1);
         }
+        $entityManager->persist($user);
+        $entityManager->flush();
 
-        return $this->render('admin/activateUser.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+
+        return $this->redirectToRoute('app_admin_dashboard');
     }
 
     #[Route('/house/{id}/delete', name: 'admin_house_delete')]

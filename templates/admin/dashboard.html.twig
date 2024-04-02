@@ -281,6 +281,7 @@
 																<div>
 																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
 																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+																	<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
 																</div>
 															</td>
 														</tr>
@@ -317,9 +318,12 @@
 															<td>{{ user.roles|join(', ') }}</td>
 															<td>{{ user.email }}</td>
 															<td>
-																<div>
+																<div>																
 																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
 																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+																	
+																	<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
+																	
 																</div>
 															</td>
 														</tr>
@@ -361,6 +365,7 @@
 																<div>
 																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
 																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+																	<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
 																</div>
 
 															</td>
@@ -399,6 +404,7 @@
 															<td>
 																<!-- Exemple d'interrupteur pour l'état actif -->
 																<input type="checkbox" id="activeSwitch{{ house.id }}" {{ house.isActive ? 'checked' : '' }} data-switch="success"/>
+																<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
 															</td>
 															<td>
 																<!-- Liens ou boutons pour activer/désactiver ou supprimer -->
