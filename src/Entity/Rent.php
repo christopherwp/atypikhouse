@@ -29,6 +29,9 @@ class Rent
     #[ORM\ManyToOne(inversedBy: 'rents')]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $reservation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,19 @@ class Rent
     {
         $this->user = $user;
 
+        return $this;
+    }
+
+    public function isReservation(): ?bool
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(?bool $reservation): static
+    {
+        $this->reservation = $reservation;
+
+        
         return $this;
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
+
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -32,6 +34,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*+.-]).{8,}$/m',
+        htmlPattern: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*+.-]).{8,}$",
+        match: true,
+        message: 'Attention ! Votre mot de passe doit respecter les consignes ci-dessous :',
+    )]
     private ?string $password = null;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
