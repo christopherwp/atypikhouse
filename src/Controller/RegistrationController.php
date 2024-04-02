@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Security\EmailVerifier;
 use App\Form\RegistrationFormType;
+use App\Form\EditFormType;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -75,6 +76,52 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form,
         ]);
     }
+
+    
+    #[Route('/compte/edit/{id}', name: 'app_edit_user')]
+    public function editFormType(User $user ,Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    {
+    
+        $currentRoute = $request->attributes->get('_route');
+        $afficherChampsSpeciaux = $currentRoute === 'app_register_toto';
+
+        $user = $this->getUser(); // Obtenez l'utilisateur actuellement connecté
+    
+        $form = $this->createForm(EditFormType::class, $user);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Encodez le mot de passe si nécessaire ou effectuez d'autres modifications
+            // ...
+    
+            $entityManager->flush();
+    
+            $this->addFlash('success', 'Profile updated successfully.');
+            return $this->redirectToRoute('app_compte'); // Redirigez l'utilisateur vers la page de profil
+        }
+    
+        return $this->render('compte/edit.html.twig', [
+            'CompteForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/compte/delete/{id}', name: 'app_delete_user')]
+    public function deleteFormType(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+    
+        $this->addFlash('success', 'User deleted successfully.');
+        return $this->redirectToRoute('app_accueil');
+    }
+    
+   
+
+
+
+
+
+
     #[Route('/registerloca', name: 'app_register_loca')]
     public function registerLoca(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {

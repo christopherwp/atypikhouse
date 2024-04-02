@@ -3,29 +3,45 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    <div class="background-color-header"></div> <!-- Ajout du fond de couleur en haut de la page -->
+    
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
     
-    <h1>Register</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="mb-4">Inscription</h1>
 
-    {{ form_errors(registrationForm) }}
+                {{ form_start(registrationForm) }}
+                    {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.email) }}
-{% set currentRoute = app.request.attributes.get('_route') %}
-            {% if currentRoute == 'app_register_proprio' %}
-                {{ form_row(registrationForm.telephone) }}
-                {{ form_row(registrationForm.adresse) }}
-                {{ form_row(registrationForm.numCarteIdentite) }}
-            {% endif  %}
+                    {{ form_row(registrationForm.username, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Username'}}) }}
+                    {{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Email'}}) }}
+                    {% set currentRoute = app.request.attributes.get('_route') %}
+                    {% if currentRoute == 'app_register_proprio' %}
+                        {{ form_row(registrationForm.telephone, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Phone Number'}}) }}
+                        {{ form_row(registrationForm.adresse, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Address'}}) }}
+                        {{ form_row(registrationForm.numCarteIdentite, {'attr': {'class': 'form-control mb-3', 'placeholder': 'ID Card Number'}}) }}
+                    {% endif  %}
 
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                    {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Password'}}) }}
+                    {{ form_row(registrationForm.agreeTerms, {'label': 'I agree to the terms'}) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Inscription</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .background-color-header {
+            background-color: #0d3125;
+            height: 100px; /* Ajustez la hauteur en fonction de vos besoins */
+            width: 100%; /* Assurez-vous que le fond de couleur occupe toute la largeur de la page */
+        }
+    </style>
 {% endblock %}
