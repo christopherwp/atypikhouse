@@ -55,6 +55,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'expanded' => true, // Les choix apparaissent comme des boutons radio
                 'multiple' => true, // Permet la sélection de plusieurs rôles
+
                 
             ]) // Admin : Gabriela <-
         ;
