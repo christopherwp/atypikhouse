@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\HouseRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Facility;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HouseRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: HouseRepository::class)]
 class House
@@ -62,6 +63,13 @@ class House
     #[ORM\ManyToOne(inversedBy: 'house')]
     private ?User $user = null;
 
+
+    #[ORM\OneToMany(targetEntity: facility::class, mappedBy: 'house')]
+    private Collection $propriete;
+
+    #[ORM\Column]
+    private ?bool $actif = null;
+
     // Admin - Dashboard - Gabriela ->
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'houses')]
     #[ORM\JoinColumn(nullable: false)]
@@ -81,11 +89,13 @@ class House
     }
     // Admin - Dashboard - Gabriela <-
 
+
     public function __construct()
     {
         $this->media = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
+        $this->propriete = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -323,6 +333,48 @@ class House
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, facility>
+     */
+    public function getPropriete(): Collection
+    {
+        return $this->propriete;
+    }
+
+    public function addPropriete(Facility $propriete): static
+    {
+        if (!$this->propriete->contains($propriete)) {
+            $this->propriete->add($propriete);
+            $propriete->setHouse($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropriete(Facility $propriete): static
+    {
+        if ($this->propriete->removeElement($propriete)) {
+            // set the owning side to null (unless already changed)
+            if ($propriete->getHouse() === $this) {
+                $propriete->setHouse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): static
+    {
+        $this->actif = $actif;
 
         return $this;
     }

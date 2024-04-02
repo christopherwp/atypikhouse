@@ -21,6 +21,16 @@ class HouseRepository extends ServiceEntityRepository
         parent::__construct($registry, House::class);
     }
 
+
+    public function findByOwnerId($ownerId)
+    {
+        return $this->createQueryBuilder('h')
+            ->andWhere('h.owner = :ownerId')
+            ->setParameter('ownerId', $ownerId)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return House[] Returns an array of House objects
     //     */

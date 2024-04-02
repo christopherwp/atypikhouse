@@ -33,8 +33,61 @@
                 <div class="col-12">
                     <h1>Vos Informations à editées</h1>
                 </div>
-			    
-            
+			  
+              {% for flash_error in app.flashes('verify_email_error') %}
+					<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+			{% endfor %}
+    
+   {{ form_errors(CompteForm) }}
+
+                   
+
+  {{ form_errors(CompteForm) }}
+
+{{ form_start(CompteForm, {'attr': {'class': 'form'}}) }}
+  <div class="form-group">
+    {{ form_row(CompteForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Username'}}) }}
+  </div>
+  <div class="form-group">
+    {{ form_row(CompteForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+  </div>
+  {% set currentRoute = app.request.attributes.get('_route') %}
+  {% if currentRoute == 'app_register_toto' %}
+    <div class="form-group">
+      {{ form_row(CompteForm.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Telephone'}}) }}
+    </div>
+    <div class="form-group">
+      {{ form_row(CompteForm.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+    </div>
+    <div class="form-group">
+      {{ form_row(CompteForm.numCarteIdentite, {'attr': {'class': 'form-control', 'placeholder': 'Numéro de Carte d\'Identité'}}) }}
+    </div>
+  {% endif %}
+  <div class="form-group">
+    {{ form_row(CompteForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+  </div>
+  <button type="submit" class="btn btn-primary">Editer</button>
+{{ form_end(CompteForm) }}
+
+
+
+
+
+
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
             </div>
         </div>
 	</div>
