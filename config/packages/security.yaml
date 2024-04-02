@@ -37,6 +37,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/proprio, roles: ROLE_PROPRIO }
         - { path: ^/loca, roles: ROLE_LOCA }
+        - { path: ^/compte, roles: ROLE_LOCA }
         # - { path: ^/profile, roles: ROLE_USER }
     role_hierarchy:
         ROLE_ADMIN: [ROLE_PROPRIO, ROLE_LOCA]
