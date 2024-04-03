@@ -86,16 +86,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-    //#[Route('/users', name: 'app_admin_user_list')]
-    //public function userList(EntityManagerInterface $entityManager): Response
-    //{
-    //    $users = $entityManager->getRepository(User::class)->findAll();
-
-    //    return $this->render('admin/dashboard.html.twig', [
-    //        'users' => $users,
-    //    ]);
-    //}
-
     #[Route('/register', name: 'app_admin_register')]
     public function registerAdmin(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
