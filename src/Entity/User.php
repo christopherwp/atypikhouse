@@ -60,7 +60,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $username = null;
-
+    
+    
+    #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'user')]
+    private Collection $house;
 
      // admin : Gabriela ->
     #[ORM\Column(type: 'boolean')]
@@ -140,8 +143,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   
   
  
-    #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'user')]
-    private Collection $house;
     
     public function getId(): ?int
     {
