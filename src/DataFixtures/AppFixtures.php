@@ -108,7 +108,9 @@ class AppFixtures extends Fixture
                 ->setNumBathrooms((new Randomizer())->getInt(1, 3))
                 ->setDailyPrice((new Randomizer())->getInt(20, 300))
                 ->setDescription("Description House $i")
-                ->setCategory($listCategories[(new Randomizer())->getInt(0, count($listCategories) - 1)]);
+                ->setCategory($listCategories[(new Randomizer())->getInt(0, count($listCategories) - 1)])
+                ->setActif(true)
+                ->setOwner($user);
             //->addMedium($listMedias[$i]);
 
             for ($j = ($i * 8); $j < (($i + 1) * 8); $j++) {

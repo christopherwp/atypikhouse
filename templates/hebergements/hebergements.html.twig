@@ -29,18 +29,27 @@
    <div class="untree_co-section">
     <div class="container">
       <div class="row">
+      
+      {% for house in houses %}
+      
         <div class="col-6 col-md-6 col-lg-3">
           <div class="media-1">
-            <a href="#" class="d-block mb-3"><img src="images/hero-slider-1.jpg" alt="Image" class="img-fluid"></a>
+          {% for media in medias %} 
+          {% if loop.index <= 1 %}
+            <a href="#" class="d-block mb-3"><img src="{{ asset('images/') ~ media.name}}" alt="Image" class="img-fluid"></a>
+          {% endif %}
+          {% endfor %}
             <div class="d-flex">
               <div>
-                <h3><a href="#">Cabane</a></h3>
+                <h3><a href="#">Cabane{{house.title}}</a></h3>
                 <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <a href="{{ path('app_hebergements_show', {'id': house.id}) }}">show</a>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-6 col-md-6 col-lg-3">
+      {% endfor %}
+        {# <div class="col-6 col-md-6 col-lg-3">
           <div class="media-1">
             <a href="#" class="d-block mb-3"><img src="images/hero-slider-2.jpg" alt="Image" class="img-fluid"></a>
             <div class="d-flex">
@@ -124,7 +133,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> #}
       </div>
     </div>
   </div>
