@@ -67,13 +67,19 @@
 						{% if app.user %}
 						{% if is_granted("ROLE_LOCA") %}
 						<li>
-							<a href="{{path('app_compte')}}">Compte de {{app.user.username}}</a>
+							<a href="{{path('app_compte')}}">Compte</a>
+						</li>
+						{% endif %}
+
+						{% if is_granted("ROLE_ADMIN") %}
+						<li>
+							<a href="{{path('app_admin_dashboard')}}">Administration</a>
 						</li>
 						{% endif %}
 
 						{% if is_granted("ROLE_PROPRIO") %}
 						<li>
-							<a href="{{path('app_proprio_index')}}">Compte de {{app.user.username}}</a>
+							<a href="{{path('app_proprio_index')}}">Compte Propriétaire</a>
 						</li>
 						{% endif %}
 						<li>
@@ -81,10 +87,10 @@
 						</li>
 						{% else %}
 						<li>
-							<a href="{{path('app_register_proprio')}}#a-propos">Inscription Propriétaire</a>
+							<a href="{{path('app_register_proprio')}}#a-propos">Devenez membre</a>
 						</li>
 						<li>
-							<a href="{{path('app_register_loca')}}#a-propos">Inscription Locataire</a>
+							<a href="{{path('app_register_loca')}}#a-propos">Inscription</a>
 						</li>
 						<li>
 							<a href="{{path('app_login')}}#a-propos">Se connecter</a>
