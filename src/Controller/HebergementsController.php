@@ -20,7 +20,7 @@ class HebergementsController extends AbstractController
 
         $houses = $houseRepository->findAll();
         $medias = $mediaRepository->findAll();
-        dump($medias); 
+       
 
 
         return $this->render('hebergements/hebergements.html.twig', [
