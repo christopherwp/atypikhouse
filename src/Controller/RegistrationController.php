@@ -104,6 +104,7 @@ class RegistrationController extends AbstractController
             'CompteForm' => $form->createView(),
         ]);
     }
+    
 
     #[Route('/compte/delete/{id}', name: 'app_delete_user')]
     public function deleteFormType(User $user, EntityManagerInterface $entityManager): Response

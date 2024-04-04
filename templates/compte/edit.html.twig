@@ -52,7 +52,7 @@
     {{ form_row(CompteForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
   </div>
   {% set currentRoute = app.request.attributes.get('_route') %}
-  {% if currentRoute == 'app_register_toto' %}
+  {% if currentRoute == 'app_proprio_index' %}
     <div class="form-group">
       {{ form_row(CompteForm.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Telephone'}}) }}
     </div>
