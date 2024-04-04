@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de Réservation{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Confirmation de Réservation</h1>
+    <div class="alert alert-success" role="alert">
+        Votre paiement a été effectué avec succès !
+    </div>
+    <div class="details">
+        <h2>Détails de la Réservation</h2>
+        <p><strong>ID de Réservation:</strong> {{ rent_id }}</p>
+        <p><strong>ID de Transaction:</strong> {{ transaction_id }}</p>
+        <!-- Vous pouvez ajouter plus de détails ici si nécessaire -->
+    </div>
+    <div class="mt-4">
+        <a href="{{ path('app_accueil') }}" class="btn btn-primary">Retour à la page d'accueil</a>
+    </div>
+</div>
+{% endblock %}
+

@@ -98,7 +98,7 @@
 									</div>
 									<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
 										<h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a
-																																message</h6>
+																																											message</h6>
 										<p class="text-gray mb-0">
 											15 Minutes ago
 										</p>
@@ -318,12 +318,12 @@
 															<td>{{ user.roles|join(', ') }}</td>
 															<td>{{ user.email }}</td>
 															<td>
-																<div>																
+																<div>
 																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
 																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-																	
+
 																	<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
-																	
+
 																</div>
 															</td>
 														</tr>
@@ -400,15 +400,14 @@
 															<td>{{ house.id }}</td>
 															<td>{{ house.owner.id }}</td>
 															<td>{{ house.owner.email }}</td>
-															<td>{{ house.isActive ? 'Actif' : 'Inactif' }}</td>
+															<td>{{ house.isActif ? 'Actif' : 'Inactif' }}</td>
 															<td>
 																<!-- Exemple d'interrupteur pour l'état actif -->
-																<input type="checkbox" id="activeSwitch{{ house.id }}" {{ house.isActive ? 'checked' : '' }} data-switch="success"/>
-																<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
+																<input type="checkbox" id="activeSwitch{{ house.id }}" {{ house.isActif ? 'checked' : '' }} data-switch="success"/>
+																<a href="{{ path('admin_user_activate', { 'id' : house.owner.id }) }}">{{ house.owner.isActive ? 'Désactivé' : 'Activé' }}</a>
 															</td>
 															<td>
 																<!-- Liens ou boutons pour activer/désactiver ou supprimer -->
-																<a href="{{ path('admin_house_activate', {'id': house.id}) }}">Activer/Désactiver</a>
 																<a href="{{ path('admin_house_delete', {'id': house.id}) }}" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
 
 															</td>
@@ -416,6 +415,40 @@
 													{% endfor %}
 												</tbody>
 											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 grid-margin">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">Gestion de locations</h4>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Titre du Logement</th>
+														<th>ID du Logement</th>
+														<th>ID du Propriétaire</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for rent in paidRents %}
+														<tr>
+															{% if rent.house is defined %}
+															<td>{{ rent.house.title }}</td>
+															<td>{{ rent.house.id }}</td>
+															<td>{{ rent.house.owner.id }}</td>
+															{% endif %}
+															<!-- Assumant que vous avez une relation vers le propriétaire dans l'entité House -->
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+
+
 										</div>
 									</div>
 								</div>
@@ -517,11 +550,11 @@
 					<footer class="footer">
 						<div class="container-fluid d-flex justify-content-between">
 							<span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright ©
-																							bootstrapdash.com 2021</span>
+																															bootstrapdash.com 2021</span>
 							<span class="float-none float-sm-end mt-1 mt-sm-0 text-end">
 								Free
 								<a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
-																										admin template</a>
+																																			admin template</a>
 								from Bootstrapdash.com</span>
 						</div>
 					</footer>

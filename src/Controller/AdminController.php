@@ -18,7 +18,9 @@ use App\Form\RegistrationFormType;
 use App\Form\AdminRegistrationFormType;
 use App\Form\UserActivationFormType;
 use App\Repository\HouseRepository;
+use App\Repository\RentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Rent;
 
 
 #[Route('/admin')]
@@ -32,12 +34,19 @@ class AdminController extends AbstractController
     }
     #[Route('/', name: 'app_admin_dashboard')]
 
-    public function dashboard(Request $request, EntityManagerInterface $entityManager, HouseRepository $houseRepository): Response
+    public function dashboard(
+        Request $request, 
+        EntityManagerInterface $entityManager, 
+        HouseRepository $houseRepository,
+        RentRepository $rentRepository,
+        ): Response
     {
         // Utilisateurs
         $usersLoca = $entityManager->getRepository(User::class)->findByRole('ROLE_LOCA');
         $usersProprio = $entityManager->getRepository(User::class)->findByRole('ROLE_PROPRIO');
         $usersAdmin = $entityManager->getRepository(User::class)->findByRole('ROLE_ADMIN');
+
+        $user = $this->getUser();
 
         // Hébergements
         $houses = $houseRepository->findAll();
@@ -51,6 +60,8 @@ class AdminController extends AbstractController
         // Récupérer la requête de recherche
         $search = $request->query->get('search', '');
 
+        // Récupérer la requête de history location
+        $paidRents = $rentRepository->findAll();
         // Filtrez vos entités en fonction de la recherche
         // Exemple pour les maisons, adaptez pour les utilisateurs si nécessaire
         $housesQuery = $entityManager->getRepository(House::class)->createQueryBuilder('h')
@@ -70,7 +81,6 @@ class AdminController extends AbstractController
             // Aucun filtre n'est sélectionné; récupérez tous les utilisateurs.
             $users = $entityManager->getRepository(User::class)->findAll();
         }
-        
         return $this->render('admin/dashboard.html.twig', [
             'controller_name' => 'AdminController',
             'usersLoca' => $usersLoca,
@@ -82,7 +92,8 @@ class AdminController extends AbstractController
             'totalUsersProprio' => $totalUsersProprio,
             'totalUsersAdmin' => $totalUsersAdmin,
             'users' => $users,
-
+            'paidRents'=> $paidRents,
+            'user' => $user,        
         ]);
     }
 

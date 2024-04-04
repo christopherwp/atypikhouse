@@ -29,68 +29,49 @@
 	<div class="untree_co-section">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>Vos Informations</h1>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-8">
+											<p>Username :</p>
+											{{ app.user.username }}
+										</div>
+										<div class="col-md-4 text-md-right">
+											<a href="{{ path('app_edit_user', { 'id': app.user.id }) }}" class="btn btn-primary">Modifier</a>
+											<a href="{{ path('app_delete_user', { 'id': app.user.id }) }}" class="btn btn-danger" onclick="return confirm('Attention vous êtes entrain de supprimer votre compte')">Supprimer</a>
+										</div>
+
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-8">
+											<p>Email :</p>
+											{{ app.user.email }}
+										</div>
+
+									</div>
+									<div class="col-md-4 text-md-right">
+										<a href="{{ path('compte/historyLocataire.html.twig') }}" class="btn btn-info">Historique de location</a>
+										<!-- Assurez-vous de remplacer 'route_historique_location' par le nom de votre route réelle -->
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1>Vos Informations</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <p>Username :</p>
-                                                {{ app.user.username }}
-                                            </div>
-                                            <div class="col-md-4 text-md-right">
-                                                <a href="{{ path('app_edit_user', { 'id': app.user.id }) }}" class="btn btn-primary">Modifier</a>
-                                                <a href="{{ path('app_delete_user', { 'id': app.user.id }) }}" class="btn btn-danger" onclick= "return confirm('Attention vous êtes entrain de supprimer votre compte')">Supprimer</a>
-                                            </div>
-                                             
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-8">
-                                                <p>Email :</p>
-                                                {{ app.user.email }}
-                                            </div>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-               
-            
-
-
-
-            </div>
-        </div>
+			</div>
+		</div>
 	</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 {% endblock %}

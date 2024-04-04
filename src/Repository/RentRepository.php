@@ -21,28 +21,14 @@ class RentRepository extends ServiceEntityRepository
         parent::__construct($registry, Rent::class);
     }
 
-    //    /**
-    //     * @return Rent[] Returns an array of Rent objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Rent
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    // récupérer les locations par user
+    public function findPaidRentsByUser($user)
+    {
+        return $this->createQueryBuilder('r')
+        ->andWhere('r.user = :user')
+        ->andWhere('r.isPaid = true')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+    }
 }
