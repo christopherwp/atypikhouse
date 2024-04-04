@@ -298,6 +298,7 @@ class House
     /**
      * @return Collection<int, Rent>
      */
+    
     public function getRents(): Collection
     {
         return $this->rents;
@@ -324,6 +325,8 @@ class House
 
         return $this;
     }
+
+    
 
     public function getUser(): ?User
     {

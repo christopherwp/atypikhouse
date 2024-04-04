@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique de mes locations
+{% endblock %}
+
+{% block body %}
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+
+	<div class="hero hero-inner">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 mx-auto text-center">
+					<div class="intro-wrap">
+						<h1 class="mb-0">Historique de mes locations</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="untree_co-section">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-8">
+											{% if paidRents is empty %}
+												<p>Aucune location trouvée.</p>
+											{% else %}
+												<table class="table">
+													<thead>
+														<tr>
+															<th>Titre du Logement</th>
+															<th>Date de Début</th>
+															<th>Nombre de Jours</th>
+															<th>Prix Total</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for rent in paidRents %}
+															<tr>
+																<td>{{ rent.houseId.title }}</td>
+																<td>{{ rent.dailyPrice }}
+																	€</td>
+															</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

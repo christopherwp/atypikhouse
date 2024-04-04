@@ -366,4 +366,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * Checks if the user has a specific role.
+     *
+     * @param string $role A role to check
+     *
+     * @return bool true if the user has the role, false otherwise
+     */
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->roles, true);
+    }
+
 }    

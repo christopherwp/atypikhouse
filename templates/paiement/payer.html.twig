@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Paiement
+{% endblock %}
+
+{% block body %}
+	<h2 >Paiement</h2>
+	<form class="text-center" action="{{ path('app_payer') }}" method="post">
+		<div class="form-floating">
+			<input type="text" name="numCarte" placeholder="Numéro de carte">
+		</div>
+		<div class="form-floating">
+			<input type="text" name="cvc" placeholder="CVC">
+		</div>
+		<div class="form-floating">
+			<input type="text" name="dateExp" placeholder="Date d'expiration">
+		</div>
+        <div class="form-floating">
+            <button type="submit">Payer</button>
+        </div>
+    </form>
+	
+{% endblock %}

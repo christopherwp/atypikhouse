@@ -32,6 +32,9 @@ class Rent
     #[ORM\Column(nullable: true)]
     private ?bool $reservation = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isPaid = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,5 +111,27 @@ class Rent
 
         
         return $this;
+    }
+
+    // Récuperer les paiements et locations
+    public function isPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setPaid(?bool $isPaid): static
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function findPaidRents()
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.reservation = :paid')
+            ->setParameter('paid', true)
+            ->getQuery()
+            ->getResult();
     }
 }
