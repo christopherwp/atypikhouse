@@ -48,7 +48,7 @@ class ProprietaireController extends AbstractController
             if ($proprio !== null) { 
                 $house->setUser($proprio); // Définissez l'ID de l'utilisateur sur l'entité Rent
             }
-            
+            $house->setOwner($proprio);
             $entityManager->persist($house);
             $entityManager->flush();
 
