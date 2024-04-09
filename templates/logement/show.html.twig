@@ -56,5 +56,58 @@
 				</body>
 			</html>
 			
+
+
+			 <script>
+
+     document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        selectable: true, // Permettre la sélection de période
+        select: function(info) {
+       
+
+    var startDate = info.startStr; // Date de début sélectionnée
+    var endDate = info.endStr; // Date de fin sélectionnée
+    var numberOfDays = moment(endDate).diff(moment(startDate), 'days'); // Calculer le nombre de jours entre la date de début et la date de fin
+	console.log(startDate,endDate,numberOfDays);
+	
+	
+	// Ajoutez votre classe CSS personnalisée ici
+    // Envoyer les données au backend via une requête AJAX
+    // Assurez-vous de remplacer "/your-backend-route" par la route correcte de votre backend
+    fetch('/avantpayer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            startDate: startDate,
+            endDate: endDate,
+            numberOfDays: numberOfDays
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Data sent successfully!');
+            // Rafraîchir la page ou faire toute autre action nécessaire après l'envoi des données
+        } else {
+            console.error('Failed to send data');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+    });
+
+    calendar.render();
+});
+
+    </script>
+
 			
 {% endblock %}
