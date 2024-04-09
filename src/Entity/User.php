@@ -65,6 +65,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'user')]
     private Collection $house;
 
+    #[ORM\OneToMany(targetEntity: Rent::class, mappedBy: "locataire")]
+    private Collection $rentsAsLocataire;
+    
+    
+
      // admin : Gabriela ->
     #[ORM\Column(type: 'boolean')]
     private bool $isActive = true;
@@ -74,6 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
         $this->house = new ArrayCollection();
+        $this->rentsAsLocataire = new ArrayCollection(); // historique locations -> proprietaire
         $this->houses = new ArrayCollection(); // -> Dashboard admin 
         // Initialisez isActive à true ou à la valeur désirée dans le constructeur
     }
@@ -378,4 +384,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return in_array($role, $this->roles, true);
     }
 
+    // recuperer locataires -> historique de location proprietaire
+    /**
+     *@return Collection|Rent[]
+     */
+    public function getRentsAsLocataire(): Collection
+    {
+       return $this->rentsAsLocataire;
+    }
+    
 }    

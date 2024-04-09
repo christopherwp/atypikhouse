@@ -20,18 +20,28 @@ class RentHistoryController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        
+
         if ($user->hasRole('ROLE_LOCA')) {
             $paidRentsLoca = $rentRepository->findPaidRentsByUser($user);
+
+            
+
             return $this->render('compte/historyLocataire.html.twig', [
                 'paidRents' => $paidRentsLoca,
             ]);
         } elseif ($user->hasRole('ROLE_PROPRIO')) {
             $paidRentsProprio = $rentRepository->findPaidRentsByUser($user);
+
+            
+
             return $this->render('proprietaire/historyProprietaire.html.twig', [ // Assurez-vous que ce template existe
                 'paidRents' => $paidRentsProprio,
             ]);
         } elseif ($user->hasRole('ROLE_ADMIN')) {
             $paidRents = $rentRepository->findAll();
+
+
             return $this->render('admin/dashboard.html.twig', [ // Utilisez le bon chemin vers votre template admin
                 'paidRents' => $paidRents,
             ]);
