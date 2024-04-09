@@ -29,7 +29,7 @@ class PaiementController extends AbstractController
         $house = $entityManager->getRepository(House::class)->find($houseId);
         $user = $entityManager->getRepository(User::class)->find($userId);
       
-        
+
         if(!$user){
             $user = $this->getUser();
         }
@@ -55,6 +55,8 @@ class PaiementController extends AbstractController
         $entityManager->persist($rent);
         $entityManager->flush();
 
+
+        
         //$rentId = $rent->getId(); // Récupérer l'ID de la réservation après sa sauvegarde
 
     // Après avoir enregistré le paiement
