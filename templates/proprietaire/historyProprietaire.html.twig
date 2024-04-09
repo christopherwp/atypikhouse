@@ -18,7 +18,7 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6 mx-auto text-center">
 					<div class="intro-wrap">
-						<h1 class="mb-0">Historique des locations pour mes propriétés</h1>
+						<h2 class="mb-0" style="color: white;">Historique des locations pour mes propriétés</h2>
 					</div>
 				</div>
 			</div>
@@ -34,36 +34,41 @@
 								<div class="card-body">
 									<div class="row">
 										<div class="col-md-8">
-											{% if paidRents is empty %}
-												<p>Aucune location trouvée.</p>
-											{% else %}
-												<table class="table">
-													<thead>
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Logement</th>
+
+														<th>Prix Total</th>
+														<th>id_Locataire</th>
+														<th>Locataire</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for rent in paidRents %}
 														<tr>
-															<th>Titre du Logement</th>
-															<th>Date de Début</th>
-															<th>Nombre de Jours</th>
-															<th>Prix Total</th>
-															<th>Locataire</th>
-															<!-- Ajout d'une colonne pour le locataire -->
+															<td>{{ rent.houseId.title }}</td>
+															<td>{{ rent.houseId.dailyPrice }}
+																€</td>
+															<td>{{ rent.locataire.id }}</td>
+															<td>{{ rent.locataire.username }}</td>
 														</tr>
-													</thead>
-													<tbody>
-														{% for rent in paidRents %}
-															<tr>
-																<td>{{ rent.houseId.title }}</td>
-																<td>{{ rent.dailyPrice }}
-																	€</td>
-																<td>{{ rent.userId.username }}</td>
-																<!-- Affichage du nom d'utilisateur du locataire -->
-															</tr>
-														{% endfor %}
-													</tbody>
-												</table>
-											{% endif %}
-										</div>
+													{% else %}
+														<tr>
+															<td colspan="3">Aucune location payée trouvée.</td>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>										
+										</div>	
 									</div>
 								</div>
+							</div>
+							<br>
+							<div class="form-floating">
+								<form action="{{ path('app_proprio_index') }}">
+									<button type="submit" class="btn btn-primary">Retourner à la liste</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -71,6 +76,4 @@
 			</div>
 		</div>
 	</div>
-
-
 {% endblock %}
