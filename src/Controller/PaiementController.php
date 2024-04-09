@@ -73,43 +73,4 @@ class PaiementController extends AbstractController
             'transaction_id' => $transactionId,
         ]); 
     }
-    #[Route('/avantpayer', name: 'app_confirmatio')]
-    public function avantpayer(Request $request,EntityManagerInterface $entityManager): Response
-    {
-        $data = json_decode($request->getContent(), true);
-        
-        // Vous pouvez accéder aux données individuelles comme suit :
-        $startDate = $data['startDate'];
-        $endDate = $data['endDate'];
-        $numberOfDays = $data['numberOfDays'];
-
-        // Enregistrer les données dans votre base de données avec Doctrine
-        // Exemple d'enregistrement avec Doctrine :
-       
-
-        // Créer une nouvelle entité Rent et définir les valeurs
-        // $rent = new Rent();
-        // $rent->setStartDate(new \DateTime($startDate));
-        // $rent->setEndDate(new \DateTime($endDate));
-        // $rent->setNumDays($numberOfDays);
-
-        // Persist et flush pour enregistrer dans la base de données
-        // $entityManager->persist($rent);
-        // $entityManager->flush();
-        $message = 'Données reçues avec succès. ';
-        $message .= 'Date de début: ' . $startDate ." ". $endDate ." ". $numberOfDays;
-        return new Response($message, Response::HTTP_OK);
-
-        
-    }
-    #[Route('/avant', name: 'app_confirmation')]
-    public function avant(Request $request): Response
-    {
-        $data = json_decode($request->getContent(), true);
-        $message = 'Données reçues avec succès. ';
-        $message .= 'Date de début: ' . $data['dateDebut'] . '. ';
-        
-        
-        return new Response($message);
-    }
 }
