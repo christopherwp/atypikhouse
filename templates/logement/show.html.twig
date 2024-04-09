@@ -29,14 +29,11 @@
 						<br>
 						<h4>{{ house.dailyPrice }}
 							€</h4>
-
-							<div id='calendar'></div>
 						<div class="form-floating">
 							<form action="{{ path('app_payer') }}" method="post">
 								<button type="submit" class="btn btn-primary">Réserver</button>
 							</form>
 						</div>
-						
 						<h4>Ce que propose ce logement</h4>
 						<ul class="list-unstyled two-col clearfix">
 							<li>Parking gratuit sur place</li>
@@ -59,6 +56,7 @@
 				</body>
 			</html>
 			
+
 
 			 <script>
 
@@ -110,5 +108,6 @@
 });
 
     </script>
+
 			
 {% endblock %}
