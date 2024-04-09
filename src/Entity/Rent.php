@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: RentRepository::class)]
 class Rent
@@ -35,8 +36,14 @@ class Rent
     #[ORM\Column(nullable: true)]
     private ?bool $isPaid = null;
 
+<<<<<<< HEAD
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $end_date = null;
+=======
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "rentsAsLocataire")]
+    #[ORM\JoinColumn(nullable:false)]
+    private $locataire;
+>>>>>>> 98289e0deb18a5518fd6cae35888b40caf06dd4c
 
     public function getId(): ?int
     {
@@ -129,13 +136,17 @@ class Rent
         return $this;
     }
 
-    public function findPaidRents()
+    // recuperer user_locataire -> historique locations proprietaire
+    public function getLocataire(): ?User
     {
-        return $this->createQueryBuilder('r')
-            ->where('r.reservation = :paid')
-            ->setParameter('paid', true)
-            ->getQuery()
-            ->getResult();
+        return $this->locataire;
+    }
+
+    public function setLocataire(?User $locataire): self
+    {
+        $this->locataire = $locataire;
+
+        return $this;
     }
 
     public function getEndDate(): ?\DateTimeInterface

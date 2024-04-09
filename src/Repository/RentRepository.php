@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Rent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use App\Entity\User;
 /**
  * @extends ServiceEntityRepository<Rent>
  *
@@ -22,13 +22,15 @@ class RentRepository extends ServiceEntityRepository
     }
 
     // récupérer les locations par user
-    public function findPaidRentsByUser($user)
+    public function findPaidRentsByUser(User $user)
     {
         return $this->createQueryBuilder('r')
         ->andWhere('r.user = :user')
-        ->andWhere('r.isPaid = true')
+        ->andWhere('r.isPaid = :isPaid')
         ->setParameter('user', $user)
+        ->setParameter('isPaid', true)
         ->getQuery()
         ->getResult();
+        
     }
 }
