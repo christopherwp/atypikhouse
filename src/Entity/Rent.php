@@ -35,6 +35,9 @@ class Rent
     #[ORM\Column(nullable: true)]
     private ?bool $isPaid = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $end_date = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -133,5 +136,17 @@ class Rent
             ->setParameter('paid', true)
             ->getQuery()
             ->getResult();
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->end_date;
+    }
+
+    public function setEndDate(?\DateTimeInterface $end_date): static
+    {
+        $this->end_date = $end_date;
+
+        return $this;
     }
 }
