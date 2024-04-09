@@ -56,7 +56,7 @@ class PaiementController extends AbstractController
         $entityManager->flush();
 
 
-        
+
         //$rentId = $rent->getId(); // Récupérer l'ID de la réservation après sa sauvegarde
 
     // Après avoir enregistré le paiement
@@ -76,6 +76,9 @@ class PaiementController extends AbstractController
             'transaction_id' => $transactionId,
         ]); 
     }
+    
+
+
     #[Route('/avantpayer', name: 'app_confirmatio')]
     public function avantpayer(Request $request,EntityManagerInterface $entityManager): Response
     {
