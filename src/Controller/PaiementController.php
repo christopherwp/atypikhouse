@@ -29,6 +29,7 @@ class PaiementController extends AbstractController
         $house = $entityManager->getRepository(House::class)->find($houseId);
         $user = $entityManager->getRepository(User::class)->find($userId);
       
+        
         if(!$user){
             $user = $this->getUser();
         }
