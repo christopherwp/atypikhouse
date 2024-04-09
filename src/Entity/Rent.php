@@ -36,14 +36,9 @@ class Rent
     #[ORM\Column(nullable: true)]
     private ?bool $isPaid = null;
 
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $end_date = null;
-
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "rentsAsLocataire")]
     #[ORM\JoinColumn(nullable:false)]
     private $locataire;
-
 
     public function getId(): ?int
     {
@@ -147,18 +142,5 @@ class Rent
         $this->locataire = $locataire;
 
         return $this;
-    }
-
-    public function getEndDate(): ?\DateTimeInterface
-    {
-        return $this->end_date;
-    }
-
-    public function setEndDate(?\DateTimeInterface $end_date): static
-    {
-        $this->end_date = $end_date;
-
-        return $this;
-
     }
 }
