@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\House;
+use App\Entity\Images;
 use App\Form\HouseType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,6 +50,32 @@ class ProprietaireController extends AbstractController
                 $house->setUser($proprio); // Définissez l'ID de l'utilisateur sur l'entité Rent
             }
             $house->setOwner($proprio);
+
+            if ($request->files->count() > 0) {
+                // Obtient les objets UploadedFile pour les fichiers téléchargés
+                $images = $form->get('images')->getData();
+
+                // Traitez chaque fichier téléchargé
+                foreach ($images as $image) {
+                    // Génère un nouveau nom de fichier unique
+                    $fileName = md5(uniqid()) . '.' . $image->guessExtension();
+
+                    // Déplace le fichier téléchargé vers le dossier de destination
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
+
+                    // Crée une nouvelle instance de l'entité Images et associe le fichier téléchargé
+                    $img = new Images();
+                    $img->setFile($fileName);
+
+                    // Ajoute l'image à la maison
+                    $house->addImage($img);
+                    
+                }
+            }
+
             $entityManager->persist($house);
             $entityManager->flush();
 
