@@ -73,56 +73,65 @@
 			</div>
 		</div>
 	</div>
-</div>
-<table class="table" style="margin-top: 200px;">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Title</th>
-			<th>Latitude</th>
-			<th>Longitude</th>
-			<th>Address</th>
-			<th>Capacity</th>
-			<th>Num_rooms</th>
-			<th>Num_bedrooms</th>
-			<th>Num_bathrooms</th>
-			<th>Daily_price</th>
-			<th>Description</th>
-			<th>Logement actif</th>
-			<th>actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for house in houses %}
-			<tr>
-				<td>{{ house.id }}</td>
-				<td>{{ house.title }}</td>
-				<td>{{ house.latitude }}</td>
-				<td>{{ house.longitude }}</td>
-				<td>{{ house.address }}</td>
-				<td>{{ house.capacity }}</td>
-				<td>{{ house.numRooms }}</td>
-				<td>{{ house.numBedrooms }}</td>
-				<td>{{ house.numBathrooms }}</td>
-				<td>{{ house.dailyPrice }}</td>
-				<td>{{ house.description }}</td>
 
 
-				<td>
-					{{ house.actif}}
-				</td>
-				<td>
-					<a href="{{ path('app_proprio_show', {'id': house.id}) }}">show</a>
-					<a href="{{ path('app_proprio_edit', {'id': house.id}) }}">edit</a>
-					<a href="{{ path('app_rent_history', {'id': house.id}) }}">Historique</a>
-				</td>
-			</tr>
-		{% else %}
-			<tr>
-				<td colspan="12">no records found</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
 
-<a href="{{ path('app_proprio_new') }}">Create new</a>{% endblock %}
+
+
+     <table class="table" style="margin-top: 200px;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Address</th>
+                <th>Capacity</th>
+                <th>Num_rooms</th>
+                <th>Num_bedrooms</th>
+                <th>Num_bathrooms</th>
+                <th>Daily_price</th>
+                <th>Description</th>
+                <th>Logement actif</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for house in houses %}
+            <tr>
+                <td>{{ house.id }}</td>
+                <td>{{ house.title }}</td>
+                <td>{{ house.latitude }}</td>
+                <td>{{ house.longitude }}</td>
+                <td>{{ house.address }}</td>
+                <td>{{ house.capacity }}</td>
+                <td>{{ house.numRooms }}</td>
+                <td>{{ house.numBedrooms }}</td>
+                <td>{{ house.numBathrooms }}</td>
+                <td>{{ house.dailyPrice }}</td>
+                <td>{{ house.description }}</td>
+               
+ 
+         
+                <td>
+                    {{ house.actif}}
+                </td>
+                <td>
+                    <a href="{{ path('app_proprio_show', {'id': house.id}) }}">show</a>
+                    <a href="{{ path('app_proprio_edit', {'id': house.id}) }}">edit</a>
+                    <a href="{{ path('app_rent_history', {'id': house.id}) }}">Historique</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_proprio_new') }}">Create new</a>
+
+  
+{% endblock %}
+

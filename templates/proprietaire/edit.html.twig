@@ -1,17 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit House{% endblock %}
-
+{% block title %}Modifier la maison{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Modifier la maison</div>
 
-    <h1>Edit House</h1>
+                    <div class="card-body">
+                        {{ include('proprietaire/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+                    </div>
+                </div>
 
-    {{ include('proprietaire/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_proprio_index') }}">back to list</a>
-
-    <a href="{{ path('app_facility_new', {'id': house.id}) }}">Ajouter des équipements</a>
-
-    {{ include('proprietaire/_delete_form.html.twig') }}
+                <div class="mt-3">
+                    <a href="{{ path('app_proprio_index') }}" class="btn btn-secondary mr-2">Retour à la liste</a>
+                  
+                    <a href="{{ path('app_facility_new', {'id': house.id}) }}">Create new</a> 
+                        
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
