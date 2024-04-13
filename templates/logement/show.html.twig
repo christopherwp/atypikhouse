@@ -1,60 +1,70 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ house.title }}
+    {{ house.title }}
 {% endblock %}
 
 {% block body %}
-	<div class="hero hero-inner"></div>
-	<div class="untree_co-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-7">
-					<img src="images/1.jpg">
-				</div>
-				<div class="col-lg-5 pl-lg-5 ml-auto">
-					<h2>{{ house.title }}</h2>
-					<p>"Découvrez un monde de charme et de quiétude au cœur de la nature avec nos cabanes à louer, pour des escapades inoubliables loin du quotidien."</p>
-					<th>Logement entier
-						{{ house.address }}</th>
-					<ul class="list-unstyled two-col clearfix">
-						<th>{{ house.capacity }}
-							voyageurs -</th>
-						<th>{{ house.numRooms }}
-							chambres -</th>
-						<th>{{ house.numBedrooms }}
-							lits -</th>
-						<th>{{ house.numBathrooms }}
-							salles de bain</th>
-						<br>
-						<h4>{{ house.dailyPrice }}
-							€</h4>
-						<div class="form-floating">
-							<form action="{{ path('app_payer') }}" method="post">
-								<button type="submit" class="btn btn-primary">Réserver</button>
-							</form>
-						</div>
-						<h4>Ce que propose ce logement</h4>
-						<ul class="list-unstyled two-col clearfix">
-							<li>Parking gratuit sur place</li>
-							<li>Cuisine</li>
-							<li>Wifi</li>
-							<li>Shampooing</li>
-							<li>Sèche-cheveux</li>
-							<li>Oreillers et couvertures supplémentaires</li>
-							<li>Cintres</li>
-							<li>Climatisation centrale</li>
-							<li>Plaques de cuisson</li>
-							<li>Eau chaude</li>
-						</ul>
-						<h4>Où se situe le logement</h4>
-						<th>Latitude</th>
-						<td>{{ house.latitude }}</td>
-						<th>Longitude</th>
-						<td>{{ house.longitude }}</td>
-					</div>
-				</body>
-			</html>
-			
-			
+
+	
+
+    <div class="hero hero-inner"></div>
+    <div class="untree_co-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <img src="images/1.jpg">
+                </div>
+                <div class="col-lg-5 pl-lg-5 ml-auto">
+                    <h2>{{ house.title }}</h2>
+                   
+					  <p>{{ house.description }}</p>
+                    <th>Logement entier
+                        {{ house.address }}</th>
+                    <ul class="list-unstyled two-col clearfix">
+                        <th>{{ house.capacity }}
+                            voyageurs -</th>
+                        <th>{{ house.numRooms }}
+                            chambres -</th>
+                        <th>{{ house.numBedrooms }}
+                            lits -</th>
+                        <th>{{ house.numBathrooms }}
+                            salles de bain</th>
+                        <br>
+                        <h4>{{ house.dailyPrice }}
+                            €</h4>
+							
+				
+						
+						
+                        <div class="form-floating">
+                            <form action="{{ path('app_payer') }}" method="post">
+                                <button type="submit" class="btn btn-primary">Réserver</button>
+                            </form>
+                        </div>
+                        <h4>Ce que propose ce logement</h4>
+                        <ul class="list-unstyled two-col clearfix">
+                         
+
+                             
+							
+							    {% for facility in house.facilities %}
+								<li>{{ facility.name }}</li>
+							{% endfor %}
+                        </ul>
+                        
+                        <h4>Où se situe le logement</h4>
+                        <th>Latitude</th>
+                        <td>{{ house.latitude }}</td>
+                        <th>Longitude</th>
+                        <td>{{ house.longitude }}</td>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+
+
 {% endblock %}
+

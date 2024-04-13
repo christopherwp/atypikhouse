@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>actions</th>
+               
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
             <tr>
                 <td>{{ facility.id }}</td>
                 <td>{{ facility.name }}</td>
+                
                 <td>
                     <a href="{{ path('app_facility_show', {'id': facility.id}) }}">show</a>
                     <a href="{{ path('app_facility_edit', {'id': facility.id}) }}">edit</a>
@@ -30,6 +32,13 @@
         {% endfor %}
         </tbody>
     </table>
+    <ul>
+                     {% for facility in house.facilities %}
+                        <li>{{ facility.name }}</li>
+                    {% endfor %}
+     </ul>
+         
 
     <a href="{{ path('app_facility_new') }}">Create new</a>
+
 {% endblock %}

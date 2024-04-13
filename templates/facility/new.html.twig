@@ -1,11 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Facility{% endblock %}
+{% block title %}Nouvelle facilité{% endblock %}
 
 {% block body %}
-    <h1>Create new Facility</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Créer une nouvelle facilité</div>
 
-    {{ include('facility/_form.html.twig') }}
-
-    <a href="{{ path('app_facility_index') }}">back to list</a>
+                    <div class="card-body">
+                        {{ include('facility/_form.html.twig') }}
+                    </div>
+                </div>
+                <a href="{{ path('app_facility_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
