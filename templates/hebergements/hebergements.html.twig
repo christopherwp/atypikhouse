@@ -35,7 +35,16 @@
 
 					<div class="col-6 col-md-6 col-lg-3">
 						<div class="media-1">
-							<a href="#" class="d-block mb-3" ><img src="{{ asset('img/') ~ house.images[0].file}}" alt="Image" class="img-fluid"></a>
+
+							{% set counter = 0 %}
+								{%for images in house.images %}
+								{% set nom = images.file %}
+								{% set counter = counter + 1%}
+								{% if counter == 1 %}
+								<img class="d-block mb-3 img-fluid" src="{{ asset('img/') ~ nom}}">
+								{% endif %}
+								{% endfor %}
+								
 							<div class="d-flex">
 								<div>
 									<h3>
