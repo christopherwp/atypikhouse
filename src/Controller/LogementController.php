@@ -55,14 +55,17 @@ class LogementController extends AbstractController
     #[Route('/{id}', name: 'app_logement_show', methods: ['GET'])]
     public function show(House $house): Response
     {
+       dump($house); 
+      
         return $this->render('logement/show.html.twig', [
-            'house' => $house,
+             'house' => $house,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_logement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, House $house, EntityManagerInterface $entityManager): Response
     {
+        
         $form = $this->createForm(HouseType::class, $house);
         $form->handleRequest($request);
 
@@ -74,7 +77,7 @@ class LogementController extends AbstractController
 
         return $this->render('logement/edit.html.twig', [
             'house' => $house,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

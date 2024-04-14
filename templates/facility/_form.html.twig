@@ -1,4 +1,5 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.name) }}
+    <div style="display:none;">{{ form_row(form.house) }}</div>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
