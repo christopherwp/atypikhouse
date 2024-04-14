@@ -11,8 +11,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-7">
-					<a href="#" class="d-block mb-3" ><img src="{{ asset('img/') ~ house.images[0].file}}" alt="Image" class="img-fluid"></a>
-					<a href="#" class="d-block mb-3" ><img src="{{ asset('img/') ~ house.images[1].file}}" alt="Image" class="img-fluid"></a>
+			{% set images = house.images|slice(0, 3) %}  <!-- Prendre les trois premières images maximum -->
+            {% if images|length > 0 %}
+            {% for image in images %}
+                <div class="image-container">
+                    <img src="{{ asset('img/' ~ image.file) }}" alt="Image de produit" class="d-block mb-3 img-fluid" >
+                </div>
+            {% endfor %}
+            {% else %}
+            <p>Aucune image disponible pour ce produit.</p>
+            {% endif %}
 				</div>
 				<div class="col-lg-5 pl-lg-5 ml-auto">
 					<h2>{{ house.title }}</h2>
