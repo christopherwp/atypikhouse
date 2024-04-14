@@ -77,6 +77,12 @@ class House
     #[ORM\JoinColumn(name: "owner_id", referencedColumnName: "id")]
     private ?User $owner = null;
 
+
+    #[ORM\OneToMany(mappedBy: 'house', targetEntity: Images::class, orphanRemoval: true, cascade:['persist'])]
+    private Collection $images;
+
+
+
     // Getters et setters pour $owner
     public function getOwner(): ?User
     {
@@ -96,7 +102,12 @@ class House
         $this->media = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
+
+        $this->propriete = new ArrayCollection();
+        $this->images = new ArrayCollection();
+
         $this->facilities = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -388,6 +399,39 @@ class House
 
         return $this;
     }
+
+
+   /**
+ * @return Collection|Images[]
+ */
+public function getImages(): Collection
+{
+    return $this->images;
+}
+
+public function addImage(Images $image): self 
+{
+    if (!$this->images->contains($image)) {
+        $this->images[] = $image;
+        $image->setHouse($this);
+    }
+
+    return $this;
+}
+
+
+public function removeImage(Images $image): self
+{
+    if ($this->images->removeElement($image)) {
+        // définir le côté propriétaire sur null (sauf si déjà modifié)
+        if ($image->getHouse() === $this) {
+            $image->setHouse(null);
+        }
+    }
+    return $this;
+}
+
+
 
 
     
