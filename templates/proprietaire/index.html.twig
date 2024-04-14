@@ -78,6 +78,8 @@
 
 
 
+
+
      <table class="table" style="margin-top: 200px;">
         <thead>
             <tr>
@@ -93,7 +95,9 @@
                 <th>Daily_price</th>
                 <th>Description</th>
                 <th>Logement actif</th>
+
                 <th>images</th>
+
                 <th>actions</th>
             </tr>
         </thead>
@@ -111,18 +115,23 @@
                 <td>{{ house.numBathrooms }}</td>
                 <td>{{ house.dailyPrice }}</td>
                 <td>{{ house.description }}</td>
+
                 <td>
                     {{ house.actif}}
                 </td>
                 <td>
+
                     {% for image in house.images %}
                    <img style="max-width: 250px; max-height: 200px; min-width: 250px; min-height: 200px;" src="{{ asset('img/') ~ image.getFile() }}" alt="Residential Image">
                    {% endfor %}
                 </td>
                 
                 <td>
+
                     <a href="{{ path('app_proprio_show', {'id': house.id}) }}">show</a>
                     <a href="{{ path('app_proprio_edit', {'id': house.id}) }}">edit</a>
+                    <a href="{{ path('app_rent_history', {'id': house.id}) }}">Historique</a>
+
                 </td>
             </tr>
         {% else %}
@@ -133,7 +142,6 @@
         </tbody>
     </table>
 
-    
 
     <a href="{{ path('app_proprio_new') }}">Create new</a>
 

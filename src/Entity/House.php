@@ -64,8 +64,9 @@ class House
     private ?User $user = null;
 
 
-    #[ORM\OneToMany(targetEntity: facility::class, mappedBy: 'house')]
-    private Collection $propriete;
+    #[ORM\OneToMany(targetEntity: Facility::class, mappedBy: 'house')]
+
+    private Collection $facilities;
 
     #[ORM\Column]
     private ?bool $actif = null;
@@ -101,8 +102,12 @@ class House
         $this->media = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
+
         $this->propriete = new ArrayCollection();
         $this->images = new ArrayCollection();
+
+        $this->facilities = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -350,33 +355,39 @@ class House
     /**
      * @return Collection<int, facility>
      */
-    public function getPropriete(): Collection
+    public function getFacilities(): Collection
     {
-        return $this->propriete;
+        return $this->facilities;
     }
 
-    public function addPropriete(Facility $propriete): static
+    public function setFacility(?Facility $facility): static
     {
-        if (!$this->propriete->contains($propriete)) {
-            $this->propriete->add($propriete);
-            $propriete->setHouse($this);
-        }
+        $this->facilities = $facility;
 
         return $this;
     }
-
-    public function removePropriete(Facility $propriete): static
+    public function addFacility(Facility $facility): static
     {
-        if ($this->propriete->removeElement($propriete)) {
-            // set the owning side to null (unless already changed)
-            if ($propriete->getHouse() === $this) {
-                $propriete->setHouse(null);
-            }
+        if (!$this->facilities->contains($facility)) {
+            $this->facilities->add($facility);
+            $facility->setHouse($this);
         }
-
+    
         return $this;
     }
 
+
+    public function removeFacility(Facility $facility): static
+{
+    if ($this->facilities->removeElement($facility)) {
+        // set the owning side to null (unless already changed)
+        if ($facility->getHouse() === $this) {
+            $facility->setHouse(null);
+        }
+    }
+
+    return $this;
+}
     public function isActif(): ?bool
     {
         return $this->actif;
@@ -388,6 +399,7 @@ class House
 
         return $this;
     }
+
 
    /**
  * @return Collection|Images[]
@@ -418,6 +430,7 @@ public function removeImage(Images $image): self
     }
     return $this;
 }
+
 
 
 
