@@ -29,8 +29,6 @@
 	<div class="untree_co-section">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
-
-
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
@@ -64,21 +62,9 @@
                             </div>
                         </div>
                     </div>
-
-
-               
-            
-
-
-
             </div>
         </div>
 	</div>
-
-
-
-
-
 
      <table class="table" style="margin-top: 200px;">
         <thead>
@@ -128,24 +114,25 @@
                 
                 <td>
 
-                    <a href="{{ path('app_proprio_show', {'id': house.id}) }}">show</a>
-                    <a href="{{ path('app_proprio_edit', {'id': house.id}) }}">edit</a>
+                    <a href="{{ path('app_proprio_show', {'id': house.id}) }}">Voir</a>
+                    <a href="{{ path('app_proprio_edit', {'id': house.id}) }}">Editer</a>
                     <a href="{{ path('app_rent_history', {'id': house.id}) }}">Historique</a>
 
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
 
-    <a href="{{ path('app_proprio_new') }}">Create new</a>
+    <a href="{{ path('app_proprio_new') }}">Créer un nouveau</a>
 
   
 {% endblock %}
+
 
 

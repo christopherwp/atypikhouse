@@ -27,6 +27,7 @@
 					<p>{{ house.description }}</p>
 					<th>Logement entier
 						{{ house.address }}</th>
+					
 					<ul class="list-unstyled two-col clearfix">
 						<th>{{ house.capacity }}
 							voyageurs -</th>
@@ -37,14 +38,30 @@
 						<th>{{ house.numBathrooms }}
 							salles de bain</th>
 						<br>
-						<h4>{{ house.dailyPrice }}
-							€</h4>
-						<div class="form-floating">
-							<form action="{{ path('app_payer') }}" method="post">
-								<button type="submit" class="btn btn-primary">Réserver</button>
-							</form>
-						</div>
+
+						<h4>{{ house.dailyPrice }}€</h4
+						
+						<br>
+						
+						
+					<form action="{{ path('app_reservation') }}" method="post" id="reservationForm">
+						<input type="hidden" name="house_id" value="{{ house.id }}">
+						<input type="hidden" id="formStartDate" name="startDate" value="">
+    					<input type="hidden" id="formEndDate" name="endDate" value="">
+    					<input type="hidden" id="formNumberOfDays" name="numberOfDays" value="">
+    					<input type="hidden" id="formTotalPrice" name="totalPrice" value="">
+    					<div id='calendar'></div>
+    					<p>Date de début sélectionnée: <span id="displayStartDate"></span></p>
+						<p>Date de fin sélectionnée: <span id="displayEndDate"></span></p>
+    					<p>Prix total: <span id="displayTotalPrice"></span>€</p>
+    					<div class="form-floating">
+        					<button type="submit" class="btn btn-primary">Réserver</button>
+    					</div>
+					</form>
+						
+            <br>
 						<h4>Ce que propose ce logement</h4>
+
 						<ul class="list-unstyled two-col clearfix">
 		
 							    {% for facility in house.facilities %}
@@ -52,82 +69,55 @@
 							{% endfor %}
                
 						</ul>
+
 						<h4>Où se situe le logement</h4>
+
 						<th>Latitude</th>
 						<td>{{ house.latitude }}</td>
 						<th>Longitude</th>
 						<td>{{ house.longitude }}</td>
-					</div>
-
-
-
-	
-
-   
-	
-
-
-
-	
 					
+					</div>
 
 				</body>
 			</html>
-			
 
-
-			 <script>
-
-     document.addEventListener('DOMContentLoaded', function() {
+<script>
+var dailyRate = {{ house.dailyPrice }};
+document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
+    var formStartDate = document.getElementById('formStartDate');
+    var formEndDate = document.getElementById('formEndDate');
+    var formNumberOfDays = document.getElementById('formNumberOfDays');
+    var formTotalPrice = document.getElementById('formTotalPrice');
+    var displayStartDate = document.getElementById('displayStartDate');
+    var displayEndDate = document.getElementById('displayEndDate');
+    var displayTotalPrice = document.getElementById('displayTotalPrice');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        selectable: true, // Permettre la sélection de période
-        select: function(info) {
-       
+        selectable: true,
+        select: function (info) {
+            var startDate = info.startStr;
+            var endDate = info.endStr;
+            var numberOfDays = moment(endDate).diff(moment(startDate), 'days');
+            var totalPrice = numberOfDays * dailyRate;
 
-    var startDate = info.startStr; // Date de début sélectionnée
-    var endDate = info.endStr; // Date de fin sélectionnée
-    var numberOfDays = moment(endDate).diff(moment(startDate), 'days'); // Calculer le nombre de jours entre la date de début et la date de fin
-	console.log(startDate,endDate,numberOfDays);
-	
-	
-	// Ajoutez votre classe CSS personnalisée ici
-    // Envoyer les données au backend via une requête AJAX
-    // Assurez-vous de remplacer "/your-backend-route" par la route correcte de votre backend
-    fetch('/avantpayer', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            startDate: startDate,
-            endDate: endDate,
-            numberOfDays: numberOfDays
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Data sent successfully!');
-            // Rafraîchir la page ou faire toute autre action nécessaire après l'envoi des données
-        } else {
-            console.error('Failed to send data');
+            formStartDate.value = startDate;
+            formEndDate.value = endDate;
+            formNumberOfDays.value = numberOfDays;
+            formTotalPrice.value = totalPrice;
+
+            displayStartDate.textContent = startDate;
+            displayEndDate.textContent = endDate;
+            displayTotalPrice.textContent = totalPrice;
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
     });
 
     calendar.render();
 });
+</script>
 
-    </script>
-
-			
 
 {% endblock %}
 

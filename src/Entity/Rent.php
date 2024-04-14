@@ -25,20 +25,26 @@ class Rent
     private ?int $total_price = null;
 
     #[ORM\ManyToOne(inversedBy: 'rents')]
+    #[ORM\JoinColumn(name:"house_id", referencedColumnName:"id")]
     private ?House $house = null;
 
     #[ORM\ManyToOne(inversedBy: 'rents')]
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $reservation = null;
-
-    #[ORM\Column(nullable: true)]
     private ?bool $isPaid = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "rentsAsLocataire")]
-    #[ORM\JoinColumn(nullable:false)]
-    private $locataire;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $end_date = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "rentsAsProprietaire")]
+    #[ORM\JoinColumn(name: "proprietaire_id", referencedColumnName: "id", nullable: true)]
+    private $proprietaire;
+
+    #[ORM\Column(type: "string", length: 36, nullable: true)]
+    private ?string $transactionId;
+    
+    
 
     public function getId(): ?int
     {
@@ -81,40 +87,38 @@ class Rent
         return $this;
     }
 
-    public function getHouseId(): ?House
+    public function getHouse(): ?House
     {
         return $this->house;
     }
 
-    public function setHouseId(?House $house): static
+    public function setHouse(?House $house): self
     {
         $this->house = $house;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUserId(?User $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function isReservation(): ?bool
+    public function isTransactionId(): ?string
     {
-        return $this->reservation;
+        return $this->transactionId;
     }
 
-    public function setReservation(?bool $reservation): static
+    public function setTransactionId(string $transactionId ): self
     {
-        $this->reservation = $reservation;
-
-        
+        $this->transactionId = $transactionId;
         return $this;
     }
 
@@ -131,16 +135,30 @@ class Rent
         return $this;
     }
 
-    // recuperer user_locataire -> historique locations proprietaire
-    public function getLocataire(): ?User
+    // recuperer user_proprietaire -> historique dashboard admin //
+    public function getProprietaire(): ?User
     {
-        return $this->locataire;
+        return $this->proprietaire;
     }
 
-    public function setLocataire(?User $locataire): self
+    public function setProprietaire(?User $proprietaire): self
     {
-        $this->locataire = $locataire;
+        $this->proprietaire = $proprietaire;
 
         return $this;
     }
+
+    // gerer calendrier
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->end_date;
+    }
+
+    public function setEndDate(?\DateTimeInterface $end_date): self
+    {
+        $this->end_date = $end_date;
+
+        return $this;
+    }
+
 }

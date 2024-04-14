@@ -22,14 +22,16 @@ class HouseRepository extends ServiceEntityRepository
     }
 
 
-    public function findByOwnerId($ownerId)
+    public function findByProprietaireId($proprietaireId)
     {
         return $this->createQueryBuilder('h')
-            ->andWhere('h.owner = :ownerId')
-            ->setParameter('ownerId', $ownerId)
+            ->andWhere('h.proprietaire = :proprietaireId')
+            ->setParameter('proprietaireId', $proprietaireId)
             ->getQuery()
             ->getResult();
     }
+
+    
 
     //    /**
     //     * @return House[] Returns an array of House objects

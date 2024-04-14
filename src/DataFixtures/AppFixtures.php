@@ -126,7 +126,7 @@ class AppFixtures extends Fixture
 
         $house = $this->houseRepository->find(1); 
         $rent = new rent();
-        $rent->setHouseId($house)
+        $rent->setHouse($house)
             ->setUserId($user)
             ->setStartDate(new \DateTimeImmutable('2022-01-01'))
             ->setNumDays(30)
