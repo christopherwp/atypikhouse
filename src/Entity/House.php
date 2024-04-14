@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Images;
 use App\Entity\Facility;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -77,8 +76,11 @@ class House
     #[ORM\JoinColumn(name: "owner_id", referencedColumnName: "id")]
     private ?User $owner = null;
 
+
     #[ORM\OneToMany(mappedBy: 'house', targetEntity: Images::class, orphanRemoval: true, cascade:['persist'])]
     private Collection $images;
+
+
 
     // Getters et setters pour $owner
     public function getOwner(): ?User
@@ -100,6 +102,7 @@ class House
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
         $this->propriete = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -386,7 +389,7 @@ class House
         return $this;
     }
 
-     /**
+   /**
  * @return Collection|Images[]
  */
 public function getImages(): Collection
@@ -415,4 +418,8 @@ public function removeImage(Images $image): self
     }
     return $this;
 }
+
+
+
+    
 }

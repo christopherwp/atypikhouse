@@ -7,6 +7,7 @@ use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -39,6 +40,7 @@ class HouseType extends AbstractType
                 'label' => 'images',
                 'multiple' => true,
                 'mapped' => false,
+               
             ])
         ;
     }
@@ -50,3 +52,4 @@ class HouseType extends AbstractType
         ]);
     }
 }
+
