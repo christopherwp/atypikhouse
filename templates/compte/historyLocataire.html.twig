@@ -34,29 +34,42 @@
 								<div class="card-body">
 									<div class="row">
 										<div class="col-md-8">
-
-
 											<table class="table">
 												<thead>
 													<tr>
-														<th>Titre du Logement</th>
-														<th>Prix Total</th>
+														<th>Numéro réservation</th>
+														<th>Logement</th>
+														<th>Date de début</th>
+														<th>Date de fin</th>														
+														<th>Montant payé</th>
+														<th>Propriétaire</th>																												
 													</tr>
 												</thead>
 												<tbody>
-													{% for rent in paidRents %}
+													{% for rent in rents %}
 														<tr>
-															<td>{{ rent.houseId.title }}</td>
-															<td>{{ rent.houseId.dailyPrice }}€</td>
+															<td>{{ rent.id }}</td>
+															{% if rent.house %}
+																<td>{{ rent.house.title }}</td>
+															{% else %}
+																<td>Information sur le logement non disponible</td>
+															{% endif %}
+															<td>{{ rent.startDate|date('d/m/Y') }}</td>
+															<td>{{ rent.endDate|date('d/m/Y') }}</td>
+															<td>{{ rent.totalPrice }}€</td>
+															{% if rent.proprietaire %}
+																<td>{{ rent.proprietaire.username }}</td>
+															{% else %}
+																<td>Information sur le propriétaire non disponible</td>
+															{% endif %}
 														</tr>
 													{% else %}
 														<tr>
-															<td colspan="3">Aucune location payée trouvée.</td>
+															<td colspan="6">Aucune location payée trouvée.</td>
 														</tr>
 													{% endfor %}
 												</tbody>
 											</table>
-
 										</div>
 									</div>
 								</div>

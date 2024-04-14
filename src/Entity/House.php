@@ -60,7 +60,7 @@ class House
     #[ORM\OneToMany(targetEntity: Rent::class, mappedBy: 'house')]
     private Collection $rents;
 
-    #[ORM\ManyToOne(inversedBy: 'house')]
+    #[ORM\ManyToOne(inversedBy: 'house')] 
     private ?User $user = null;
 
 
@@ -73,18 +73,18 @@ class House
     // Admin - Dashboard - Gabriela ->
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'houses')]
     #[ORM\JoinColumn(nullable: false)]
-    #[ORM\JoinColumn(name: "owner_id", referencedColumnName: "id")]
-    private ?User $owner = null;
+    #[ORM\JoinColumn(name: "proprietaire_id", referencedColumnName: "id")]
+    private ?User $proprietaire = null;
 
-    // Getters et setters pour $owner
-    public function getOwner(): ?User
+    // Getters et setters pour $proprietaire
+    public function getProprietaire(): ?User
     {
-        return $this->owner;
+        return $this->proprietaire;
     }
 
-    public function setOwner(?User $owner): self
+    public function setProprietaire(?User $proprietaire): self
     {
-        $this->owner = $owner;
+        $this->proprietaire = $proprietaire;
         return $this;
     }
     // Admin - Dashboard - Gabriela <-
@@ -304,22 +304,22 @@ class House
         return $this->rents;
     }
 
-    public function addRent(Rent $rent): static
+    public function addRent(Rent $rent): self
     {
         if (!$this->rents->contains($rent)) {
             $this->rents->add($rent);
-            $rent->setHouseId($this);
+            $rent->setHouse($this);
         }
 
         return $this;
     }
 
-    public function removeRent(Rent $rent): static
+    public function removeRent(Rent $rent): self
     {
         if ($this->rents->removeElement($rent)) {
             // set the owning side to null (unless already changed)
-            if ($rent->getHouseId() === $this) {
-                $rent->setHouseId(null);
+            if ($rent->getHouse() === $this) {
+                $rent->setHouse(null);
             }
         }
 
