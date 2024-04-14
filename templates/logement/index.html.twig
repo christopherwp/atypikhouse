@@ -42,6 +42,8 @@
                 <td>
                     <a href="{{ path('app_logement_show', {'id': house.id}) }}">show</a>
                     <a href="{{ path('app_logement_edit', {'id': house.id}) }}">edit</a>
+
+                    {{ include('proprietaire/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

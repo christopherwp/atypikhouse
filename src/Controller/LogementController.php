@@ -89,6 +89,6 @@ class LogementController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_logement_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_proprio_index', [], Response::HTTP_SEE_OTHER);
     }
 }

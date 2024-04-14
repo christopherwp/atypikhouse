@@ -89,10 +89,9 @@
     </form>
    
     
-    <form action="{{ path('app_proprio_delete', {'id': house.id}) }}" method="post"
-        onsubmit="return confirm('Are you sure you want to delete this item?');">
-        <button type="submit" class="btn btn-danger mt-3">Delete</button>
-    </form>
+   
+    
+
  
 {% if house.images|default(false) %}
     <div class="existing-images">
@@ -110,6 +109,13 @@
         </div>
     </div>
 {% endif %}
+
+<form action="{{ path('app_logement_delete', {'id': house.id}) }}" method="post"
+        onsubmit="return confirm('Are you sure you want to delete this item?');">
+         <button type="submit" class="btn btn-warning">Supprimer le produit</button>
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ house.id) }}"
+    </form>
+
 
 <script>
     function showImagePreview(input, imagePreviewId) {
