@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<div class="site-mobile-menu site-navbar-target">
 		<div class="site-mobile-menu-header">
 			<div class="site-mobile-menu-close">
@@ -20,8 +21,6 @@
 				<div class="col-lg-6 mx-auto text-center">
 					<div class="intro-wrap">
 						<h1 class="mb-0">Contactez nous</h1>
-						<p class="text-white">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
-						</p>
 					</div>
 				</div>
 			</div>
@@ -31,7 +30,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 mb-5 mb-lg-0">
-					<form class="contact-form" data-aos="fade-up" data-aos-delay="200">
+					<form class="contact-form" data-aos="fade-up" data-aos-delay="200" action="{{ path('submit_contact_form') }}" method="POST">
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
@@ -47,7 +46,8 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="text-black" for="email">Adresse email </label>
+							<label class="text-black" for="email">Adresse email
+							</label>
 							<input type="email" class="form-control" id="email">
 						</div>
 
@@ -55,7 +55,8 @@
 							<label class="text-black" for="message">Message</label>
 							<textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
 						</div>
-
+						<div class="g-recaptcha" data-sitekey="6LdQo7opAAAAABHeyiqaS4W8SUAVjxJaDaStDVkB"></div>
+						<br>
 						<button type="submit" class="btn btn-primary">Envoyer message</button>
 					</form>
 				</div>
