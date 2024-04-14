@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+
+
 #[Route('/facility')]
 class FacilityController extends AbstractController
 {
@@ -23,15 +26,31 @@ class FacilityController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{id}', name: 'app_facility_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,House $house): Response
+    #[Route('/new', name: 'app_facility_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $id = $house->getId();
+        
+      
+       
+     
+        $houseId = $request->query->get('id');
+                $house = $entityManager->getRepository(House::class)->find($houseId);
+                $id = $house->getId();
+        
+        if (!$house) {
+                throw $this->createNotFoundException('No house found for id '.$houseId);
+            }
         $facility = new Facility();
-        $form = $this->createForm(FacilityType::class, $facility);
+ 
+        $form = $this->createForm(FacilityType::class, $facility,['house_id' => $house]);
+
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+      
+          
             $entityManager->persist($facility);
             $entityManager->flush();
 
@@ -81,3 +100,5 @@ class FacilityController extends AbstractController
         return $this->redirectToRoute('app_facility_index', [], Response::HTTP_SEE_OTHER);
     }
 }
+
+

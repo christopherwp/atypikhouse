@@ -1,20 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ house.title }}
+    {{ house.title }}
 {% endblock %}
 
 {% block body %}
+
 	<div class="hero hero-inner"></div>
 	<div class="untree_co-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-7">
-					<img src="images/1.jpg">
+			{% set images = house.images|slice(0, 3) %}  <!-- Prendre les trois premières images maximum -->
+            {% if images|length > 0 %}
+            {% for image in images %}
+                <div class="image-container">
+                    <img src="{{ asset('img/' ~ image.file) }}" alt="Image de produit" class="d-block mb-3 img-fluid" >
+                </div>
+            {% endfor %}
+            {% else %}
+            <p>Aucune image disponible pour ce produit.</p>
+            {% endif %}
 				</div>
 				<div class="col-lg-5 pl-lg-5 ml-auto">
 					<h2>{{ house.title }}</h2>
-					<p>"Découvrez un monde de charme et de quiétude au cœur de la nature avec nos cabanes à louer, pour des escapades inoubliables loin du quotidien."</p>
+					<p>{{ house.description }}</p>
 					<th>Logement entier
 						{{ house.address }}</th>
 					
@@ -48,22 +58,16 @@
         					<button type="submit" class="btn btn-primary">Réserver</button>
     					</div>
 					</form>
-
-
-						<br>
+						
+            <br>
 						<h4>Ce que propose ce logement</h4>
 
 						<ul class="list-unstyled two-col clearfix">
-							<li>Parking gratuit sur place</li>
-							<li>Cuisine</li>
-							<li>Wifi</li>
-							<li>Shampooing</li>
-							<li>Sèche-cheveux</li>
-							<li>Oreillers et couvertures supplémentaires</li>
-							<li>Cintres</li>
-							<li>Climatisation centrale</li>
-							<li>Plaques de cuisson</li>
-							<li>Eau chaude</li>
+		
+							    {% for facility in house.facilities %}
+								<li>{{ facility.name }}</li>
+							{% endfor %}
+               
 						</ul>
 
 						<h4>Où se situe le logement</h4>
@@ -74,6 +78,7 @@
 						<td>{{ house.longitude }}</td>
 					
 					</div>
+
 				</body>
 			</html>
 
@@ -114,8 +119,5 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
-
-
-
-
 {% endblock %}
+

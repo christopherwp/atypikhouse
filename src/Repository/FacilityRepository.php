@@ -21,20 +21,37 @@ class FacilityRepository extends ServiceEntityRepository
         parent::__construct($registry, Facility::class);
     }
 
-    //    /**
-    //     * @return Facility[] Returns an array of Facility objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('f')
-    //            ->andWhere('f.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('f.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+  /**
+     * Recherche les installations par leur nom.
+     *
+     * @param string $name Le nom de l'installation à rechercher.
+     * @return array Un tableau d'installations correspondantes.
+     */
+    public function findByFacilityName($name): array
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
     //    public function findOneBySomeField($value): ?Facility
     //    {
@@ -45,4 +62,4 @@ class FacilityRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-}
+

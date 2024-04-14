@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProprietaireController!
-{% endblock %}
+{% block title %}Hello ProprietaireController!{% endblock %}
 
 {% block body %}
 
-	<div class="site-mobile-menu site-navbar-target">
+<div class="site-mobile-menu site-navbar-target">
 		<div class="site-mobile-menu-header">
 			<div class="site-mobile-menu-close">
 				<span class="icofont-close js-menu-toggle"></span>
@@ -19,7 +18,9 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6 mx-auto text-center">
 					<div class="intro-wrap">
-						<h1 class="mb-0">Mon compte</h1>
+						<h1 class="mb-0">Compte</h1>
+						<p class="text-white">"Explorez le confort ultime avec nos locations de cabanes exceptionnelles. Des expériences uniques vous attendent, où le luxe rencontre la sérénité. Réservez votre escapade parfaite dès maintenant."
+						</p>
 					</div>
 				</div>
 			</div>
@@ -28,101 +29,110 @@
 	<div class="untree_co-section">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-8">                           
-							<div class="card">
-								<div class="card-body">
-									<div class="row">                                        
-										<table class="table">										
-											<thead>
-                                                <h2>Mes informations</h2>
-												<tr>
-													<th>Username :</th>
-													<th>Email :</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<th>{{ app.user.username }}</th>
-													<th>{{ app.user.email }}</th>
-												</tr>
-											</tbody>
-										</table>
-                                        <br>
-									</div>
-								</div>
-							</div>
-							<br>
-                            <div class="row">
-							    <div class="form-floating">
-								    <form action="{{ path('app_edit_user', { 'id': app.user.id }) }}">
-									    <button type="submit" class="btn btn-primary">Modifier</button>
-								    </form>
-							    </div>
-                                <br>
-							    <div class="form-floating">
-								    <form action="{{ path('app_delete_user', { 'id': app.user.id }) }}">
-									    <button type="submit" class="btn btn-danger" onclick="return confirm('Attention vous êtes entrain de supprimer votre compte')">Supprimer</button>
-								    </form>
-							    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>Vos Informations</h1>
                             </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <p>Username :</p>
+                                                {{ app.user.username }}
+                                            </div>
+                                            <div class="col-md-4 text-md-right">
+                                                <a href="{{ path('app_edit_user', { 'id': app.user.id }) }}" class="btn btn-primary">Modifier</a>
+                                                <a href="{{ path('app_delete_user', { 'id': app.user.id }) }}" class="btn btn-danger" onclick= "return confirm('Attention vous êtes entrain de supprimer votre compte')">Supprimer</a>
+                                            </div>
+                                             
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-8">
+                                                <p>Email :</p>
+                                                {{ app.user.email }}
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
 	</div>
-</div>
-<table class="table" style="margin-top: 200px;">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Title</th>
-			<th>Latitude</th>
-			<th>Longitude</th>
-			<th>Address</th>
-			<th>Capacity</th>
-			<th>Num_rooms</th>
-			<th>Num_bedrooms</th>
-			<th>Num_bathrooms</th>
-			<th>Daily_price</th>
-			<th>Description</th>
-			<th>Logement actif</th>
-			<th>actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for house in houses %}
-			<tr>
-				<td>{{ house.id }}</td>
-				<td>{{ house.title }}</td>
-				<td>{{ house.latitude }}</td>
-				<td>{{ house.longitude }}</td>
-				<td>{{ house.address }}</td>
-				<td>{{ house.capacity }}</td>
-				<td>{{ house.numRooms }}</td>
-				<td>{{ house.numBedrooms }}</td>
-				<td>{{ house.numBathrooms }}</td>
-				<td>{{ house.dailyPrice }}</td>
-				<td>{{ house.description }}</td>
+
+     <table class="table" style="margin-top: 200px;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Address</th>
+                <th>Capacity</th>
+                <th>Num_rooms</th>
+                <th>Num_bedrooms</th>
+                <th>Num_bathrooms</th>
+                <th>Daily_price</th>
+                <th>Description</th>
+                <th>Logement actif</th>
+
+                <th>images</th>
+
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for house in houses %}
+            <tr>
+                <td>{{ house.id }}</td>
+                <td>{{ house.title }}</td>
+                <td>{{ house.latitude }}</td>
+                <td>{{ house.longitude }}</td>
+                <td>{{ house.address }}</td>
+                <td>{{ house.capacity }}</td>
+                <td>{{ house.numRooms }}</td>
+                <td>{{ house.numBedrooms }}</td>
+                <td>{{ house.numBathrooms }}</td>
+                <td>{{ house.dailyPrice }}</td>
+                <td>{{ house.description }}</td>
+
+                <td>
+                    {{ house.actif}}
+                </td>
+                <td>
+
+                    {% for image in house.images %}
+                   <img style="max-width: 250px; max-height: 200px; min-width: 250px; min-height: 200px;" src="{{ asset('img/') ~ image.getFile() }}" alt="Residential Image">
+                   {% endfor %}
+                </td>
+                
+                <td>
+
+                    <a href="{{ path('app_proprio_show', {'id': house.id}) }}">Voir</a>
+                    <a href="{{ path('app_proprio_edit', {'id': house.id}) }}">Editer</a>
+                    <a href="{{ path('app_rent_history', {'id': house.id}) }}">Historique</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 
-				<td>
-					{{ house.actif}}
-				</td>
-				<td>
-					<a href="{{ path('app_proprio_show', {'id': house.id}) }}">show</a>
-					<a href="{{ path('app_proprio_edit', {'id': house.id}) }}">edit</a>
-					<a href="{{ path('app_historique', {'id': house.id}) }}">Historique</a>
-				</td>
-			</tr>
-		{% else %}
-			<tr>
-				<td colspan="12">no records found</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
+    <a href="{{ path('app_proprio_new') }}">Créer un nouveau</a>
 
-<a href="{{ path('app_proprio_new') }}">Create new</a>{% endblock %}
+  
+{% endblock %}
+
+
+

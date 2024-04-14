@@ -19,6 +19,7 @@
                 <th>Num_bathrooms</th>
                 <th>Daily_price</th>
                 <th>Description</th>
+                <th>facility</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -36,6 +37,8 @@
                 <td>{{ house.numBathrooms }}</td>
                 <td>{{ house.dailyPrice }}</td>
                 <td>{{ house.description }}</td>
+                
+                            
                 <td>
                     <a href="{{ path('app_logement_show', {'id': house.id}) }}">show</a>
                     <a href="{{ path('app_logement_edit', {'id': house.id}) }}">edit</a>
