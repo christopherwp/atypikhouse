@@ -52,7 +52,7 @@ class ProprietaireController extends AbstractController
                 $house->setUser($proprio); // Définissez l'ID de l'utilisateur sur l'entité Rent
             }
 
-            $house->setOwner($proprio);
+            $house->setProprietaire($proprio);
 
             if ($request->files->count() > 0) {
                 // Obtient les objets UploadedFile pour les fichiers téléchargés
