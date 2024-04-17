@@ -26,7 +26,7 @@
 					<h2>{{ house.title }}</h2>
 					<p>{{ house.description }}</p>
 					<th>Logement entier
-						{{ house.address }}</th>
+						</th>
 					
 					<ul class="list-unstyled two-col clearfix">
 						<th>{{ house.capacity }}
@@ -60,7 +60,7 @@
 					</form>
 						
             <br>
-						<h4>Ce que propose ce logement</h4>
+					{# <h4>Ce que propose ce logement</h4>
 
 						<ul class="list-unstyled two-col clearfix">
 		
@@ -68,10 +68,11 @@
 								<li>{{ facility.name }}</li>
 							{% endfor %}
                
-						</ul>
+						</ul> #}
 
 						<h4>Où se situe le logement</h4>
 
+						<p> {{ house.address }} </p>
 						<th>Latitude</th>
 						<td>{{ house.latitude }}</td>
 						<th>Longitude</th>
