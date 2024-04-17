@@ -103,7 +103,7 @@ class House
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
 
-        $this->propriete = new ArrayCollection();
+       
         $this->images = new ArrayCollection();
 
         $this->facilities = new ArrayCollection();

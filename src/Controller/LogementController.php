@@ -38,6 +38,7 @@ class LogementController extends AbstractController
             if ($proprio !== null) { 
                 $house->setUser($proprio); // Définissez l'ID de l'utilisateur sur l'entité Rent
             }
+            $house->setProprietaire($proprio);
             
            // $entityManager->persist($rent);
             $entityManager->persist($house);
@@ -55,7 +56,7 @@ class LogementController extends AbstractController
     #[Route('/{id}', name: 'app_logement_show', methods: ['GET'])]
     public function show(House $house): Response
     {
-       dump($house); 
+       
       
         return $this->render('logement/show.html.twig', [
              'house' => $house,
