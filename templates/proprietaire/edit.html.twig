@@ -84,7 +84,7 @@
     {# <a href="{{ path('app_facility_new', {'id': house.id}) }}">Ajouter des équipements</a> #}
 
     <button type="submit" class="btn btn-primary">Update</button>
-    <a href="{{ path('app_proprio_index') }}" class="btn btn-secondary ml-2">Back to List</a>
+    
     {{ form_end(form) }}
     </form>
    
@@ -116,7 +116,7 @@
         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ house.id) }}"
     </form>
 
-
+<a href="{{ path('app_proprio_index') }}" class="btn btn-secondary ml-2">Back to List</a>
 <script>
     function showImagePreview(input, imagePreviewId) {
         const files = input.files;
@@ -150,7 +150,7 @@
 </script>
 
 
-    <div class="container">
+    {# <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -169,6 +169,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> #}
 
 {% endblock %}
