@@ -37,22 +37,24 @@
 						<div class="media-1">
 
 							{% set counter = 0 %}
-								{%for images in house.images %}
+							{%for images in house.images %}
 								{% set nom = images.file %}
 								{% set counter = counter + 1%}
 								{% if counter == 1 %}
-								<img class="d-block mb-3 img-fluid" src="{{ asset('img/') ~ nom}}">
+									<img class="d-block mb-3 img-fluid" src="{{ asset('img/') ~ nom}}">
 								{% endif %}
-								{% endfor %}
-								
+							{% endfor %}
+
 							<div class="d-flex">
 								<div>
 									<h3>
 										<a href="#">{{house.title}}</a>
 									</h3>
-									<p> {{ house.address }} </p>
+									<p>
+										{{ house.address }}
+									</p>
 									<h4>{{ house.dailyPrice }}€</h4>
-									<a href="{{ path('app_hebergements_show', {'id': house.id}) }}">Voir les détails</a>																	
+									<a href="{{ path('app_hebergements_show', {'id': house.id}) }}">Voir les détails</a>
 								</div>
 							</div>
 						</div>

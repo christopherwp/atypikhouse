@@ -4,3 +4,7 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+delete_image:
+    path: /delete-image
+    controller: App\Controller\ProprietaireController::deleteImage
+    methods: [POST]

@@ -3,9 +3,28 @@
 {% block title %}Modifier la maison{% endblock %}
 
 {% block body %}
+<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
 
+	<div class="hero hero-inner">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 mx-auto text-center">
+					<div class="intro-wrap">
+						<h1 class="mb-0">Editer logement</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <h1>Edit House</h1>
+   
 
     <form action="{{ path('app_proprio_edit', {'id': house.id}) }}" method="post" enctype="multipart/form-data">
        {{ form_start(form) }} 
