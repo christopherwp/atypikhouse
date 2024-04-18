@@ -7,4 +7,6 @@ controllers:
 delete_image:
     path: /delete-image
     controller: App\Controller\ProprietaireController::deleteImage
+
     methods: [POST]
+

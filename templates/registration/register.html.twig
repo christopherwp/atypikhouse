@@ -1,47 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    <div class="background-color-header"></div> <!-- Ajout du fond de couleur en haut de la page -->
-    
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h1 class="mb-4">Inscription</h1>
+	<div class="background-color-header"></div>
+	<!-- Ajout du fond de couleur en haut de la page -->
 
-                {{ form_start(registrationForm) }}
-                    {{ form_errors(registrationForm) }}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+	<div class="untree_co-section">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="card-info">
+					<div class="content">
+						<p class="heading">Inscription</p>
 
-                    {{ form_row(registrationForm.username, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Username'}}) }}
-                    {{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Email'}}) }}
-                    {% set currentRoute = app.request.attributes.get('_route') %}
-                    {% if currentRoute == 'app_register_proprio' %}
-                        {{ form_row(registrationForm.telephone, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Phone Number'}}) }}
-                        {{ form_row(registrationForm.adresse, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Address'}}) }}
-                        {{ form_row(registrationForm.numCarteIdentite, {'attr': {'class': 'form-control mb-3', 'placeholder': 'ID Card Number'}}) }}
-                    {% endif  %}
+						{{ form_start(registrationForm) }}
+						{{ form_errors(registrationForm) }}
 
-                    {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Password'}}) }}
-                    {{ form_row(registrationForm.agreeTerms, {'label': 'I agree to the terms'}) }}
+						{{ form_row(registrationForm.username, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Username'}}) }}
+						{{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Email'}}) }}
+						{% set currentRoute = app.request.attributes.get('_route') %}
+						{% if currentRoute == 'app_register_proprio' %}
+							{{ form_row(registrationForm.telephone, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Phone Number'}}) }}
+							{{ form_row(registrationForm.adresse, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Address'}}) }}
+							{{ form_row(registrationForm.numCarteIdentite, {'attr': {'class': 'form-control mb-3', 'placeholder': 'ID Card Number'}}) }}
+						{% endif  %}
 
-                    <button type="submit" class="btn btn-primary btn-block mt-4">Inscription</button>
-                {{ form_end(registrationForm) }}
-            </div>
-        </div>
-    </div>
-{% endblock %}
+						{{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Mot de passe'}}) }}
+						{{ form_row(registrationForm.agreeTerms, {'label': "J'accepte les conditions"}) }}
 
-{% block stylesheets %}
-    <style>
-        .background-color-header {
-            background-color: #0d3125;
-            height: 100px; /* Ajustez la hauteur en fonction de vos besoins */
-            width: 100%; /* Assurez-vous que le fond de couleur occupe toute la largeur de la page */
-        }
-    </style>
-{% endblock %}
+						<button type="submit" class="btn btn-primary btn-block mt-4">Inscription</button>
+						{{ form_end(registrationForm) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    {% endblock %}
+
+	{% block stylesheets %}
+		<style>
+			.background-color-header {
+				background-color: transparent;
+				height: 200px; /* Ajustez la hauteur en fonction de vos besoins */
+				width: 100%; /* Assurez-vous que le fond de couleur occupe toute la largeur de la page */
+			}
+
+			.card-info {
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 370px;
+				padding: 36px;
+				border-radius: 24px;
+				overflow: hidden;
+				line-height: 1.5;
+				border: 1px solid #CCCCCC;
+                
+
+			}
+
+			.content .heading {
+				font-weight: 700;
+				font-size: 36px;
+				line-height: 1.3;
+				z-index: 1;
+			}
+		</style>
+	{% endblock %}
