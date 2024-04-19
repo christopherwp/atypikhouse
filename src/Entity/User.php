@@ -123,6 +123,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->houses;
     }
 
+    public function setHouses(): Collection
+    {
+        return $this->houses;
+    }
+
     public function addProprietaireHouse(House $house): self
     {
         if (!$this->houses->contains($house)) {
@@ -193,7 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @param list<string> $roles
      */
-    public function setRoles(array $roles): static
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
