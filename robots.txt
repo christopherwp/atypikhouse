@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /user/
+
+Allow: /public/
+Sitemap: http://f2i-dev23a-cw-ey-mgv.fr/sitemap.xml
