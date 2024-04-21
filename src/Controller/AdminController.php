@@ -19,9 +19,9 @@ use App\Form\AdminRegistrationFormType;
 use App\Form\UserActivationFormType;
 use App\Repository\HouseRepository;
 use App\Repository\RentRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Rent;
-
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -35,16 +35,16 @@ class AdminController extends AbstractController
     #[Route('/', name: 'app_admin_dashboard')]
 
     public function dashboard(
-        Request $request, 
-        EntityManagerInterface $entityManager, 
+        Request $request,
+        EntityManagerInterface $entityManager,
         HouseRepository $houseRepository,
         RentRepository $rentRepository,
-        ): Response
-    {
+        UserRepository $userRepository,
+    ): Response {
         // Utilisateurs
-        $usersLoca = $entityManager->getRepository(User::class)->findByRole('ROLE_LOCA');
-        $usersProprio = $entityManager->getRepository(User::class)->findByRole('ROLE_PROPRIO');
-        $usersAdmin = $entityManager->getRepository(User::class)->findByRole('ROLE_ADMIN');
+        $usersLoca = $userRepository->findByRole('ROLE_LOCA');
+        $usersProprio = $userRepository->findByRole('ROLE_PROPRIO');
+        $usersAdmin = $userRepository->findByRole('ROLE_ADMIN');
 
         $user = $this->getUser();
 
@@ -53,17 +53,24 @@ class AdminController extends AbstractController
 
         //Statistiques
         $totalHouses = $entityManager->getRepository(House::class)->count([]);
-        $totalUsersLoca = $entityManager->getRepository(User::class)->count(['roles' => 'ROLE_LOCA']);
-        $totalUsersProprio = $entityManager->getRepository(User::class)->count(['roles' => 'ROLE_PROPRIO']);
-        $totalUsersAdmin = $entityManager->getRepository(User::class)->count(['roles' => 'ROLE_ADMIN']);
+
+
+        $userRepository = $entityManager->getRepository(User::class);
+        $roles = ['ROLE_LOCA', 'ROLE_PROPRIO', 'ROLE_ADMIN'];
+
+        foreach ($roles as $role) {
+            $totalsByRole[$role] = $userRepository->countByRole($role);
+        }
+
+        $totalUsersLoca = $totalsByRole['ROLE_LOCA'];
+        $totalUsersProprio = $totalsByRole['ROLE_PROPRIO'];
+        $totalUsersAdmin = $totalsByRole['ROLE_ADMIN'];
 
         // Récupérer la requête de recherche
         $search = $request->query->get('search', '');
 
         // Récupérer la requête de history location
         $paidRents = $rentRepository->findAll();
-        // Filtrez vos entités en fonction de la recherche
-        // Exemple pour les maisons, adaptez pour les utilisateurs si nécessaire
         $housesQuery = $entityManager->getRepository(House::class)->createQueryBuilder('h')
             ->where('h.id LIKE :search')
             ->setParameter('search', '%' . $search . '%')
@@ -74,11 +81,9 @@ class AdminController extends AbstractController
         $roleFilter = $request->query->get('roleFilter', '');
 
         if ($roleFilter) {
-            // Filtrez les utilisateurs basés sur le rôle sélectionné.
-            // Cette étape nécessite une logique personnalisée dans votre repository pour filtrer par rôle.
+
             $users = $entityManager->getRepository(User::class)->findByRole($roleFilter);
         } else {
-            // Aucun filtre n'est sélectionné; récupérez tous les utilisateurs.
             $users = $entityManager->getRepository(User::class)->findAll();
         }
         return $this->render('admin/dashboard.html.twig', [
@@ -92,8 +97,8 @@ class AdminController extends AbstractController
             'totalUsersProprio' => $totalUsersProprio,
             'totalUsersAdmin' => $totalUsersAdmin,
             'users' => $users,
-            'paidRents'=> $paidRents,
-            'user' => $user,        
+            'paidRents' => $paidRents,
+            'user' => $user,
         ]);
     }
 
@@ -139,10 +144,10 @@ class AdminController extends AbstractController
     #[Route('/user/{id}/activate', name: 'admin_user_activate')]
     public function activateUser(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-            
-        if($user->isActive()){
+
+        if ($user->isActive()) {
             $user->setIsActive(0);
-        }else{
+        } else {
             $user->setIsActive(1);
         }
         $entityManager->persist($user);

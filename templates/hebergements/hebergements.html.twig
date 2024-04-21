@@ -35,19 +35,26 @@
 
 					<div class="col-6 col-md-6 col-lg-3">
 						<div class="media-1">
-							{% for media in medias %}
-								{% if loop.index <= 1 %}
-									<a href="#" class="d-block mb-3"><img src="{{ asset('images/') ~ media.name}}" alt="Image" class="img-fluid"></a>
+
+							{% set counter = 0 %}
+							{%for images in house.images %}
+								{% set nom = images.file %}
+								{% set counter = counter + 1%}
+								{% if counter == 1 %}
+									<img class="d-block mb-3 img-fluid" src="{{ asset('img/') ~ nom}}">
 								{% endif %}
 							{% endfor %}
+
 							<div class="d-flex">
 								<div>
 									<h3>
-										<a href="#">Cabane{{house.title}}</a>
+										<a href="#">{{house.title}}</a>
 									</h3>
-									<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-									<a href="{{ path('app_hebergements_show', {'id': house.id}) }}">show</a>
-								
+									<p>
+										{{ house.address }}
+									</p>
+									<h4>{{ house.dailyPrice }}€</h4>
+									<a href="{{ path('app_hebergements_show', {'id': house.id}) }}">Voir les détails</a>
 								</div>
 							</div>
 						</div>
@@ -57,8 +64,6 @@
 		</div>
 	</div>
 
-
-	<div class="site-footer"></div>
 
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/popper.min.js"></script>

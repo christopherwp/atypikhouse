@@ -27,46 +27,143 @@
 	<div class="untree_co-section">
 		<div class="container">
 			<div class="row d-flex justify-content-center">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-8">
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-md-8">
-
-
-											<table class="table">
-												<thead>
-													<tr>
-														<th>Titre du Logement</th>
-														<th>Prix Total</th>
-													</tr>
-												</thead>
-												<tbody>
-													{% for rent in paidRents %}
-														<tr>
-															<td>{{ rent.houseId.title }}</td>
-															<td>{{ rent.houseId.dailyPrice }}€</td>
-														</tr>
-													{% else %}
-														<tr>
-															<td colspan="3">Aucune location payée trouvée.</td>
-														</tr>
-													{% endfor %}
-												</tbody>
-											</table>
-
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+				<div class="col-lg-8 col-md-10 col-sm-12 card-info">
+					<div class="content">
+						<p class="heading">Mes réservations</p>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Réservation</th>
+									<th scope="col">Logement</th>
+									<th scope="col">Début</th>
+									<th scope="col">Fin</th>
+									<th scope="col">Montant payé</th>
+									<th scope="col">Propriétaire</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for rent in rents %}
+									<tr>
+										<td>N°
+											{{ rent.id }}</td>
+										{% if rent.house %}
+											<td>{{ rent.house.title }}</td>
+										{% else %}
+											<td>Information sur le logement non disponible</td>
+										{% endif %}
+										<td>{{ rent.startDate|date('d/m/Y') }}</td>
+										<td>{{ rent.endDate|date('d/m/Y') }}</td>
+										<td>{{ rent.totalPrice }}€</td>
+										{% if rent.proprietaire %}
+											<td>{{ rent.proprietaire.username }}</td>
+										{% else %}
+											<td>Information sur le propriétaire non disponible</td>
+										{% endif %}
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="6">Aucune location payée trouvée.</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div class="col-lg-8 col-md-10 col-sm-12">
+					<br>				
+					<div class="text-right">
+						<a href="{{ path('app_compte') }}"><svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg> Retour</a>
 					</div>
 				</div>
 			</div>
+		
+			
 		</div>
 	</div>
 
+{% block stylesheets %}
+<style>
 
+
+.card-info {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 370px;
+	padding: 36px;
+	border-radius: 24px;
+	overflow: hidden;
+	line-height: 1.5;
+	border: 1px solid #CCCCCC;
+	
+}
+
+.button {
+        display: flex;
+        justify-content: space-between;
+		gap: 5px;
+        
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 14px;
+	color: #000000;
+}
+
+.content .heading {
+	font-weight: 700;
+	font-size: 36px;
+	line-height: 1.3;
+	z-index: 1;
+}
+
+.content .para {
+	z-index: 1;
+	opacity: 0.8;
+	font-size: 18px;
+}
+
+
+@media (max-width: 768px) { /* pour les tablettes */
+  .card-info {
+    width: auto; /* Permet à la carte de s'adapter à la largeur de l'écran */
+    margin: 20px; /* Ajoute un peu d'espace autour de la carte */
+    padding: 20px; /* Diminue le padding pour économiser de l'espace */
+  }
+
+  .content .heading {
+    font-size: 24px; /* Diminue la taille du titre pour les écrans plus petits */
+  }
+
+  .content .para {
+    font-size: 14px; /* Diminue la taille du texte pour les écrans plus petits */
+  }
+
+  .table { /* Ajouter des styles pour la table si nécessaire */
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) { /* pour les mobiles */
+  .card-info {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .content .heading {
+    font-size: 20px;
+  }
+
+  .content .para {
+    font-size: 12px;
+  }
+}
+
+
+</style>{% endblock %}
 {% endblock %}

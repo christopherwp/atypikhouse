@@ -22,6 +22,7 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
+                target: app_login
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -37,10 +38,13 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/proprio, roles: ROLE_PROPRIO }
         - { path: ^/loca, roles: ROLE_LOCA }
-        - { path: ^/compte, roles: ROLE_LOCA }
+        - { path: ^/compte, roles: [ROLE_LOCA, ROLE_PROPRIO] }
         # - { path: ^/profile, roles: ROLE_USER }
     role_hierarchy:
         ROLE_ADMIN: [ROLE_PROPRIO, ROLE_LOCA]
+        ROLE_PROPRIO: [ROLE_USER]
+        ROLE_LOCA: [ROLE_USER]
+
 when@test:
     security:
         password_hashers:

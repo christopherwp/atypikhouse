@@ -60,9 +60,9 @@
 									Activity Log
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">
+								<a class="dropdown-item" href="{{path('app_logout')}}">
 									<i class="mdi mdi-logout me-2 text-primary"></i>
-									Signout
+									Se déconnecter
 								</a>
 							</div>
 						</li>
@@ -98,7 +98,7 @@
 									</div>
 									<div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
 										<h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a
-																																											message</h6>
+																																																																												message</h6>
 										<p class="text-gray mb-0">
 											15 Minutes ago
 										</p>
@@ -252,21 +252,12 @@
 											<table class="table">
 												<thead>
 													<tr>
-														<th>
-															id
-														</th>
-														<th>
-															UserName
-														</th>
-														<th>
-															Role
-														</th>
-														<th>
-															Email
-														</th>
-														<th>
-															Status
-														</th>
+														<th>ID</th>
+														<th>UserName</th>
+														<th>Role</th>
+														<th>Email</th>
+														<th>Status</th>
+														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -275,14 +266,13 @@
 															<td>{{ user.id}}</td>
 															<td>{{ user.username}}</td>
 															<td>{{ user.roles|join(', ') }}</td>
-															<!-- Assuming roles is an array -->
 															<td>{{ user.email }}</td>
 															<td>
-																<div>
-																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-																	<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
-																</div>
+																<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+																<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+															</td>
+															<td>
+																<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Desactiver' : 'Activer' }}</a>
 															</td>
 														</tr>
 													{% endfor %}
@@ -303,11 +293,12 @@
 											<table class="table">
 												<thead>
 													<tr>
-														<th>id</th>
+														<th>ID</th>
 														<th>UserName</th>
 														<th>Role</th>
 														<th>Email</th>
 														<th>Status</th>
+														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -318,13 +309,11 @@
 															<td>{{ user.roles|join(', ') }}</td>
 															<td>{{ user.email }}</td>
 															<td>
-																<div>
-																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-
-																	<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
-
-																</div>
+																<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+																<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+															</td>
+															<td>
+																<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Desactiver' : 'Activer' }}</a>
 															</td>
 														</tr>
 													{% endfor %}
@@ -334,7 +323,6 @@
 									</div>
 								</div>
 							</div>
-
 						</div>
 						<div class="row">
 							<div class="col-12 grid-margin">
@@ -345,7 +333,7 @@
 											<table class="table">
 												<thead>
 													<tr>
-														<th>id</th>
+														<th>ID</th>
 														<th>UserName</th>
 														<th>Role</th>
 														<th>Email</th>
@@ -362,12 +350,11 @@
 															<td>{{ user.roles|join(', ') }}</td>
 															<td>{{ user.email }}</td>
 															<td>
-																<div>
-																	<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
-																	<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
-																	<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Désactivé' : 'Activé' }}</a>
-																</div>
-
+																<input type="checkbox" id="switch{{ user.id }}" {{ user.isActive ? 'checked' : '' }} data-switch="success"/>
+																<label for="switch{{ user.id }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+															</td>
+															<td>
+																<a href="{{ path('admin_user_activate', { 'id' : user.id }) }}">{{ user.isActive ? 'Desactiver' : 'Activer' }}</a>
 															</td>
 														</tr>
 													{% endfor %}
@@ -387,29 +374,30 @@
 											<table class="table">
 												<thead>
 													<tr>
-														<th>ID House</th>
-														<th>Owner ID</th>
+														<th>ID</th>
+														<th>ID Propriétaire</th>
+														<th>UserName</th>
 														<th>Email Propriétaire</th>
 														<th>Status</th>
-														<th>Actions</th>
+														<th>Activation</th>
+														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
 													{% for house in houses %}
 														<tr>
 															<td>{{ house.id }}</td>
-															<td>{{ house.owner.id }}</td>
-															<td>{{ house.owner.email }}</td>
-															<td>{{ house.isActif ? 'Actif' : 'Inactif' }}</td>
+															<td>{{ house.proprietaire.id }}</td>
+															<td>{{ house.proprietaire.username }}</td>
+															<td>{{ house.proprietaire.email }}</td>
 															<td>
-																<!-- Exemple d'interrupteur pour l'état actif -->
 																<input type="checkbox" id="activeSwitch{{ house.id }}" {{ house.isActif ? 'checked' : '' }} data-switch="success"/>
-																<a href="{{ path('admin_user_activate', { 'id' : house.owner.id }) }}">{{ house.owner.isActive ? 'Désactivé' : 'Activé' }}</a>
 															</td>
 															<td>
-																<!-- Liens ou boutons pour activer/désactiver ou supprimer -->
+																<a href="{{ path('admin_user_activate', { 'id' : house.proprietaire.id }) }}">{{ house.proprietaire.isActive ? 'Désactiver' : 'Activer' }}</a>
+															</td>
+															<td>
 																<a href="{{ path('admin_house_delete', {'id': house.id}) }}" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
-
 															</td>
 														</tr>
 													{% endfor %}
@@ -429,26 +417,30 @@
 											<table class="table">
 												<thead>
 													<tr>
-														<th>Titre du Logement</th>
-														<th>ID du Logement</th>
-														<th>ID du Propriétaire</th>
+														<th>N° réservation
+														</th>
+														<th>ID
+														</th>
+														<th>Titre Logement</th>
+														<th>ID Propriétaire</th>
+														<th>Montant total</th>
+														<th>N° transaction</th>
+
 													</tr>
 												</thead>
 												<tbody>
 													{% for rent in paidRents %}
 														<tr>
-															{% if rent.house is defined %}
-															<td>{{ rent.house.title }}</td>
+															<td>{{ rent.id }}</td>
 															<td>{{ rent.house.id }}</td>
-															<td>{{ rent.house.owner.id }}</td>
-															{% endif %}
-															<!-- Assumant que vous avez une relation vers le propriétaire dans l'entité House -->
+															<td>{{ rent.house.title }}</td>
+															<td>{{ rent.house.proprietaire.id }}</td>
+															<td>{{ rent.totalPrice }}€</td>
+															<td>{{ rent.transactionId }}</td>
 														</tr>
 													{% endfor %}
 												</tbody>
 											</table>
-
-
 										</div>
 									</div>
 								</div>
@@ -483,6 +475,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="row">
 							<div class="col-md-4 stretch-card grid-margin">
 								<div class="card bg-gradient-danger card-img-holder text-white">
@@ -550,11 +543,11 @@
 					<footer class="footer">
 						<div class="container-fluid d-flex justify-content-between">
 							<span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright ©
-																															bootstrapdash.com 2021</span>
+																																																							bootstrapdash.com 2021</span>
 							<span class="float-none float-sm-end mt-1 mt-sm-0 text-end">
 								Free
 								<a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
-																																			admin template</a>
+																																																														admin template</a>
 								from Bootstrapdash.com</span>
 						</div>
 					</footer>

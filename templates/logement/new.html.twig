@@ -3,8 +3,30 @@
 {% block title %}New House{% endblock %}
 
 {% block body %}
-    <h1>Create new House</h1>
+    <div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
 
+	<div class="hero hero-inner">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 mx-auto text-center">
+					<div class="intro-wrap">
+						<h1 class="mb-0">Créer nouveau logement</h1>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="untree_co-section">
+		<div class="container">
+        </div>
+    </div>
     {{ include('logement/_form.html.twig') }}
 
     <a href="{{ path('app_logement_index') }}">back to list</a>

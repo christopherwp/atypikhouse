@@ -48,7 +48,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Rent::class, mappedBy: 'user')]
     private Collection $rents;
 
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
@@ -60,26 +59,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $username = null;
-    
-    
+
     #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'user')]
     private Collection $house;
 
-    #[ORM\OneToMany(targetEntity: Rent::class, mappedBy: "locataire")]
-    private Collection $rentsAsLocataire;
-    
-    
 
-     // admin : Gabriela ->
+    #[ORM\OneToMany(targetEntity: Rent::class, mappedBy: "proprietaire")]
+    private Collection $rentsAsProprietaire;
+
+    // admin : Gabriela ->
     #[ORM\Column(type: 'boolean')]
     private bool $isActive = true;
-  
-     public function __construct()
+
+    public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();
         $this->house = new ArrayCollection();
-        $this->rentsAsLocataire = new ArrayCollection(); // historique locations -> proprietaire
+        $this->rentsAsProprietaire = new ArrayCollection();  // historique locations -> admin
         $this->houses = new ArrayCollection(); // -> Dashboard admin 
         // Initialisez isActive à true ou à la valeur désirée dans le constructeur
     }
@@ -114,7 +111,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'owner', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: House::class, mappedBy: 'proprietaire', orphanRemoval: true)]
     private Collection $houses;
 
     // Getters et setters pour $houses
@@ -126,30 +123,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->houses;
     }
 
-    public function addOwnedHouse(House $house): self
+    public function setHouses(): Collection
+    {
+        return $this->houses;
+    }
+
+    public function addProprietaireHouse(House $house): self
     {
         if (!$this->houses->contains($house)) {
             $this->houses[] = $house;
-            $house->setOwner($this);
+            $house->setProprietaire($this);
         }
         return $this;
     }
 
-    public function removeOwnedHouse(House $house): self
+    public function removeProprietaireHouse(House $house): self
     {
         if ($this->houses->removeElement($house)) {
             // Définir le côté propriété à null (sauf s'il a déjà été changé)
-            if ($house->getOwner() === $this) {
-                $house->setOwner(null);
+            if ($house->getProprietaire() === $this) {
+                $house->setProprietaire(null);
             }
         }
         return $this;
     }
     // admin - Dashboard - Gabriela <-  
-  
-  
- 
-    
+
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -166,6 +168,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
 
     /**
      * A visual identifier that represents this user.
@@ -194,7 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @param list<string> $roles
      */
-    public function setRoles(array $roles): static
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
@@ -276,7 +280,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->rents->contains($rent)) {
             $this->rents->add($rent);
-            $rent->setUserId($this);
+            $rent->setUser($this);
         }
 
         return $this;
@@ -286,8 +290,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->rents->removeElement($rent)) {
             // set the owning side to null (unless already changed)
-            if ($rent->getUserId() === $this) {
-                $rent->setUserId(null);
+            if ($rent->getUser() === $this) {
+                $rent->setUser(null);
             }
         }
 
@@ -327,7 +331,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdresse(?string $adresse)
     {
         $this->adresse = $adresse;
-
     }
 
     public function getUsername(): ?string
@@ -384,13 +387,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return in_array($role, $this->roles, true);
     }
 
-    // recuperer locataires -> historique de location proprietaire
+    /**
+     * Retourne les locations en fonction du rôle.
+     * @param string $role Le rôle pour filtrer les locations.
+     * @return Collection|Rent[]
+     */
+    public function getRentsAsRole(string $role): Collection
+    {
+        return $this->rents->filter(function (Rent $rent) use ($role) {
+            return $rent->getUser()->hasRole($role);
+        });
+    }
+
+    // recuperer proprietaires -> historique de location dashboard admin //
     /**
      *@return Collection|Rent[]
      */
-    public function getRentsAsLocataire(): Collection
+    public function getRentsAsProprietaire(): Collection
     {
-       return $this->rentsAsLocataire;
+        return $this->rentsAsProprietaire;
     }
-    
-}    
+}

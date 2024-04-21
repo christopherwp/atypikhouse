@@ -37,30 +37,35 @@
 											<table class="table">
 												<thead>
 													<tr>
+														<th>Numéro réservation</th>
 														<th>Logement</th>
-
-														<th>Prix Total</th>
+														<th>Montant payé</th>
 														<th>id_Locataire</th>
 														<th>Locataire</th>
 													</tr>
 												</thead>
 												<tbody>
-													{% for rent in paidRents %}
+													{% for rent in rents %}
 														<tr>
-															<td>{{ rent.houseId.title }}</td>
-															<td>{{ rent.houseId.dailyPrice }}
+															<td>{{ rent.id }}</td>
+															<td>{{ rent.house.title }}</td>
+															<td>{{ rent.totalPrice }}
 																€</td>
-															<td>{{ rent.locataire.id }}</td>
-															<td>{{ rent.locataire.username }}</td>
+															{% if rent.user %}
+																<td>{{ rent.user.id }}</td>
+																<td>{{ rent.user.username }}</td>
+															{% else %}
+																<td colspan="2">Information sur l'utilisateur non disponible</td>
+															{% endif %}
 														</tr>
 													{% else %}
 														<tr>
-															<td colspan="3">Aucune location payée trouvée.</td>
+															<td colspan="5">Aucune location payée trouvée.</td>
 														</tr>
 													{% endfor %}
 												</tbody>
-											</table>										
-										</div>	
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>

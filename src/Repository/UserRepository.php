@@ -51,13 +51,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
     public function countByRole(string $role): int
     {
-        $qb = $this->createQueryBuilder('u');
-        $qb->select('count(u.id)')
+        return $this->createQueryBuilder('u')
+            ->select('count(u.id)')
             ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"' . $role . '"%');
-
-        return (int) $qb->getQuery()->getSingleScalarResult();
+            ->setParameter('role', '%"' . $role . '"%')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
+    
     // Dashboard Admin <-
 
     //    /**
