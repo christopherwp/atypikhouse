@@ -111,7 +111,9 @@
             "ref": "5aa8aa48234c8eb6dbdd7b3cd5d791485d2cec4b"
         },
         "files": [
+
             "./config/packages/debug.yaml"
+
         ]
     },
     "symfony/flex": {
@@ -175,7 +177,10 @@
             "ref": "aff23899c4440dd995907613c1dd709b6f59503f"
         },
         "files": [
+
+ 
             "./config/packages/monolog.yaml"
+
         ]
     },
     "symfony/phpunit-bridge": {
@@ -266,8 +271,10 @@
             "ref": "e42b3f0177df239add25373083a564e5ead4e13a"
         },
         "files": [
+
             "./config/packages/web_profiler.yaml",
             "./config/routes/web_profiler.yaml"
+
         ]
     },
     "symfonycasts/verify-email-bundle": {
