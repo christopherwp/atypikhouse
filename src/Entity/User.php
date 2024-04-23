@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,7 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use ApiPlatform\Metadata\ApiResource;
+
+
+#[ApiResource()]
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -338,6 +342,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->username;
     }
+ 
 
     public function setUsername(string $username): static
     {

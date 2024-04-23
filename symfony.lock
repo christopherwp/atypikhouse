@@ -52,6 +52,18 @@
             "migrations/.gitignore"
         ]
     },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.20",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.5",
+            "ref": "e9481b233a11ef7e15fe055a2b21fd3ac1aa2bb7"
+        },
+        "files": [
+            "./config/packages/lexik_jwt_authentication.yaml"
+        ]
+    },
     "nelmio/cors-bundle": {
         "version": "2.4",
         "recipe": {
@@ -99,7 +111,9 @@
             "ref": "5aa8aa48234c8eb6dbdd7b3cd5d791485d2cec4b"
         },
         "files": [
-            "config/packages/debug.yaml"
+
+            "./config/packages/debug.yaml"
+
         ]
     },
     "symfony/flex": {
@@ -163,7 +177,10 @@
             "ref": "aff23899c4440dd995907613c1dd709b6f59503f"
         },
         "files": [
-            "config/packages/monolog.yaml"
+
+ 
+            "./config/packages/monolog.yaml"
+
         ]
     },
     "symfony/phpunit-bridge": {
@@ -254,8 +271,10 @@
             "ref": "e42b3f0177df239add25373083a564e5ead4e13a"
         },
         "files": [
-            "config/packages/web_profiler.yaml",
-            "config/routes/web_profiler.yaml"
+
+            "./config/packages/web_profiler.yaml",
+            "./config/routes/web_profiler.yaml"
+
         ]
     },
     "symfonycasts/verify-email-bundle": {

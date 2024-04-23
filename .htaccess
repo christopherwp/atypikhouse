@@ -19,6 +19,7 @@
     # redirect all requests to public directory
     RewriteCond %{REQUEST_URI} !public/
     RewriteRule (.*) /public/$1 [L]
+
 </IfModule>
 # DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:Q8jRKBSRHH
 ErrorDocument 404 /404.html
