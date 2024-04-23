@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\HouseRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use ApiPlatform\Metadata\ApiResource;
 
+#[ApiResource()]
 #[ORM\Entity(repositoryClass: HouseRepository::class)]
 
 class House
