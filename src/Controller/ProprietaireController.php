@@ -21,7 +21,7 @@ class ProprietaireController extends AbstractController
     #[Route('/', name: 'app_proprio_index', methods: ['GET'])]
     public function index(): Response
     {   
-
+        $user = $this->getUser();
         $proprio = $this->getUser();
     
         if (!$proprio) {
@@ -34,6 +34,7 @@ class ProprietaireController extends AbstractController
         
         return $this->render('proprietaire/index.html.twig', [
             'houses' => $houses,
+            'user' => $user,
         ]);
 
     }
@@ -41,6 +42,7 @@ class ProprietaireController extends AbstractController
     #[Route('/new', name: 'app_proprio_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        
         $house = new House();
         $form = $this->createForm(HouseType::class, $house);
         $form->handleRequest($request);
@@ -176,7 +178,6 @@ class ProprietaireController extends AbstractController
         // Rediriger l'utilisateur vers une page appropriée après la suppression
         return $this->redirect($refererUrl);
     }
-    
 }
 
 

@@ -37,11 +37,24 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
+                target: app_login
+                # where to redirect after logout
+                # target: app_any_route
 
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#the-firewall
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/proprio, roles: ROLE_PROPRIO }
         - { path: ^/loca, roles: ROLE_LOCA }
+        - { path: ^/compte, roles: [ROLE_LOCA, ROLE_PROPRIO] }
+        # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/compte, roles: ROLE_LOCA }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         # - { path: ^/api, roles: PUBLIC_ACCESS }
@@ -49,6 +62,9 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN: [ROLE_PROPRIO, ROLE_LOCA]
+        ROLE_PROPRIO: [ROLE_USER]
+        ROLE_LOCA: [ROLE_USER]
+
 
 when@test:
     security:

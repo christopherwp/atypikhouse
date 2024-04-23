@@ -4,6 +4,8 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+
+
 delete_image:
     path: /delete-image
     controller: App\Controller\ProprietaireController::deleteImage
@@ -12,3 +14,6 @@ delete_image:
 api_login_check:
     path: /api/login_check
     
+
+
+
