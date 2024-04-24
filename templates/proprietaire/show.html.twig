@@ -28,7 +28,7 @@
 <div class="untree_co-section">
 	<div class="container">
 		<div class="row d-flex justify-content-center">
-			<div class="col-lg-8 col-md-10 col-sm-12 card-info ">
+			<div class="col-lg-8 col-md-10 col-sm-12 card-info">
 				<div class="content">
 					<p class="heading">Mon logement</p>
 					<table class="table">
@@ -50,7 +50,7 @@
 								<td>{{ house.longitude }}</td>
 							</tr>
 							<tr>
-								<th>Address</th>
+								<th>Adresse</th>
 								<td>{{ house.address }}</td>
 							</tr>
 							<tr>
@@ -77,17 +77,22 @@
 								<th>Description</th>
 								<td>{{ house.description }}</td>
 							</tr>
+							<tr>
+								<th>Images</th>
+								<td>
+								{% for image in house.images %}
+									<img src="{{ asset('img/' ~ image.getFile()) }}" alt="Image " style="max-width: 250px; max-height: 200px; min-width: 250px; min-height: 200px;">
+								{% endfor %}
+								</td>
+							</tr>
 						</tbody>
 					</table>
                     <br>
 					<div class="button-container d-flex justify-content-between">
 						<a href="{{ path('app_proprio_edit', {'id': house.id}) }}" class="btn btn-primary">Editer</a>
-						<button href="'app_proprio_delete'" class="btn-del" onclick="return confirm('Attention : vous êtes sûr de vouloir supprimer ce logement ?')">
-							<svg viewbox="0 0 448 512" class="svgIcon">
-								<path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
-							</svg>
-						</button>
+						
 						{{ include('proprietaire/_delete_form.html.twig') }}
+						
 					</div>
 					{#<a href="{{ path('app_facility_new',{'id': house.id}) }}">Créer logement</a> #}
 				</div>
