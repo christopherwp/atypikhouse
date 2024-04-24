@@ -1,193 +1,216 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier la maison{% endblock %}
+{% block title %}Modifier la maison
+{% endblock %}
 
 {% block body %}
-<div class="site-mobile-menu site-navbar-target">
-		<div class="site-mobile-menu-header">
-			<div class="site-mobile-menu-close">
-				<span class="icofont-close js-menu-toggle"></span>
-			</div>
-		</div>
-		<div class="site-mobile-menu-body"></div>
-	</div>
-
-	<div class="hero hero-inner">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-lg-6 mx-auto text-center">
-					<div class="intro-wrap">
-						<h1 class="mb-0">Editer logement</h1>
-					</div>
+    <div class="site-mobile-menu site-navbar-target">
+	    <div class="site-mobile-menu-header">
+		    <div class="site-mobile-menu-close">
+			    <span class="icofont-close js-menu-toggle"></span>
+		    </div>
+	    </div>
+	    <div class="site-mobile-menu-body"></div>
+    </div>
+</div>
+<div class="hero hero-inner">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 mx-auto text-center">
+				<div class="intro-wrap">
+					<h1 class="mb-0">Éditer logement</h1>
 				</div>
 			</div>
 		</div>
 	</div>
-
-   
-
-    <form action="{{ path('app_proprio_edit', {'id': house.id}) }}" method="post" enctype="multipart/form-data">
-       {{ form_start(form) }} 
-
-   
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.latitude, {'attr': {'class': 'form-control', 'placeholder':
-                     'Paris, Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.longitude, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.capacity, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.num_rooms, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.num_bedrooms, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.num_bathrooms, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.daily_price, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.category, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-                    <p class="mt-3"><strong style="color: black;">Localisation : </strong></p>
-                    {{ form_widget(form.actif, {'attr': {'class': 'form-control', 'placeholder': 'Paris,
-                    Seine-Saint-Denis, France'}}) }}
-    </div>
-    <div class="form-group">
-            <p class="mt-4"><strong style="color: black;">Images</strong></p>
-            {{ form_widget(form.images, {'attr': {'onchange': 'showImagePreview(this,
-            "selected-image-preview")'}}) }}
-            <div id="selected-image-preview" style="max-width: 200px; max-height: 200px; display: none;">
-            </div>
-
-   
-
-
-    {# <a href="{{ path('app_facility_new', {'id': house.id}) }}">Ajouter des équipements</a> #}
-
-    <button type="submit" class="btn btn-primary">Update</button>
-    
-    {{ form_end(form) }}
-    </form>
-   
-    
-   
-    
-
- 
-{% if house.images|default(false) %}
-    <div class="existing-images">
-        <h3>Images Existantes</h3>
-        <div class="row">
-            {% for image in house.images %}
-                <div class="col-md-4 mb-2">
-                    <img src="{{ asset('img/' ~ image.getFile()) }}" alt="Image " style="max-width: 250px; max-height: 200px; min-width: 250px; min-height: 200px;">
-                    <form action="/delete-image" method="post"> <!-- Remplacer "/delete-image" par votre URL de suppression -->
-                        <input type="hidden" name="image_id" value="{{ image.getId() }}"> <!-- Assurez-vous que le nom et la valeur correspondent à votre modèle de données -->
-                        <button type="submit" class="btn btn-danger mt-2">Supprimer</button>
-                    </form>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-{% endif %}
-
-<form action="{{ path('app_logement_delete', {'id': house.id}) }}" method="post"
-        onsubmit="return confirm('Are you sure you want to delete this item?');">
-         <button type="submit" class="btn btn-warning">Supprimer le produit</button>
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ house.id) }}"
-    </form>
-
-<a href="{{ path('app_proprio_index') }}" class="btn btn-secondary ml-2">Back to List</a>
-<script>
-    function showImagePreview(input, imagePreviewId) {
-        const files = input.files;
-        const imagePreview = document.getElementById(imagePreviewId);
-
-        if (files && files.length > 0) {
-            imagePreview.innerHTML = '';
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const objectUrl = URL.createObjectURL(file);
-
-                const img = document.createElement('img');
-                img.src = objectUrl;
-                img.alt = "Aperçu de l'image sélectionnée";
-                img.style.maxWidth = '200px';
-                img.style.minWidth = '200px';
-                img.style.maxHeight = '200px';
-                img.style.minHeight = '200px';
-                img.style.marginRight = '5px';
-                img.style.objectFit = 'cover';
-
-                imagePreview.appendChild(img);
-            }
-
-            imagePreview.style.display = 'flex';
-        } else {
-            imagePreview.style.display = 'none';
-        }
-    }
-</script>
-
-
-    {# <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Modifier la maison</div>
-
-                    <div class="card-body">
-                        {{ include('proprietaire/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+</div>
+<div class="untree_co-section">
+	<div class="container">
+		<div class="row d-flex justify-content-center">
+			<div class="col-lg-8 col-md-10 col-sm-12 card-info">
+				<div class="content">
+					<p class="heading">Éditer</p>
+					<form action="{{ path('app_proprio_edit', {'id': house.id}) }}" method="post" enctype="multipart/form-data">
+						{{ form_start(form, {'attr': {'class': 'form'}}) }}
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Titre du logement :
+							</strong>
+						</p>
+						{{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre du logement'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Latitude :
+							</strong>
+						</p>
+						{{ form_widget(form.latitude, {'attr': {'class': 'form-control', 'placeholder':'Latitude'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Longitude :
+							</strong>
+						</p>
+						{{ form_widget(form.longitude, {'attr': {'class': 'form-control', 'placeholder': 'Longitude'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Adresse :
+							</strong>
+						</p>
+						{{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Nombre de personnes :
+							</strong>
+						</p>
+						{{ form_widget(form.capacity, {'attr': {'class': 'form-control', 'placeholder': 'Nombre de personnes'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Nombre de pièces :
+							</strong>
+						</p>
+						{{ form_widget(form.num_rooms, {'attr': {'class': 'form-control', 'placeholder': 'Nombre de pièces'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Nombre de chambres :
+							</strong>
+						</p>
+						{{ form_widget(form.num_bedrooms, {'attr': {'class': 'form-control', 'placeholder': 'Nombre de chambres'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Nombre de toillettes :
+							</strong>
+						</p>
+						{{ form_widget(form.num_bathrooms, {'attr': {'class': 'form-control', 'placeholder': 'Nombre de toillettes'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Prix par nuit :
+							</strong>
+						</p>
+						{{ form_widget(form.daily_price, {'attr': {'class': 'form-control', 'placeholder': 'Prix par nuit'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Description du logement :
+							</strong>
+						</p>
+						{{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Catégorie :
+							</strong>
+						</p>
+						{{ form_widget(form.category, {'attr': {'class': 'form-control', 'placeholder': 'Catégorie'}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-3">
+							<strong style="color: black;">Actif :
+							</strong>
+						</p>
+						{{ form_widget(form.actif, {'attr': {'class': 'form-control', 'placeholder': 'Actif '}}) }}
+					</div>
+					<div class="form-group para">
+						<p class="mt-4">
+							<strong style="color: black;">Images</strong>
+						</p>
+						{{ form_widget(form.images, {'attr': {'onchange': 'showImagePreview(this, "selected-image-preview")'}}) }}
+						<div id="selected-image-preview" style="max-width: 200px; max-height: 200px; display: none;"></div>
+					</div>
+                    <div class="form-group para">
+                        {% if house.images|default(false) %}
+                            <div class="existing-images">
+                                <p class="mt-4">
+				               <strong style="color: black">Images Existantes</strong>
+                                </p>
+				                <div class="row">
+					                {% for image in house.images %}
+						                <div class="col-md-4 mb-2">
+							                <img src="{{ asset('img/' ~ image.getFile()) }}" alt="Image " style="max-width: 250px; max-height: 200px; min-width: 250px; min-height: 200px;">
+						                    <form action="app_logement_delete" method="post">
+							                    <input type="hidden" name="image_id" value="{{ image.getId() }}">								
+							                    <button type="submit" class="btn">Supprimer</button>
+						                    </form>
+					                    </div>
+				                    {% endfor %}
+				                </div>
+			                </div>
+		                {% endif %} 
                     </div>
-                </div>
-
-                <div class="mt-3">
-                    <a href="{{ path('app_proprio_index') }}" class="btn btn-secondary mr-2">Retour à la liste</a>
-                  
-                    <a href="{{ path('app_facility_new', {'id': house.id}) }}">Create new</a> 
-                        
-                </div>
+                    <div class="form-group button-container d-flex justify-content-between">
+                        <form action="{{ path('app_proprio_edit', {'id': house.id}) }}" method="post" enctype="multipart/form-data">
+                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                        </form>
+                        <form action="{{ path('app_logement_delete', {'id': house.id}) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <button type="submit" class="btn btn-danger">Supprimer maison</button>
+                                <inputBackRetourCreate type="hidden" name="_token" value="{{ csrf_token('delete' ~ house.id) }}">
+                        </form>                              
+                    </div>
+                    {{ form_end(form) }}
+                </form>
             </div>
+        </div> 
+    </div>
+    <br> 
+    <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="text-right">
+            <a href="{{ path('app_proprio_index') }}"><svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg> Retour</a>
         </div>
-    </div> #}
+    </div>   
+</div> 
+</div> 			
+		
+       
+            
+{% block stylesheets %}
+<style>
+        .card-info {
+	        position: relative;
+	        display: flex;
+	        align-items: center;
+	        flex-direction: column;
+	        width: 370px;
+	        padding: 36px;
+	        border-radius: 24px;
+	        overflow: hidden;
+	        line-height: 1.5;
+	        border: 1px solid #CCCCCC;
+	        background: #FFFFFF;
+        }
+
+        .content .heading {
+	        font-weight: 700;
+	        font-size: 36px;
+	        line-height: 1.3;
+	        z-index: 1;
+	        transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .content .form{
+          box-shadow: none;
+          border: none;
+          background: none;
+
+        }
+        .button-row {
+          margin-top: 1rem;
+        }
+
+        .button-row button {
+          margin-right: 20px;
+          margin-bottom: 1rem;
+        }
+
+</style>
+<script> function showimagepreview(input, imagepreviewid) { const files="input.files;" const imagepreview="document.getElementById(imagePreviewId);" if (files && files.length > 0) { imagepreview.innerhtml='' ; for (let i =" 0; i < files.length; i++)" { const file="files[i];" const objecturl="URL.createObjectURL(file);" const img="document.createElement('img');" img.src="objectUrl;" img.alt="Aperçu de l'image sélectionnée" ; img.style.maxwidth='200px' ; img.style.minwidth='200px' ; img.style.maxheight='200px' ; img.style.minheight='200px' ; img.style.marginright='5px' ; img.style.objectfit='cover' ; imagepreview.appendchild(img); } imagepreview.style.display='flex' ; } else { imagepreview.style.display='none' ; } } </script> 
+{% endblock %}
 
 {% endblock %}
+            
+

@@ -19,7 +19,7 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6 mx-auto text-center">
 					<div class="intro-wrap">
-						<h1 class="mb-0">Mon compte</h1>
+						<h1 class="mb-0">Mes Logements</h1>
 					</div>
 				</div>
 			</div>
@@ -27,90 +27,48 @@
 	</div>
 	<div class="untree_co-section">
 		<div class="container">
-			<div class="row d-flex justify-content-center">
-				<div class="card-info">
-					<div class="content">
-						<p class="heading">Mes informations</p>
-						<p class="para">Username :{{ app.user.username }}
-							<br>
-							Email :{{ app.user.email }}
-						</p>
-						<br>
-						<div class="button d-flex justify-content-between">
-							<a href="{{ path('app_edit_user', { 'id': app.user.id }) }}" class="btn btn-primary">Modifier</a>
-
-							<a href="{{ path('app_historique') }}" class="btn btn-secondary">Mes locations</a>
-						</div>
-					</div>
+			
+			<div class="row row-cols-1 row-cols-md-2 g-4">
+				{% for house in houses %}
+				<div class="col">	
+					<div class="card-info">
+						<div class="content">
+							<p class="heading">Mon Logement</p>
+							<p class="para">Id : {{ house.id }}</p>
+							<p class="para">Title : {{ house.title }}</p>
+							<p class="para">Adresse : {{ house.address }}</p>
+							<p class="para">Prix par nuit : {{ house.dailyPrice }} €</p>
+								{% for image in house.images %}
+									<p class="para"> <img src="{{ asset('img/' ~ image.getFile()) }}" alt="Image " style="max-width: 250px; max-height: 200px; min-width: 250px; min-height: 200px;"> </th>
+									</p>
+								{% endfor %}
+								<br>
+							<div class="button d-flex justify-content-between">
+								<a href="{{ path('app_historique') }}" class="btn btn-secondary">Historique</a>
+								<a href="{{ path('app_proprio_show', {'id': house.id}) }}"class="btn btn-primary">Détails</a>
+							</div>	
+						</div>	
+					</div>		
 				</div>
+				{% else %}
+				<div class="col">
+					<p>Aucun enregistrement trouvé</p>
+				</div>
+				{% endfor %}		
 			</div>
+			<br>
+			<div class="top-button-container">
+				<a href="{{ path('app_proprio_new') }}" class="btn btn-primary">Créer un nouveau</a>
+			</div>
+			 <div class="cols-1 cols-md-2 g-4">
+      			<div class="text-right">
+        			<a href="{{ path('app_compte') }}"><svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg> Retour</a>
+      			</div>
+    		</div>
 		</div>
 	</div>
 
-	<table class="table" style="margin-top: 200px;">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Title</th>
-				<th>Latitude</th>
-				<th>Longitude</th>
-				<th>Address</th>
-				<th>Capacity</th>
-				<th>Num_rooms</th>
-				<th>Num_bedrooms</th>
-				<th>Num_bathrooms</th>
-				<th>Daily_price</th>
-				<th>Description</th>
-				<th>Logement actif</th>
-
-				<th>images</th>
-
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for house in houses %}
-				<tr>
-					<td>{{ house.id }}</td>
-					<td>{{ house.title }}</td>
-					<td>{{ house.latitude }}</td>
-					<td>{{ house.longitude }}</td>
-					<td>{{ house.address }}</td>
-					<td>{{ house.capacity }}</td>
-					<td>{{ house.numRooms }}</td>
-					<td>{{ house.numBedrooms }}</td>
-					<td>{{ house.numBathrooms }}</td>
-					<td>{{ house.dailyPrice }}</td>
-					<td>{{ house.description }}</td>
-
-					<td>
-						{{ house.actif}}
-					</td>
-					<td>
-
-						{% for image in house.images %}
-							<img style="max-width: 250px; max-height: 200px; min-width: 250px; min-height: 200px;" src="{{ asset('img/') ~ image.getFile() }}" alt="Residential Image">
-						{% endfor %}
-					</td>
-
-					<td>
-
-						<a href="{{ path('app_proprio_show', {'id': house.id}) }}">Voir</a>
-						<a href="{{ path('app_proprio_edit', {'id': house.id}) }}">Editer</a>
-						<a href="{{ path('app_historique', {'id': house.id}) }}">Historique</a>
-
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="12">Aucun enregistrement trouvé</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-
-	<a href="{{ path('app_proprio_new') }}">Créer un nouveau</a>
+	
 
 
 {% endblock %}
@@ -122,7 +80,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 370px;
+			width: 100%;
 			padding: 36px;
 			border-radius: 24px;
 			overflow: hidden;
@@ -148,6 +106,7 @@
 		}
 
 		.content .heading {
+			
 			font-weight: 700;
 			font-size: 36px;
 			line-height: 1.3;
